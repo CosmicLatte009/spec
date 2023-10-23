@@ -116,6 +116,8 @@ class _CustomInputState extends State<CustomInput> {
                       .copyWith(primary: AppColor.primary80),
                 ),
                 child: TextFormField(
+                  obscureText: widget.type == InputType.password,
+                  obscuringCharacter: '*',
                   focusNode: _focusNode,
                   validator: widget.validator,
                   controller: widget.controller,

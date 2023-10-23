@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../util/app_color.dart';
+import '../../../util/app_text_style.dart';
 
 class ButtonXlarge extends StatelessWidget {
   const ButtonXlarge({
@@ -27,9 +28,8 @@ class ButtonXlarge extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: AppTextStyles.body18M(
             color: disabled ? AppColor.black20 : AppColor.white,
-            fontSize: 18,
           ),
         ),
       ),

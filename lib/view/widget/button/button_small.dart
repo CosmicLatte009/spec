@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spec/util/app_text_style.dart';
 import '../../../util/app_color.dart';
 
 class ButtonSmall extends StatelessWidget {
@@ -31,9 +32,8 @@ class ButtonSmall extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: AppTextStyles.body14R(
             color: outline ? AppColor.primary60 : AppColor.white,
-            fontSize: 14,
           ),
         ),
       ),

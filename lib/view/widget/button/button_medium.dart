@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spec/util/app_text_style.dart';
 import '../../../util/app_color.dart';
 
 class ButtonMedium extends StatelessWidget {
@@ -27,13 +28,10 @@ class ButtonMedium extends StatelessWidget {
           border:
               outline ? Border.all(color: AppColor.strokeBlue, width: 1) : null,
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: outline ? AppColor.primary60 : AppColor.white,
-            fontSize: 16,
-          ),
-        ),
+        child: Text(text,
+            style: AppTextStyles.body16R(
+              color: outline ? AppColor.primary60 : AppColor.white,
+            )),
       ),
     );
   }

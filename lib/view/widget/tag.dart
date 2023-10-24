@@ -18,7 +18,7 @@ class Tag extends StatefulWidget {
 }
 
 class _TagState extends State<Tag> {
-  bool isEditMode = false;
+  bool isEditMode = true;
   void handleEdit() {
     isEditMode = !isEditMode;
     print(isEditMode);

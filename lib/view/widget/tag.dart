@@ -7,14 +7,10 @@ class Tag extends StatefulWidget {
   const Tag({
     super.key,
     this.text,
-    this.isEditMode = true,
-    this.handleEdit,
     required this.controller,
   });
 
   final String? text;
-  final bool isEditMode;
-  final handleEdit;
   final TextEditingController controller;
 
   @override
@@ -22,14 +18,21 @@ class Tag extends StatefulWidget {
 }
 
 class _TagState extends State<Tag> {
+  bool isEditMode = false;
+  void handleEdit() {
+    isEditMode = !isEditMode;
+    print(isEditMode);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.handleEdit();
+        handleEdit();
+        print(widget.text);
         setState(() {});
       },
-      child: widget.isEditMode == false
+      child: isEditMode == false
           ? Container(
               alignment: Alignment.center,
               height: 24,
@@ -49,9 +52,9 @@ class _TagState extends State<Tag> {
               ),
             )
           : TagEditMode(
-              curText: widget.text ?? '',
-              isEditMode: widget.isEditMode,
-              handleEdit: widget.handleEdit,
+              curText: widget.text,
+              isEditMode: isEditMode,
+              handleEdit: handleEdit,
               controller: widget.controller,
             ),
     );

@@ -11,86 +11,97 @@ class CustomTitle extends StatelessWidget {
     required this.contentsController,
     required this.tag1Controller,
     required this.tag2Controller,
+    required this.submitAction,
+    required this.cancelAction,
+    this.tag1,
+    this.tag2,
   });
   final TextEditingController titleController;
   final TextEditingController contentsController;
   final TextEditingController tag1Controller;
   final TextEditingController tag2Controller;
+  final Function() submitAction;
+  final Function() cancelAction;
+  final String? tag1;
+  final String? tag2;
 
   @override
   Widget build(BuildContext context) {
-    bool isEditMode = false;
-    void handleEdit() {
-      isEditMode = !isEditMode;
-      print(isEditMode);
-    }
-
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 32,
-          ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: AppColor.black10,
+        Listener(
+          onPointerDown: (_) {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.focusedChild?.unfocus();
+            }
+          },
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 32,
             ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            children: [
-              //제목
-              TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(
-                    bottom: 8,
-                  ),
-                  border: InputBorder.none,
-                  hintText: '제목을 입력해주세요.',
-                  hintStyle: AppTextStyles.body16M(
-                    color: AppColor.black40,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColor.black10,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                TextField(
+                  style: AppTextStyles.body16B(),
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(
+                      bottom: 8,
+                    ),
+                    border: InputBorder.none,
+                    hintText: '제목을 입력해주세요.',
+                    hintStyle: AppTextStyles.body16M(
+                      color: AppColor.black40,
+                    ),
                   ),
                 ),
-              ),
-              Stack(
-                children: [
-                  TextField(
-                    controller: contentsController,
-                    minLines: 10,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                      ),
-                      border: InputBorder.none,
-                      hintText: '내용을 입력해주세요.',
-                      hintStyle: AppTextStyles.body14R(
-                        color: AppColor.black20,
+                Stack(
+                  children: [
+                    TextField(
+                      controller: contentsController,
+                      minLines: 10,
+                      maxLines: 10,
+                      style: AppTextStyles.body14R(),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                        border: InputBorder.none,
+                        hintText: '내용을 입력해주세요.',
+                        hintStyle: AppTextStyles.body14R(
+                          color: AppColor.black20,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: Row(
-                      children: [
-                        Tag(
-                          controller: tag1Controller,
-                          handleEdit: handleEdit,
-                        ),
-                        const SizedBox(width: 8),
-                        Tag(
-                          controller: tag2Controller,
-                          handleEdit: handleEdit,
-                        ),
-                      ],
+                    Positioned(
+                      bottom: 0,
+                      child: Row(
+                        children: [
+                          Tag(
+                            text: tag1,
+                            controller: tag1Controller,
+                          ),
+                          const SizedBox(width: 8),
+                          Tag(
+                            text: tag2,
+                            controller: tag2Controller,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         Row(
@@ -101,7 +112,7 @@ class CustomTitle extends StatelessWidget {
                 ButtonSmall(
                   width: 100,
                   controller: () {
-                    print('cancel');
+                    cancelAction();
                   },
                   text: '취소하기',
                   outline: true,
@@ -114,7 +125,7 @@ class CustomTitle extends StatelessWidget {
                   child: ButtonSmall(
                     width: 100,
                     controller: () {
-                      print('submit');
+                      submitAction();
                     },
                     text: '등록하기',
                   ),

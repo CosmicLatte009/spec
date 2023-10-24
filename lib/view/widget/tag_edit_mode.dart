@@ -20,8 +20,6 @@ class TagEditMode extends StatefulWidget {
 }
 
 class _TagEditModeState extends State<TagEditMode> {
-  final FocusNode _focusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
@@ -30,51 +28,38 @@ class _TagEditModeState extends State<TagEditMode> {
   }
 
   @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _focusNode.unfocus();
-        widget.handleEdit();
-      },
-      child: SizedBox(
-        width: 70,
-        height: 22,
-        child: TextField(
-          focusNode: _focusNode,
-          controller: widget.controller,
-          style: AppTextStyles.body12R(
-            color: AppColor.black60,
+    return SizedBox(
+      width: 70,
+      height: 22,
+      child: TextField(
+        controller: widget.controller,
+        style: AppTextStyles.body12R(
+          color: AppColor.black60,
+        ),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColor.back05,
+          hintText: '# 태그입력',
+          hintStyle: AppTextStyles.body12R(
+            color: AppColor.black30,
           ),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColor.back05,
-            hintText: '# 태그입력',
-            hintStyle: AppTextStyles.body12R(
-              color: AppColor.black30,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
+          border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
             ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
             ),
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              ),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              ),
-              borderRadius: BorderRadius.circular(6),
-            ),
+            borderRadius: BorderRadius.circular(6),
           ),
         ),
       ),

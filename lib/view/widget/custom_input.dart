@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_text_style.dart';
 
 enum InputType { comment, search, password, basic }
 
@@ -65,7 +66,7 @@ class _CustomInputState extends State<CustomInput> {
     }
   }
 
-  Color? get hintTextColor {
+  Color get hintTextColor {
     switch (widget.type) {
       case InputType.search:
         return AppColor.black20;
@@ -92,16 +93,14 @@ class _CustomInputState extends State<CustomInput> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (widget.label != null)
-            const Column(
+            Column(
               children: [
                 Text(
                   'label',
                   textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: AppTextStyles.body14M(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
               ],
@@ -123,7 +122,7 @@ class _CustomInputState extends State<CustomInput> {
                   controller: widget.controller,
                   decoration: InputDecoration(
                     hintText: widget.hint ?? hintText,
-                    hintStyle: TextStyle(
+                    hintStyle: AppTextStyles.body14R(
                       color: getValidateColor ?? hintTextColor,
                     ),
                     filled: true,
@@ -150,9 +149,8 @@ class _CustomInputState extends State<CustomInput> {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    errorStyle: const TextStyle(
+                    errorStyle: AppTextStyles.body12R(
                       color: AppColor.warning,
-                      fontSize: 12,
                     ),
                     errorBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -173,10 +171,7 @@ class _CustomInputState extends State<CustomInput> {
                             height: 20,
                             fit: BoxFit.scaleDown,
                             colorFilter: ColorFilter.mode(
-                                (widget.validator != null &&
-                                        widget.validator!(
-                                                widget.controller!.text) !=
-                                            null)
+                                isActive == true
                                     ? AppColor.primary80
                                     : AppColor.black10,
                                 BlendMode.srcIn),

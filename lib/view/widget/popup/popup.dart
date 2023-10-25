@@ -77,7 +77,12 @@ class _PopupState extends State<Popup> {
               child: SingleChildScrollView(
                 controller: _controller,
                 scrollDirection: Axis.horizontal,
-                child: widget.child,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: widget.isWide ? 370.0 : 242,
+                  ),
+                  child: widget.child,
+                ),
               ),
             ),
           ],

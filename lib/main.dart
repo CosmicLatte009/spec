@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //세은
     );
   }
 }

@@ -68,6 +68,8 @@ flutter:
     - assets/avatar/hair/
     - assets/avatar/item/
     - assets/avatar/skin/
+    - assets/icons/pngs/
+    - assets/icons/svgs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -71,7 +71,7 @@ void showDialog_5(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return IconTextWithOneButton(
-        svgPath: 'assets/Work_2.svg',
+        svgPath: 'assets/icons/svgs/SFACE.svg',
         mainMessage: 'adsds',
         subMessage: 'sdsd',
         buttonTitle: 'sfsf',

@@ -83,7 +83,7 @@ void showDialog_4(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return IconTextWithTwoButton(
-        svgPath: 'assets/SFACE.svg',
+        svgPath: 'assets/icons/svgs/SFACE.svg',
         mainMessage: '조심하세요',
         subMessage: '안그러면 클납니다',
         buttonTitle1: '알아서 할게요',

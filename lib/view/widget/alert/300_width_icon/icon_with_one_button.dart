@@ -65,7 +65,7 @@ void showDialog_3(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return IconWithOneButton(
-        svgPath: 'assets/Warning.svg',
+        svgPath: 'assets/icons/svgs/SFACE.svg',
         message: '위험해요!',
         buttonTitle: '닫을래요',
       );

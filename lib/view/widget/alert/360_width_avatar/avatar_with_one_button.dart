@@ -68,7 +68,7 @@ void showDialog_9(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AvatarhWithOneButton(
-        avatarSvg: 'assets/woman-a.svg',
+        avatarSvg: 'assets/icons/svgs/SFACE.svg',
       );
     },
   );

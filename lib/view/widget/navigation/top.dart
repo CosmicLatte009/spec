@@ -24,7 +24,7 @@ class Top extends StatelessWidget {
           left: 10,
           bottom: 20,
           child: SvgPicture.asset(
-            'assets/SFACE.svg',
+            'assets/icons/svgs/SFACE.svg',
             width: 63,
             height: 13,
           ),

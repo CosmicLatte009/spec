@@ -5,13 +5,13 @@ import '../../../util/app_color.dart';
 class ButtonSmall extends StatelessWidget {
   const ButtonSmall({
     super.key,
-    required this.controller,
+    required this.onTap,
     required this.text,
     required this.width,
     this.outline = false,
   });
 
-  final Function() controller;
+  final Function() onTap;
   final String text;
   final bool outline;
   final double width;
@@ -19,7 +19,7 @@ class ButtonSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: controller,
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         width: width,

@@ -5,19 +5,19 @@ import '../../../util/app_text_style.dart';
 class ButtonXlarge extends StatelessWidget {
   const ButtonXlarge({
     super.key,
-    required this.controller,
     required this.text,
+    this.onTap,
     this.disabled = false,
   });
 
-  final Function() controller;
   final String text;
+  final Function()? onTap;
   final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: controller,
+      onTap: disabled ? null : onTap,
       child: Container(
         alignment: Alignment.center,
         width: 370,

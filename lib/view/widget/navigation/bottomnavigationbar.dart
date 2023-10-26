@@ -14,60 +14,60 @@ class CustomBottomNavigationBar extends StatefulWidget {
   final List<List<SvgPicture>> bottomNavBarItems = [
     [
       SvgPicture.asset(
-        'assets/Home_2.svg',
+        'assets/icons/svgs/Home_2.svg',
         width: 30,
         height: 30,
       ),
       SvgPicture.asset(
-        'assets/Home.svg',
+        'assets/icons/svgs/Home.svg',
         width: 30,
         height: 30,
       ),
     ],
     [
       SvgPicture.asset(
-        'assets/Community_2.svg',
+        'assets/icons/svgs/Community_2.svg',
         width: 30,
         height: 30,
       ),
       SvgPicture.asset(
-        'assets/Community.svg',
+        'assets/icons/svgs/Community.svg',
         width: 30,
         height: 30,
       )
     ],
     [
       SvgPicture.asset(
-        'assets/Lounge_2.svg',
+        'assets/icons/svgs/Lounge_2.svg',
         width: 30,
         height: 30,
       ),
       SvgPicture.asset(
-        'assets/Lounge.svg',
-        width: 30,
-        height: 30,
-      ),
-    ],
-    [
-      SvgPicture.asset(
-        'assets/Work_2.svg',
-        width: 30,
-        height: 30,
-      ),
-      SvgPicture.asset(
-        'assets/Work.svg',
+        'assets/icons/svgs/Lounge.svg',
         width: 30,
         height: 30,
       ),
     ],
     [
       SvgPicture.asset(
-        'assets/woman-a_2.svg',
+        'assets/icons/svgs/Work_2.svg',
         width: 30,
         height: 30,
       ),
       SvgPicture.asset(
-        'assets/woman-a.svg',
+        'assets/icons/svgs/Work.svg',
+        width: 30,
+        height: 30,
+      ),
+    ],
+    [
+      SvgPicture.asset(
+        'assets/icons/svgs/woman-a_2.svg',
+        width: 30,
+        height: 30,
+      ),
+      SvgPicture.asset(
+        'assets/icons/svgs/woman-a.svg',
         width: 30,
         height: 30,
       ),

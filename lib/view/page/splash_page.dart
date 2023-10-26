@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:spec/view/page/login_page.dart';
 import 'package:spec/view/widget/button/button_xlarge.dart';
 
 class SplashPage extends StatelessWidget {
@@ -21,7 +24,9 @@ class SplashPage extends StatelessWidget {
                 const SizedBox(height: 150),
                 ButtonXlarge(
                   text: '시작하기',
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => LoginScreen());
+                  },
                 ),
               ],
             ),

@@ -124,7 +124,9 @@ class CustomTitle extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ButtonSmall(
                     width: 100,
-                    onTap: () {},
+                    onTap: () {
+                      submitAction();
+                    },
                     text: '등록하기',
                   ),
                 ),

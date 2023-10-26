@@ -1,9 +1,9 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/login_controller.dart';
-
 import 'package:spec/view/widget/custom_input.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -26,6 +26,7 @@ class LoginScreen extends GetView<LoginController> {
               key: _formKey,
               child: Column(
                 children: [
+                  SvgPicture.asset('assets/logo/Logo.png'),
                   Obx(
                     () => CustomInput(
                       controller: controller.emailController,
@@ -36,10 +37,8 @@ class LoginScreen extends GetView<LoginController> {
                           return '이메일 주소를 입력하세요.';
                         } else if (value.length < 9) {
                           return '9자 이상입니다.';
-                        } else if (controller.success.value != true) {
+                        } else if (controller.success.value == false) {
                           return '이메일을 확인해주세요.';
-                        } else if (controller.success.value == true) {
-                          return '성공입니다.';
                         }
                         return null;
                       },
@@ -55,7 +54,7 @@ class LoginScreen extends GetView<LoginController> {
                           return '비밀번호를 입력하세요.';
                         } else if (value.length < 9) {
                           return '비밀번호는 9글자 이상이어야 합니다.';
-                        } else if (controller.success != true) {
+                        } else if (controller.success.value == false) {
                           return '비밀번호를 확인해주세요.';
                         }
                         return null;
@@ -66,8 +65,9 @@ class LoginScreen extends GetView<LoginController> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      controller.login();
+                      print(controller.success.value);
                       isSubmitted.value = true; // Using RxBool
-
                       if (_formKey.currentState!.validate()) {
                         print("Form is valid");
                       } else {
@@ -80,42 +80,7 @@ class LoginScreen extends GetView<LoginController> {
               ),
             ),
             SizedBox(height: 30),
-            // Obx(
-            //   () => TextField(
-            //     controller: controller.emailController,
-            //     decoration: InputDecoration(
-            //       labelText: '이메일',
-            //       errorText: controller.error.value ? '이메일이 잘못되었습니다.' : null,
-            //       border: OutlineInputBorder(
-            //         borderSide: BorderSide(
-            //           color:
-            //               controller.success.value ? Colors.blue : Colors.red,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(height: 30),
-            // Obx(
-            //   () => TextField(
-            //     controller: controller.pwController,
-            //     decoration: InputDecoration(
-            //       labelText: '비밀번호',
-            //       errorText: controller.error.value ? '비밀번호가 잘못되었습니다.' : null,
-            //       border: OutlineInputBorder(
-            //         borderSide: BorderSide(
-            //           color:
-            //               controller.success.value ? Colors.blue : Colors.red,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: controller.login,
-              child: Text('로그인'),
-            ),
           ],
         ),
       ),

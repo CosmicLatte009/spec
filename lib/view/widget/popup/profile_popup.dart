@@ -62,7 +62,7 @@ class ProfilePopup extends StatelessWidget {
                   ),
                   ButtonXsmall(
                     //버튼 완성되면 컬러 바꾸기
-                    controller: () {},
+                    onTap: () {},
                     text: role,
                     width: 47,
                   ),

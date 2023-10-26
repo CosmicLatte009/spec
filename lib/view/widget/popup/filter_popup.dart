@@ -36,7 +36,7 @@ class _FilterPopupState extends State<FilterPopup> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonXsmall(
-                controller: () {},
+                onTap: () {},
                 text: '초기화',
                 width: 100,
                 outline: true,
@@ -45,7 +45,7 @@ class _FilterPopupState extends State<FilterPopup> {
                 width: 10,
               ),
               ButtonXsmall(
-                controller: () {},
+                onTap: () {},
                 text: '확인',
                 width: 100,
               ),

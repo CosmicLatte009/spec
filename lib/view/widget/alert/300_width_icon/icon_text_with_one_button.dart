@@ -51,7 +51,7 @@ class IconTextWithOneButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '${buttonTitle}',

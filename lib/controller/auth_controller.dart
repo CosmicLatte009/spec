@@ -29,12 +29,16 @@ class AuthController extends GetxController {
         var resData = response.data;
         var token = resData['data'];
 
-        if (token == null) {
-          isError.value = true;
-          isSuccess.value = false;
-        } else if (token != null) {
+        if (token != null) {
+          print(resData);
+          print('성공!');
           isError.value = false;
           isSuccess.value = true;
+        } else if (token == null) {
+          print('실패!');
+          print(resData);
+          isError.value = true;
+          isSuccess.value = false;
           await storage.write(key: 'jwt_token', value: token);
           checkIfUserIsLoggedIn();
         }

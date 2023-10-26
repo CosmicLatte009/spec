@@ -30,7 +30,7 @@ class WithOneButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '삭제하기',

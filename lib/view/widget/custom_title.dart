@@ -111,7 +111,7 @@ class CustomTitle extends StatelessWidget {
               children: [
                 ButtonSmall(
                   width: 100,
-                  controller: () {
+                  onTap: () {
                     cancelAction();
                   },
                   text: '취소하기',
@@ -124,7 +124,7 @@ class CustomTitle extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ButtonSmall(
                     width: 100,
-                    controller: () {
+                    onTap: () {
                       submitAction();
                     },
                     text: '등록하기',

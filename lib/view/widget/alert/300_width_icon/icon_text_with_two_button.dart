@@ -54,7 +54,7 @@ class IconTextWithTwoButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '${buttonTitle1}',
@@ -63,7 +63,7 @@ class IconTextWithTwoButton extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '${buttonTitle2}',

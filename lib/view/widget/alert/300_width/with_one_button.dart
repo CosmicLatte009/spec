@@ -12,7 +12,7 @@ class WithOneButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
       ),
-      content: Container(
+      content: SizedBox(
         width: 242,
         height: 109,
         child: Column(
@@ -21,16 +21,16 @@ class WithOneButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${message}',
+              '$message',
               style: AppTextStyles.body16B(color: Colors.black),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '삭제하기',
@@ -49,7 +49,7 @@ void showDialog_2(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return WithOneButton(
+      return const WithOneButton(
         message: '우악 우악',
       );
     },

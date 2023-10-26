@@ -11,9 +11,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const SplashPage(),
-      //세은
+    return const MaterialApp(
+      home: SplashPage(),
     );
   }
 }

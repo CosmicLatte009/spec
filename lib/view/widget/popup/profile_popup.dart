@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/widget/avatar/default_avatar.dart';
 import 'package:spec/view/widget/button/button_xsmall.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 
@@ -38,6 +39,7 @@ class ProfilePopup extends StatelessWidget {
                       const CircleAvatar(
                         backgroundColor: AppColor.primary05,
                         radius: 30,
+                        child: DefaultAvatar(),
                       ),
                       Positioned(
                         right: 0,
@@ -62,7 +64,7 @@ class ProfilePopup extends StatelessWidget {
                   ),
                   ButtonXsmall(
                     //버튼 완성되면 컬러 바꾸기
-                    controller: () {},
+                    onTap: () {},
                     text: role,
                     width: 47,
                   ),

@@ -66,7 +66,7 @@ class SignupPopup extends StatelessWidget {
                   Row(
                     children: [
                       ButtonSmall(
-                        controller: () {},
+                        onTap: () {},
                         text: '나중에 하기',
                         width: 165,
                         outline: true,
@@ -75,7 +75,7 @@ class SignupPopup extends StatelessWidget {
                         width: 10,
                       ),
                       ButtonSmall(
-                        controller: () {},
+                        onTap: () {},
                         text: '저장하기',
                         width: 165,
                       ),

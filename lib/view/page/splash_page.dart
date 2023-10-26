@@ -21,7 +21,7 @@ class SplashPage extends StatelessWidget {
                 const SizedBox(height: 150),
                 ButtonXlarge(
                   text: '시작하기',
-                  controller: () {},
+                  onTap: () {},
                 ),
               ],
             ),

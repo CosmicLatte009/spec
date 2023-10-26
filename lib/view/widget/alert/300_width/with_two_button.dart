@@ -19,7 +19,7 @@ class WithTwoButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
       ),
-      content: Container(
+      content: SizedBox(
         width: 242,
         height: 109,
         child: Column(
@@ -28,28 +28,28 @@ class WithTwoButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${message}',
+              message,
               style: AppTextStyles.body16B(color: Colors.black),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '${button1}',
+                  text: button1,
                   width: 104,
                   outline: true,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ButtonSmall(
-                  controller: () {
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '${button2}',
+                  text: button2,
                   width: 104,
                 ),
               ],
@@ -65,7 +65,7 @@ void showDialog_1(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return WithTwoButton(
+      return const WithTwoButton(
         message: '둘 중에 하나만 골라',
         button1: '좋아',
         button2: '싫어',

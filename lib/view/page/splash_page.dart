@@ -24,13 +24,9 @@ class SplashPage extends StatelessWidget {
                 const SizedBox(height: 150),
                 ButtonXlarge(
                   text: '시작하기',
-<<<<<<< HEAD
                   onTap: () {
                     Get.to(() => LoginScreen());
                   },
-=======
-                  onTap: () {},
->>>>>>> 63d4c6f9ead273a7028549cc790167f55de1489e
                 ),
               ],
             ),

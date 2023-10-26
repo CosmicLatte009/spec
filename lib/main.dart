@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return GetMaterialApp(
         initialBinding: BindingsBuilder(
           () {
@@ -26,10 +25,5 @@ class MyApp extends StatelessWidget {
         // getPages: AppPages.pages,
         // initialRoute: LoginPage.route,
         home: SplashPage());
-=======
-    return const MaterialApp(
-      home: SplashPage(),
-    );
->>>>>>> 63d4c6f9ead273a7028549cc790167f55de1489e
   }
 }

@@ -28,13 +28,9 @@ class FilterItems extends StatelessWidget {
               .map((item) => Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: ButtonXsmall(
-<<<<<<< HEAD
                       onTap: () {},
-=======
->>>>>>> 63d4c6f9ead273a7028549cc790167f55de1489e
                       text: item,
                       width: 57,
-                      onTap: () {},
                     ),
                   ))
               .toList(),

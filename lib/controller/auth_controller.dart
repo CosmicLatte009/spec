@@ -30,8 +30,8 @@ class AuthController extends GetxController {
         var token = resData['data'];
 
         if (token != null) {
-          print(resData);
           print('성공!');
+          print(resData);
           isError.value = false;
           isSuccess.value = true;
         } else if (token == null) {

@@ -18,7 +18,7 @@ class DescriptionWithOneButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
       ),
-      content: Container(
+      content: SizedBox(
         width: 242,
         height: 153,
         child: Column(
@@ -27,15 +27,15 @@ class DescriptionWithOneButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${mainMessage}',
+              mainMessage,
               style: AppTextStyles.body16B(color: Colors.black),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
-              '${subMessage}',
-              style: AppTextStyles.body12R(color: Color(0xFF999999)),
+              subMessage,
+              style: AppTextStyles.body12R(color: const Color(0xFF999999)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +44,7 @@ class DescriptionWithOneButton extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '${buttonTitle}',
+                  text: buttonTitle,
                   width: 180,
                 ),
               ],
@@ -60,7 +60,7 @@ void showDialog_7(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return DescriptionWithOneButton(
+      return const DescriptionWithOneButton(
         mainMessage: '삭제할거니',
         subMessage: '진짜니',
         buttonTitle: '웅그!',

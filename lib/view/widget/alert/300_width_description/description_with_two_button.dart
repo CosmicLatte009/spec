@@ -21,7 +21,7 @@ class DescriptionWithTwoButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
       ),
-      content: Container(
+      content: SizedBox(
         width: 242,
         height: 153,
         child: Column(
@@ -30,15 +30,15 @@ class DescriptionWithTwoButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '${mainMessage}',
+              mainMessage,
               style: AppTextStyles.body16B(color: Colors.black),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
-              '${subMessage}',
-              style: AppTextStyles.body12R(color: Color(0xFF999999)),
+              subMessage,
+              style: AppTextStyles.body12R(color: const Color(0xFF999999)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,16 +47,16 @@ class DescriptionWithTwoButton extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '${buttonTitle1}',
+                  text: buttonTitle1,
                   width: 104,
                   outline: true,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ButtonSmall(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '${buttonTitle2}',
+                  text: buttonTitle2,
                   width: 104,
                 ),
               ],
@@ -72,7 +72,7 @@ void showDialog_6(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return DescriptionWithTwoButton(
+      return const DescriptionWithTwoButton(
         mainMessage: 'ㄹㅇ 댓글 삭제',
         subMessage: '후회하지마..',
         buttonTitle1: '헉 안돼',

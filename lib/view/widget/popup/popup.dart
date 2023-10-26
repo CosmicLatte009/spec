@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_text_style.dart';
 
-class Popup extends StatelessWidget {
+class Popup extends StatefulWidget {
   const Popup({
     Key? key,
     required this.child,
@@ -16,10 +16,23 @@ class Popup extends StatelessWidget {
   final String? label;
 
   @override
+  State<Popup> createState() => _PopupState();
+}
+
+class _PopupState extends State<Popup> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: isWide ? 370.0 : 242,
+        width: widget.isWide ? 370.0 : 242,
         padding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 17,
@@ -27,7 +40,7 @@ class Popup extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: shadow == true
+          boxShadow: widget.shadow == true
               ? [
                   const BoxShadow(
                     color: Color(0x40000000),
@@ -41,13 +54,13 @@ class Popup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (label != null)
+            if (widget.label != null)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    label!,
+                    widget.label!,
                     style: AppTextStyles.body18B(),
                   ),
                   GestureDetector(
@@ -58,10 +71,29 @@ class Popup extends StatelessWidget {
                   ),
                 ],
               ),
-            child,
+            Scrollbar(
+              controller: _controller,
+              trackVisibility: true,
+              child: SingleChildScrollView(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: widget.isWide ? 370.0 : 242,
+                  ),
+                  child: widget.child,
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

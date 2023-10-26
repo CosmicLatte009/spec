@@ -84,4 +84,7 @@ class AppTextStyles {
 
   static TextStyle body12R({Color color = Colors.black}) =>
       regular.copyWith(fontSize: 12, color: color);
+
+  static TextStyle body8R({Color color = Colors.black}) =>
+      regular.copyWith(fontSize: 8, color: color);
 }

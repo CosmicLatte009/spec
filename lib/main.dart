@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spec/view/page/test_for_popup.dart';
+import 'package:spec/view/page/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,8 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: TestForPopup(),
-      //세은
+      home: SplashPage(),
     );
   }
 }

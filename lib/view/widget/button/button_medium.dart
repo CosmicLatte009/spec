@@ -5,19 +5,19 @@ import '../../../util/app_color.dart';
 class ButtonMedium extends StatelessWidget {
   const ButtonMedium({
     super.key,
-    required this.controller,
+    required this.onTap,
     required this.text,
     this.outline = false,
   });
 
-  final Function() controller;
+  final Function() onTap;
   final String text;
   final bool outline;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: controller,
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         width: 165,

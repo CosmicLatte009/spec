@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.6
   shimmer: ^3.0.0
   flutter_svg: ^2.0.7
+  flutter_switch: ^0.3.2
+  
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,8 @@ flutter:
   assets:
     - assets/
     - assets/icons/svgs/
+    - assets/icons/pngs/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

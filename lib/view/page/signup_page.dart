@@ -49,17 +49,30 @@ class _SignupPageState extends State<SignupPage> {
                   key: _signup_formKey,
                   child: const Column(
                     children: [
-                      CustomInput(label: '이름', hint: '이름을 입력해주세요.'),
+                      CustomInput(
+                        label: '이름',
+                        hint: '이름을 입력해주세요.',
+                        isRequired: true,
+                      ),
                       SizedBox(height: 8),
-                      CustomInput(label: '이메일', hint: '이메일을 입력해주세요.'),
+                      CustomInput(
+                        label: '이메일',
+                        hint: '이메일을 입력해주세요.',
+                        isRequired: true,
+                      ),
                       SizedBox(height: 8),
                       CustomInput(
                         label: '비밀번호',
                         hint: '비밀번호를 입력해주세요.',
                         type: InputType.password,
+                        isRequired: true,
                       ),
                       SizedBox(height: 8),
-                      CustomInput(label: '휴대전화', hint: '휴대폰 번호를 입력해주세요.'),
+                      CustomInput(
+                        label: '휴대전화',
+                        hint: '휴대폰 번호를 입력해주세요.',
+                        isRequired: true,
+                      ),
                     ],
                   ),
                 ),

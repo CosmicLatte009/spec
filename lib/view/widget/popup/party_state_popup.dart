@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 import 'package:spec/view/widget/select/custom_radio_group.dart';
 
+// 모각 상태: "HIDDEN", "OPEN", "CLOSE" 형태로 서버에 전송
+enum RecruitState { HIDDEN, OPEN, CLOSE }
+
 class PartyStatePopup extends StatefulWidget {
   const PartyStatePopup({
     super.key,
@@ -25,18 +28,15 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
           const SizedBox(
             height: 24,
           ),
-          Material(
-            color: Colors.transparent,
-            child: CustomRadioGroup(
-              items: recruitState,
-              tileColorActive: true,
-              selectedIndex: selectedIndex,
-              onItemSelect: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
+          CustomRadioGroup(
+            items: recruitState,
+            tileColorActive: true,
+            selectedIndex: selectedIndex,
+            onItemSelect: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
           ),
           const SizedBox(
             height: 10,

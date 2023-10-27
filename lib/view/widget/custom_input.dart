@@ -78,7 +78,7 @@ class _CustomInputState extends State<CustomInput> {
   }
 
   Color? get getValidateColor {
-    if (widget.validator != null) {
+    if (widget.validator != null && widget.controller != null) {
       if (widget.validator!(widget.controller!.text) != null &&
           widget.isSubmitted == true) {
         return AppColor.warning;

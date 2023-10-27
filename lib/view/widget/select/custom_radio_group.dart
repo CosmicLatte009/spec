@@ -53,8 +53,11 @@ class _CustomRadioGroupState<T> extends State<CustomRadioGroup> {
       }
     }
 
-    return widget.direction == Axis.vertical
-        ? Column(children: customRadios)
-        : Row(children: customRadios);
+    return Material(
+      color: Colors.transparent,
+      child: widget.direction == Axis.vertical
+          ? Column(children: customRadios)
+          : Row(children: customRadios),
+    );
   }
 }

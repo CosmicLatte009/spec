@@ -42,9 +42,14 @@ class _CustomRadioState extends State<CustomRadio> {
       child: Container(
         padding: EdgeInsets.fromLTRB(widget.paddingLeft, widget.paddingTop,
             widget.paddingRight, widget.paddingBottom),
-        color: isSelected && widget.tileColorActive
-            ? widget.selectedTitleColor
-            : Colors.transparent,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+          color: isSelected && widget.tileColorActive
+              ? widget.selectedTitleColor
+              : Colors.transparent,
+        ),
         child: Row(
           children: [
             InkWell(

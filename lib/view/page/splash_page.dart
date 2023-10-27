@@ -25,7 +25,7 @@ class SplashPage extends StatelessWidget {
                 ButtonXlarge(
                   text: '시작하기',
                   onTap: () {
-                    Get.to(() => LoginScreen());
+                    Get.to(LoginScreen());
                   },
                 ),
               ],

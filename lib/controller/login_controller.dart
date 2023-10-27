@@ -12,6 +12,5 @@ class LoginController extends GetxController {
     Get.find<AuthController>().login(emailController.text, pwController.text);
   }
 
-  RxBool get error => _authController.isError;
-  RxBool get success => _authController.isSuccess;
+  RxInt get isLoggedInState => _authController.isLoggedIn;
 }

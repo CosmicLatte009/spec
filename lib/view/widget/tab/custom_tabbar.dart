@@ -13,30 +13,36 @@ class CustomTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
+    return Material(
+      type: MaterialType.transparency,
+      child: DefaultTabController(
         length: tabList.length,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TabBar(
-                labelColor: AppColor.primary,
-                unselectedLabelColor: AppColor.black20,
-                labelStyle: AppTextStyles.body14M(),
-                tabs: tabList
-                    .map(
-                      (tabItem) => Tab(
-                        text: tabItem,
-                      ),
-                    )
-                    .toList(),
+              SizedBox(
+                height: 30,
+                child: TabBar(
+                  labelColor: AppColor.primary,
+                  unselectedLabelColor: AppColor.black20,
+                  labelStyle: AppTextStyles.body14M(),
+                  tabs: tabList
+                      .map(
+                        (tabItem) => Tab(
+                          text: tabItem,
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
               Expanded(
                 child: TabBarView(
                   children: tabBarViewList
                       .map(
-                        (tabBarView) => tabBarView,
+                        (tabBarView) => SingleChildScrollView(
+                          child: tabBarView,
+                        ),
                       )
                       .toList(),
                 ),

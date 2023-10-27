@@ -54,6 +54,7 @@ class _CustomRadioGroupState<T> extends State<CustomRadioGroup> {
     }
 
     return Material(
+      color: Colors.transparent,
       child: widget.direction == Axis.vertical
           ? Column(children: customRadios)
           : Row(children: customRadios),

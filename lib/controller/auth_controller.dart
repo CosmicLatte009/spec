@@ -4,10 +4,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
 
 class AuthController extends GetxController {
+  // final RxBool isError = false.obs;
+  // final RxBool isSuccess = true.obs;
+
+  final RxInt isLoggedIn = RxInt(-1);
   //로그인 구현
-  RxBool isError = false.obs;
-  RxBool isSuccess = false.obs;
-  RxBool isLoggedIn = false.obs;
 
   final BASE_URL = 'https://dev.sniperfactory.com/api/auth/login';
   final storage = new FlutterSecureStorage();
@@ -30,31 +31,16 @@ class AuthController extends GetxController {
         var token = resData['data'];
 
         if (token != null) {
-          print('성공!');
-          print(resData);
-          isError.value = false;
-          isSuccess.value = true;
-        } else if (token == null) {
-          print('실패!');
-          print(resData);
-          isError.value = true;
-          isSuccess.value = false;
+          isLoggedIn.value = 1;
           await storage.write(key: 'jwt_token', value: token);
-          checkIfUserIsLoggedIn();
+          print(resData);
+        } else if (token == null) {
+          isLoggedIn.value = 0;
+          print('실패!');
         }
       }
     } catch (e) {
       print('에러: $e');
-    }
-  }
-
-  void checkIfUserIsLoggedIn() async {
-    String? token = await storage.read(key: 'jwt_token');
-    if (token != null) {
-      isLoggedIn.value = true;
-      //Get.to(() => HomePage());
-    } else {
-      isLoggedIn.value = false;
     }
   }
 

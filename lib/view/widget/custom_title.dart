@@ -110,10 +110,7 @@ class CustomTitle extends StatelessWidget {
             Row(
               children: [
                 ButtonSmall(
-<<<<<<< HEAD
                   width: 100,
-=======
->>>>>>> c7507ded2749f7346d2d7a3336573e21cc452325
                   onTap: () {
                     cancelAction();
                   },

@@ -44,7 +44,7 @@ class LoginScreen extends GetView<LoginController> {
             ),
           ),
         ),
-        Expanded(flex: 2, child: _buildLoginButton()),
+        Expanded(flex: 5, child: _buildLoginButton()),
       ],
     );
   }

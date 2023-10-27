@@ -1,20 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/signup_success_page.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 
-class SignupPage extends StatefulWidget {
+class SignupPage extends GetView<SignupController> {
   const SignupPage({super.key});
-
-  @override
-  State<SignupPage> createState() => _SignupPageState();
-}
-
-class _SignupPageState extends State<SignupPage> {
-  final _signup_formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,29 +41,37 @@ class _SignupPageState extends State<SignupPage> {
             Expanded(
               child: SingleChildScrollView(
                 child: Form(
-                  key: _signup_formKey,
-                  child: const Column(
+                  key: controller.signupFormKey,
+                  child: Column(
                     children: [
-                      CustomInput(
+                      const CustomInput(
                         label: '이름',
                         hint: '이름을 입력해주세요.',
                         isRequired: true,
                       ),
-                      SizedBox(height: 8),
-                      CustomInput(
+                      const SizedBox(height: 8),
+                      const CustomInput(
                         label: '이메일',
                         hint: '이메일을 입력해주세요.',
                         isRequired: true,
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       CustomInput(
                         label: '비밀번호',
                         hint: '비밀번호를 입력해주세요.',
                         type: InputType.password,
                         isRequired: true,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return '비밀번호를 입력하세요.';
+                          } else if (value.length < 9) {
+                            return '비밀번호는 8글자 이상이어야 합니다.';
+                          }
+                          return 'null';
+                        },
                       ),
-                      SizedBox(height: 8),
-                      CustomInput(
+                      const SizedBox(height: 8),
+                      const CustomInput(
                         label: '휴대전화',
                         hint: '휴대폰 번호를 입력해주세요.',
                         isRequired: true,
@@ -82,7 +85,9 @@ class _SignupPageState extends State<SignupPage> {
               height: 56,
               text: '회원가입하기',
               onTap: () {
-                Get.to(const SignupSuccessPage());
+                if (controller.signupFormKey.currentState!.validate()) {
+                  controller.callSignup();
+                }
               },
             ),
             const SizedBox(height: 114),

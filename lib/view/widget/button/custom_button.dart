@@ -27,6 +27,8 @@ class CustomButton extends StatelessWidget {
     this.disabled = false,
   })  : assert(size == null || (width == null && height == null),
             'If size is specified, width and height should not be provided.'),
+        assert(disabled != true || onTap == null,
+            'onTap must not be provided if the button is disabled.'),
         super(key: key);
 
   final String text;
@@ -126,32 +128,6 @@ class CustomButton extends StatelessWidget {
       finalWidth = double.infinity;
       finalHeight = 56.0;
     }
-    // if (finalHeight! >= 56) {
-    //   finalTextSize = AppTextStyles.body18M(color: finalColor);
-    // }
-
-    // if (finalHeight >= 40 && finalHeight < 56) {
-    //   finalTextSize = AppTextStyles.body18M(color: finalColor);
-    // }
-
-    // if (finalHeight <= 22) {
-    //   finalTextSize = AppTextStyles.body12R(color: finalColor);
-    // }
-    // if (finalHeight <= 18) {
-    //   finalTextSize = AppTextStyles.body12R(color: finalColor);
-    //   finalPadding = 6.5;
-    //   finalBorderRadius = 6.0;
-    // }
-    // if (finalHeight <= 14) {
-    //   finalTextSize = AppTextStyles.body9R(color: finalColor);
-    //   finalPadding = 4.88;
-    //   finalBorderRadius = 4.5;
-    // }
-    // if (finalHeight <= 12) {
-    //   finalTextSize = AppTextStyles.body8R(color: finalColor);
-    //   finalPadding = 4.5;
-    //   finalBorderRadius = 2.63;
-    // }
     return GestureDetector(
       onTap: disabled ? null : onTap,
       child: Container(

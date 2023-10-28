@@ -10,8 +10,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 1,
+      leadingWidth: 80,
       leading: Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 10),
         child: SvgPicture.asset(
           'assets/icons/svgs/SFACE.svg',
           width: 63,

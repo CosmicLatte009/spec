@@ -111,18 +111,20 @@ class SignupPage extends GetView<SignupController> {
                 ),
               ),
             ),
-            CustomButton(
-              disabled: !controller
-                  .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
-              height: 56,
-              text: '회원가입하기',
-              onTap: !controller.isAllInputHasValue
-                  ? null
-                  : () {
-                      if (controller.signupFormKey.currentState!.validate()) {
-                        controller.callSignup();
-                      }
-                    },
+            Obx(
+              () => CustomButton(
+                disabled: !controller
+                    .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
+                height: 56,
+                text: '회원가입하기',
+                onTap: !controller.isAllInputHasValue
+                    ? null
+                    : () {
+                        if (controller.signupFormKey.currentState!.validate()) {
+                          controller.callSignup();
+                        }
+                      },
+              ),
             ),
             const SizedBox(height: 114),
           ],

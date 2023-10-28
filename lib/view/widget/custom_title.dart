@@ -110,10 +110,10 @@ class CustomTitle extends StatelessWidget {
             Row(
               children: [
                 ButtonSmall(
+                  width: 100,
                   onTap: () {
                     cancelAction();
                   },
-                  width: 100,
                   text: '취소하기',
                   outline: true,
                 ),

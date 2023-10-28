@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class DescriptionWithOneButton extends StatelessWidget {
   const DescriptionWithOneButton(
@@ -40,15 +40,15 @@ class DescriptionWithOneButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ButtonSmall(
+                CustomButton(
+                  size: ButtonSize.small,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: buttonTitle,
-                  width: 180,
+                  text: '${buttonTitle}',
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

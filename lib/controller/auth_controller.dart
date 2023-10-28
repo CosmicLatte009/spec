@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
+  final RxInt isLoggedIn = RxInt(-1);
+  String? dmddo;
+
   //로그인 구현
-  RxBool isError = false.obs;
-  RxBool isSuccess = false.obs;
-  RxBool isLoggedIn = false.obs;
 
   final BASE_URL = 'https://dev.sniperfactory.com/api/auth/login';
   final storage = new FlutterSecureStorage();
@@ -30,17 +31,37 @@ class AuthController extends GetxController {
         var token = resData['data'];
 
         if (token != null) {
-          print(resData);
-          print('성공!');
-          isError.value = false;
-          isSuccess.value = true;
-        } else if (token == null) {
-          print('실패!');
-          print(resData);
-          isError.value = true;
-          isSuccess.value = false;
+          isLoggedIn.value = 1;
+          print('성공');
           await storage.write(key: 'jwt_token', value: token);
-          checkIfUserIsLoggedIn();
+          dmddo = await storage.read(key: 'jwt_token');
+
+          if (dmddo != null) {
+            print(dmddo);
+            print('프린트 성공');
+
+            //Get.to(() => CatchUpPage());
+          }
+        } else if (token == null) {
+          isLoggedIn.value = 0;
+          await Future.delayed(
+              Duration(milliseconds: 300)); // 로그인 로직이 비동기일 경우 대기
+          if (isLoggedIn.value == 0) {
+            // 로그인 실패 시 다이얼로그 표시
+            void showLoginFailDialog() {
+              Get.dialog(
+                IconTextWithOneButton(
+                  svgPath: 'dsd',
+                  mainMessage: 'sdsd',
+                  buttonTitle: 'sdsd',
+                  subMessage: 'sdsds',
+                ),
+              ); // 실패 시 표시할 다이얼로그
+            }
+
+            showLoginFailDialog();
+          }
+          print('실패!');
         }
       }
     } catch (e) {
@@ -48,14 +69,8 @@ class AuthController extends GetxController {
     }
   }
 
-  void checkIfUserIsLoggedIn() async {
-    String? token = await storage.read(key: 'jwt_token');
-    if (token != null) {
-      isLoggedIn.value = true;
-      //Get.to(() => HomePage());
-    } else {
-      isLoggedIn.value = false;
-    }
+  Future<String?> getToken() {
+    return storage.read(key: 'jwt_token');
   }
 
   //회원탈퇴

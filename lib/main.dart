@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/login_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/view/page/signup_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 
 void main() {
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       ),
       // getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
-      home: const SplashPage(),
+      // home: const SplashPage(),
+      home: const SignupPage(),
     );
   }
 }

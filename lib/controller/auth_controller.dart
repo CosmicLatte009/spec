@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
-  // final RxBool isError = false.obs;
-  // final RxBool isSuccess = true.obs;
-
   final RxInt isLoggedIn = RxInt(-1);
+  String? dmddo;
+
   //로그인 구현
 
   final BASE_URL = 'https://dev.sniperfactory.com/api/auth/login';
@@ -32,16 +32,45 @@ class AuthController extends GetxController {
 
         if (token != null) {
           isLoggedIn.value = 1;
+          print('성공');
           await storage.write(key: 'jwt_token', value: token);
-          print(resData);
+          dmddo = await storage.read(key: 'jwt_token');
+
+          if (dmddo != null) {
+            print(dmddo);
+            print('프린트 성공');
+
+            //Get.to(() => CatchUpPage());
+          }
         } else if (token == null) {
           isLoggedIn.value = 0;
+          await Future.delayed(
+              Duration(milliseconds: 300)); // 로그인 로직이 비동기일 경우 대기
+          if (isLoggedIn.value == 0) {
+            // 로그인 실패 시 다이얼로그 표시
+            void showLoginFailDialog() {
+              Get.dialog(
+                IconTextWithOneButton(
+                  svgPath: 'dsd',
+                  mainMessage: 'sdsd',
+                  buttonTitle: 'sdsd',
+                  subMessage: 'sdsds',
+                ),
+              ); // 실패 시 표시할 다이얼로그
+            }
+
+            showLoginFailDialog();
+          }
           print('실패!');
         }
       }
     } catch (e) {
       print('에러: $e');
     }
+  }
+
+  Future<String?> getToken() {
+    return storage.read(key: 'jwt_token');
   }
 
   //회원탈퇴

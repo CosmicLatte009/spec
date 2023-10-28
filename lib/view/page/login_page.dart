@@ -5,7 +5,7 @@ import 'package:spec/controller/login_controller.dart';
 
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_xlarge.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class LoginScreen extends GetView<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class LoginScreen extends GetView<LoginController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(flex: 7, child: SvgPicture.asset('assets/logo/icon_logo.svg')),
+        Expanded(flex: 7, child: SvgPicture.asset('assets/icon_logo.svg')),
         Expanded(
           flex: 5,
           child: Form(
@@ -44,7 +44,7 @@ class LoginScreen extends GetView<LoginController> {
             ),
           ),
         ),
-        Expanded(flex: 5, child: _buildLoginButton()),
+        Expanded(flex: 4, child: _buildLoginButton()),
       ],
     );
   }
@@ -171,7 +171,8 @@ class LoginScreen extends GetView<LoginController> {
   Widget _buildLoginButton() {
     return Padding(
       padding: EdgeInsetsDirectional.symmetric(vertical: 80),
-      child: ButtonXlarge(
+      child: CustomButton(
+        size: ButtonSize.xLarge,
         onTap: () {
           isSubmitted.value = true;
           if (_formKey.currentState!.validate()) {

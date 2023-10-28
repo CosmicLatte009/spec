@@ -4,6 +4,7 @@ import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
 import 'package:spec/view/widget/button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 
@@ -27,59 +28,73 @@ class SignupPopup extends StatelessWidget {
                     height: 100,
                   ),
                   //inputs
-                  const CustomInput(
-                    label: '닉네임',
-                    hint: '닉네임을 입력해주세요.',
-                  ),
-                  const CustomInput(
-                    label: '이메일',
-                    hint: '이메일 주소를 입력해주세요.',
-                  ),
-                  const CustomInput(
-                    label: '휴대폰 번호',
-                    hint: '휴대폰 번호를 입력해주세요.',
-                  ),
-                  const CustomInput(
-                    label: '링크 추가',
-                    hint: 'LinkedIn URL',
-                  ),
-                  const CustomInput(
-                    hint: 'Github URL',
-                  ),
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: CustomInput(
-                          hint: '개인 웹사이트 URL',
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 7),
+                    child: Column(
+                      children: [
+                        CustomInput(
+                          label: '닉네임',
+                          hint: '닉네임을 입력해주세요.',
                         ),
-                      ),
-                      Expanded(
-                        child: CustomInput(
-                          hint: '개인 웹사이트 URL',
+                        CustomInput(
+                          label: '이메일',
+                          hint: '이메일 주소를 입력해주세요.',
                         ),
-                      ),
-                    ],
+                        CustomInput(
+                          label: '휴대폰 번호',
+                          hint: '휴대폰 번호를 입력해주세요.',
+                        ),
+                        CustomInput(
+                          label: '링크 추가',
+                          hint: 'LinkedIn URL',
+                        ),
+                        CustomInput(
+                          hint: 'Github URL',
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomInput(
+                                hint: '개인 웹사이트 URL',
+                              ),
+                            ),
+                            Expanded(
+                              child: CustomInput(
+                                hint: '개인 웹사이트 URL',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  Row(
-                    children: [
-                      ButtonSmall(
-                        onTap: () {},
-                        text: '나중에 하기',
-                        width: 165,
-                        outline: true,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ButtonSmall(
-                        onTap: () {},
-                        text: '저장하기',
-                        width: 165,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {},
+                            text: '나중에 하기',
+                            type: ButtonType.outline,
+                            height: 32,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {},
+                            text: '저장하기',
+                            height: 32,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

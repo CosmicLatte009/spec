@@ -34,7 +34,6 @@ class _PopupState extends State<Popup> {
       child: Container(
         width: widget.isWide ? 370.0 : 242,
         padding: const EdgeInsets.symmetric(
-          horizontal: 14,
           vertical: 17,
         ),
         decoration: BoxDecoration(
@@ -55,21 +54,24 @@ class _PopupState extends State<Popup> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (widget.label != null)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.label!,
-                    style: AppTextStyles.body18B(),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Icon(Icons.close),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.label!,
+                      style: AppTextStyles.body18B(),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
               ),
             Scrollbar(
               controller: _controller,

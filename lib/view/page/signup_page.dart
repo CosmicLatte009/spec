@@ -1,15 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/page/signup_success_page.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 
 class SignupPage extends GetView<SignupController> {
   const SignupPage({super.key});
+  static const route = '/signup';
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +43,34 @@ class SignupPage extends GetView<SignupController> {
                   key: controller.signupFormKey,
                   child: Column(
                     children: [
-                      const CustomInput(
+                      CustomInput(
                         label: '이름',
                         hint: '이름을 입력해주세요.',
                         isRequired: true,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '이름을 입력해주세요.';
+                          }
+                          if (value.contains(RegExp(r'\s+'))) {
+                            return '공백을 포함할 수 없습니다.';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 8),
-                      const CustomInput(
+                      CustomInput(
                         label: '이메일',
                         hint: '이메일을 입력해주세요.',
                         isRequired: true,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '이메일을 입력해주세요.';
+                          }
+                          if (!RegExp(
+                                  r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                              .hasMatch(value)) return '올바른 이메일 형식이 아닙니다.';
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 8),
                       CustomInput(
@@ -62,19 +79,28 @@ class SignupPage extends GetView<SignupController> {
                         type: InputType.password,
                         isRequired: true,
                         validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return '비밀번호를 입력하세요.';
-                          } else if (value.length < 9) {
-                            return '비밀번호는 8글자 이상이어야 합니다.';
+                          if (value == null || value == '') {
+                            return '비밀번호를 입력해주세요.';
+                          } else if (value.length < 8) {
+                            return '8자리 이상으로 입력해주세요.';
                           }
-                          return 'null';
+                          return null;
                         },
                       ),
                       const SizedBox(height: 8),
-                      const CustomInput(
+                      CustomInput(
                         label: '휴대전화',
                         hint: '휴대폰 번호를 입력해주세요.',
                         isRequired: true,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '휴대폰 번호를 입력해주세요.';
+                          }
+                          if (!RegExp(r'^\d+$').hasMatch(value)) {
+                            return '숫자만 입력해주세요.';
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   ),
@@ -82,6 +108,7 @@ class SignupPage extends GetView<SignupController> {
               ),
             ),
             CustomButton(
+              //disabled: !controller.isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
               height: 56,
               text: '회원가입하기',
               onTap: () {
@@ -89,6 +116,13 @@ class SignupPage extends GetView<SignupController> {
                   controller.callSignup();
                 }
               },
+              // !controller.isAllInputHasValue
+              //     ? null
+              //     : () {
+              //         if (controller.signupFormKey.currentState!.validate()) {
+              //           controller.callSignup();
+              //         }
+              //       },
             ),
             const SizedBox(height: 114),
           ],

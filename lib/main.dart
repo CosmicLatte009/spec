@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/login_controller.dart';
-import 'package:spec/view/page/login_page.dart';
+import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/view/page/splash_page.dart';
 
 void main() {
@@ -16,14 +15,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        initialBinding: BindingsBuilder(
-          () {
-            Get.put(AuthController());
-            Get.put(LoginController());
-          },
-        ),
-        // getPages: AppPages.pages,
-        // initialRoute: LoginPage.route,
-        home: SplashPage());
+      initialBinding: BindingsBuilder(
+        () {
+          Get.put(AuthController());
+          Get.put(LoginController());
+          Get.lazyPut(() => SignupController());
+        },
+      ),
+      // getPages: AppPages.pages,
+      // initialRoute: LoginPage.route,
+      home: const SplashPage(),
+    );
   }
 }

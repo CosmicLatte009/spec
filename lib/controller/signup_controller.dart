@@ -1,35 +1,47 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spec/util/api_routes.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/signup_success_page.dart';
 
 class SignupController extends GetxController {
+  final RxBool _isAllInputHasValue = true.obs;
   final signupFormKey = GlobalKey<FormState>();
-// email(String -required) // 이메일 형식이어야 합니다. []
-// password(String - required) // 8자리이상이어야 합니다. [√]
-// phone(String - required) //숫자만 입력해주세요. []
-// name(String - requried) //공백x []
 
   TextEditingController name = TextEditingController();
   TextEditingController mail = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController phone = TextEditingController();
 
+  getAllInputHasValue() {
+    if (name.text.isEmpty ||
+        mail.text.isEmpty ||
+        password.text.isEmpty ||
+        phone.text.isEmpty) {
+      _isAllInputHasValue(false);
+    } else {
+      _isAllInputHasValue(true);
+    }
+    update();
+  }
+
+  bool get isAllInputHasValue => _isAllInputHasValue.value;
+
   //auth
-  String BASE_URL = 'https://dev.sniperfactory.com';
-  String SIGNUP_PATH = '/api/auth/signup';
+  String baseUrl = 'https://dev.sniperfactory.com';
   Dio dio = Dio();
 
   signup(String name, String mail, String password, String phone) async {
-    dio.options.baseUrl = BASE_URL;
     try {
-      var res = await dio.post(SIGNUP_PATH, data: {
-        'username': name,
-        'mail': mail,
+      var res = await dio.post(ApiRoutes.signup, data: {
+        'email': mail,
         'password': password,
-        'passwordConfirm': phone,
+        'phone': phone,
+        'name': name,
       });
       if (res.statusCode == 200) {
+        // Get.toNamed(AppPagesRoutes.signupSuccess);
         Get.to(const SignupSuccessPage());
       }
     } on DioException catch (e) {
@@ -47,5 +59,21 @@ class SignupController extends GetxController {
       password.text,
       phone.text,
     );
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    dio.options.baseUrl = baseUrl;
+    getAllInputHasValue();
+  }
+
+  @override
+  void onClose() {
+    name.dispose();
+    mail.dispose();
+    password.dispose();
+    phone.dispose();
+    super.onClose();
   }
 }

@@ -5,6 +5,7 @@ import 'package:spec/view/widget/button/custom_button.dart';
 
 class SignupSuccessPage extends StatelessWidget {
   const SignupSuccessPage({super.key});
+  static const route = '/signup/success';
 
   @override
   Widget build(BuildContext context) {

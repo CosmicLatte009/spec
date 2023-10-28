@@ -24,6 +24,7 @@ class SignupController extends GetxController {
       _isAllInputHasValue(true);
     }
     update();
+    print(_isAllInputHasValue);
   }
 
   bool get isAllInputHasValue => _isAllInputHasValue.value;
@@ -65,11 +66,22 @@ class SignupController extends GetxController {
   void onInit() {
     super.onInit();
     dio.options.baseUrl = baseUrl;
+
+    name.addListener(getAllInputHasValue);
+    mail.addListener(getAllInputHasValue);
+    password.addListener(getAllInputHasValue);
+    phone.addListener(getAllInputHasValue);
+
     getAllInputHasValue();
   }
 
   @override
   void onClose() {
+    name.removeListener(getAllInputHasValue);
+    mail.removeListener(getAllInputHasValue);
+    password.removeListener(getAllInputHasValue);
+    phone.removeListener(getAllInputHasValue);
+
     name.dispose();
     mail.dispose();
     password.dispose();

@@ -47,6 +47,7 @@ class SignupPage extends GetView<SignupController> {
                         label: '이름',
                         hint: '이름을 입력해주세요.',
                         isRequired: true,
+                        controller: controller.name,
                         validator: (String? value) {
                           if (value == null || value == '') {
                             return '이름을 입력해주세요.';
@@ -62,6 +63,7 @@ class SignupPage extends GetView<SignupController> {
                         label: '이메일',
                         hint: '이메일을 입력해주세요.',
                         isRequired: true,
+                        controller: controller.mail,
                         validator: (String? value) {
                           if (value == null || value == '') {
                             return '이메일을 입력해주세요.';
@@ -78,6 +80,7 @@ class SignupPage extends GetView<SignupController> {
                         hint: '비밀번호를 입력해주세요.',
                         type: InputType.password,
                         isRequired: true,
+                        controller: controller.password,
                         validator: (String? value) {
                           if (value == null || value == '') {
                             return '비밀번호를 입력해주세요.';
@@ -92,6 +95,7 @@ class SignupPage extends GetView<SignupController> {
                         label: '휴대전화',
                         hint: '휴대폰 번호를 입력해주세요.',
                         isRequired: true,
+                        controller: controller.phone,
                         validator: (String? value) {
                           if (value == null || value == '') {
                             return '휴대폰 번호를 입력해주세요.';
@@ -108,21 +112,17 @@ class SignupPage extends GetView<SignupController> {
               ),
             ),
             CustomButton(
-              //disabled: !controller.isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
+              disabled: !controller
+                  .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
               height: 56,
               text: '회원가입하기',
-              onTap: () {
-                if (controller.signupFormKey.currentState!.validate()) {
-                  controller.callSignup();
-                }
-              },
-              // !controller.isAllInputHasValue
-              //     ? null
-              //     : () {
-              //         if (controller.signupFormKey.currentState!.validate()) {
-              //           controller.callSignup();
-              //         }
-              //       },
+              onTap: !controller.isAllInputHasValue
+                  ? null
+                  : () {
+                      if (controller.signupFormKey.currentState!.validate()) {
+                        controller.callSignup();
+                      }
+                    },
             ),
             const SizedBox(height: 114),
           ],

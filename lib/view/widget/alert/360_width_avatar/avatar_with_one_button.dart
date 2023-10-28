@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class AvatarhWithOneButton extends StatelessWidget {
   const AvatarhWithOneButton({
@@ -47,15 +47,15 @@ class AvatarhWithOneButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ButtonSmall(
+                CustomButton(
+                  size: ButtonSize.small,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '닫기',
-                  width: 180,
-                ),
+                )
               ],
-            ),
+            )
           ],
         ),
       ),

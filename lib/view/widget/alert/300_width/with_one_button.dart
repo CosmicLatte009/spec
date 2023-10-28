@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_text_style.dart';
-import '../../button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class WithOneButton extends StatelessWidget {
   final String? message;
@@ -14,7 +14,7 @@ class WithOneButton extends StatelessWidget {
       ),
       content: SizedBox(
         width: 242,
-        height: 109,
+        height: 139,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,13 +29,13 @@ class WithOneButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ButtonSmall(
+                CustomButton(
+                  size: ButtonSize.small,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
                   text: '삭제하기',
-                  width: 180,
-                ),
+                )
               ],
             ),
           ],

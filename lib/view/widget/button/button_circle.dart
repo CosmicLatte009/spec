@@ -6,20 +6,26 @@ class CircleButton extends StatelessWidget {
   const CircleButton({
     super.key,
     required this.svg,
+    required this.onTap,
   });
 
   final String svg;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       elevation: 8.0,
       shape: const CircleBorder(),
-      child: CircleAvatar(
-        radius: 15,
-        backgroundColor: AppColor.primary05,
-        child: SvgPicture.asset(
-          svg,
+      child: InkWell(
+        onTap: onTap,
+        customBorder: const CircleBorder(),
+        child: CircleAvatar(
+          radius: 15,
+          backgroundColor: AppColor.primary05,
+          child: SvgPicture.asset(
+            svg,
+          ),
         ),
       ),
     );

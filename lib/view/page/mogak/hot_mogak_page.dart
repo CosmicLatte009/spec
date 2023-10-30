@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/all_mogak_controller.dart';
+import 'package:spec/controller/hot_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/card_seperator.dart';
@@ -11,9 +11,9 @@ import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
-class AllMogakPage extends GetView<AllMogakController> {
-  const AllMogakPage({super.key});
-  static const route = '/mogak/all';
+class HotMogakPage extends GetView<HotMogakController> {
+  const HotMogakPage({super.key});
+  static const route = '/mogak/hot';
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class AllMogakPage extends GetView<AllMogakController> {
             ),
             //이전페이지 네비게이션
             const NavMenu(
-              title: '모든 모각코',
+              title: '핫한 모각코',
               titleDirection: TitleDirection.center,
             ),
             // FilterButton
@@ -65,14 +65,14 @@ class AllMogakPage extends GetView<AllMogakController> {
               child: Obx(
                 () => ListView.separated(
                   shrinkWrap: true,
-                  itemCount: controller.allMogak!.length ?? 0,
+                  itemCount: controller.hotMogak!.length ?? 0,
                   itemBuilder: (context, index) {
-                    return MogakCard(mogak: controller.allMogak![index]);
+                    return MogakCard(mogak: controller.hotMogak![index]);
                   },
                   separatorBuilder: (context, index) {
                     return Column(
                       children: [
-                        CardSeperator(mogak: controller.allMogak![index]),
+                        CardSeperator(mogak: controller.hotMogak![index]),
                         const SizedBox(height: 16),
                       ],
                     );

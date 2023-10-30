@@ -16,6 +16,16 @@ class MogakController extends GetxController {
   RxList<Mogak>? get allMogak => _allMogak;
   RxList<Mogak>? get hotMogak => _hotMogak;
 
+  getAuth() async {
+    try {
+      var res = await controller.getToken();
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+    }
+  }
+
   getHotMogak() async {
     try {
       String path = '/api/top/mogak';
@@ -60,7 +70,11 @@ class MogakController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     //@todo 토큰 header에 설정하기
-    // dio.options.headers
+    String? authToken = await getAuth();
+
+    if (authToken != null) {
+      dio.options.headers['Authorization'] = authToken;
+    }
     await getAllMogak();
     await getHotMogak();
   }

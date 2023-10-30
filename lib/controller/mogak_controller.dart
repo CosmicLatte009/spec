@@ -5,21 +5,24 @@ import 'package:spec/model/mogak.dart';
 
 class MogakController extends GetxController {
   DetailMogak? _mogakById;
-  List<Mogak>? _allMogak = [];
+  final RxList<Mogak> _allMogak = <Mogak>[].obs;
   Dio dio = Dio();
   String baseUrl = 'https://dev.sniperfactory.com';
 
-  List<Mogak>? get allMogak => _allMogak;
+  RxList<Mogak>? get allMogak => _allMogak;
 
   getAllMogak() async {
-    String path = '/api/mogak';
-    var res = await dio.get(path);
-    _allMogak = List<Map<String, dynamic>>.from(res.data["data"])
-        .map(
-          (mogak) => Mogak.fromMap(mogak),
-        )
-        .toList();
-    // print(_allMogak);
+    try {
+      String path = '/api/mogak';
+      var res = await dio.get(path);
+      _allMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
+          .map(
+            (mogak) => Mogak.fromMap(mogak),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+    }
   }
 
   getMogakById(String id) async {
@@ -33,9 +36,9 @@ class MogakController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     dio.options.baseUrl = baseUrl;
-    getAllMogak();
+    await getAllMogak();
   }
 }

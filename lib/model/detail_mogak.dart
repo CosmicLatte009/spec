@@ -14,8 +14,8 @@ class DetailMogak {
   String visiblityStatus;
   int temperature;
   List<AppliedProfile> appliedProfiles;
-  List<String> talks;
-  List<String> upProfiles;
+  List<String?> talks;
+  List<String?> upProfiles;
 
   DetailMogak({
     required this.id,

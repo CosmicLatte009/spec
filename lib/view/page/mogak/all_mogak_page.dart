@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/all_mogak_controller.dart';
+import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/card_seperator.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/mogak_controller.dart';
+import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';

@@ -1,7 +1,10 @@
+import 'package:spec/model/badge.dart';
+
 class Author {
   String id;
   String? avatar;
   String nickname;
+  // Badge badge;
   String role;
   String position;
   int temperature;
@@ -10,6 +13,7 @@ class Author {
     required this.id,
     required this.avatar,
     required this.nickname,
+    // this.badge,
     required this.role,
     required this.position,
     required this.temperature,
@@ -23,6 +27,7 @@ class Author {
       role: map['role'],
       position: map['position'],
       temperature: map['temperature'],
+      // badge: Badge.fromMap(map['badge']),
     );
   }
 }

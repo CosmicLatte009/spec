@@ -5,6 +5,8 @@ import 'package:spec/controller/login_controller.dart';
 
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/page/forgot_password_page.dart';
+import 'package:spec/view/page/signup_page.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -150,7 +152,9 @@ class LoginScreen extends GetView<LoginController> {
 
   Widget _signupButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(SignupPage());
+      },
       child: Text(
         '회원가입하기',
         style: AppTextStyles.body14M().copyWith(color: Color(0xFF999999)),
@@ -160,7 +164,9 @@ class LoginScreen extends GetView<LoginController> {
 
   Widget _findPWButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(ForgotPasswordPage());
+      },
       child: Text(
         '비밀번호 찾기',
         style: AppTextStyles.body14M().copyWith(color: Color(0xFF999999)),

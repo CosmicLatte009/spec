@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       // getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: const SignupPage(),
+      home: const SplashPage(),
     );
   }
 }

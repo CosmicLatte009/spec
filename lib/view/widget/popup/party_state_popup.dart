@@ -20,7 +20,7 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
   @override
   Widget build(BuildContext context) {
     return Popup(
-      label: '참여자 목록',
+      label: '모집 상태',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -33,7 +33,7 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
               tileColorActive: true,
               selectedIndex: controller.selectedIndex,
               onItemSelect: (index) {
-                controller.selectedIndex(index);
+                controller.updateIndex(index);
               },
             ),
           ),

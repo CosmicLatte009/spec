@@ -13,9 +13,13 @@ class CreateMogakController extends GetxController {
   TextEditingController maxNumberController = TextEditingController();
   TextEditingController tagController = TextEditingController();
 
-  get selectedIndex => _selectedIndex;
+  get selectedIndex => _selectedIndex.value;
   get _visiblityState {
     return visiblityStatus[_selectedIndex as int];
+  }
+
+  void updateIndex(int index) {
+    _selectedIndex.value = index;
   }
 
   submitAction() async {

@@ -32,6 +32,7 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                 CustomMultipleTextEditor(
                   titleController: controller.titleController,
                   contentsController: controller.contentsController,
+                  tagsController: controller.tagController,
                 ),
                 Container(
                   margin: const EdgeInsets.all(8),
@@ -50,18 +51,13 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ListButton(
-                        //@todo: width 고정x, 전체 차지해야함
-                        //@todo: onTap이 연결되어있지 않음.
                         text: '모집인원',
                         listType: ListButtonType.setting,
                         onTap: () {
-                          print('모집인원 열어');
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return const PartyNumberPopup(
-                                partyNum: null,
-                              );
+                              return const PartyNumberPopup();
                             },
                           );
                         },
@@ -71,7 +67,6 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                         text: '모집상태',
                         listType: ListButtonType.setting,
                         onTap: () {
-                          print('모집상태 열어');
                           showDialog(
                             context: context,
                             builder: (context) {

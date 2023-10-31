@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   intl: ^0.18.1
   shimmer: ^3.0.0
+  bubble: ^1.2.1
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -66,8 +67,6 @@ flutter:
     - assets/avatar/hair/
     - assets/avatar/item/
     - assets/avatar/skin/
-    - assets/icons/pngs/
-    - assets/icons/svgs/
     - assets/icons/pngs/
     - assets/logo/Logo.png
     - assets/logo/splash.svg

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/model/catchup.dart';
+import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
+import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
 import '../../controller/catchup_controller.dart';
@@ -28,13 +30,20 @@ class CatchUpPage extends GetView<CatchUpController> {
         body: Column(
           children: [
             _buildSearchTextField(), // 검색 필드 구성
-            TextButton(
-                onPressed: () {
-                  Get.to(HotCatchUp());
-                },
-                child: Text('핫한 캐치업')),
+            NavMenu(
+              title: '핫한 캐치업',
+              titleDirection: TitleDirection.left,
+              withEmoji: true,
+              emoji: 'assets/icons/pngs/dart.png',
+            ),
+
             _buildHotCatchUpsSection(), // '핫한 캐치업' 섹션 구성
-            TextButton(onPressed: () {}, child: Text('캐치업')),
+            NavMenu(
+              title: '캐치업!',
+              titleDirection: TitleDirection.left,
+              withEmoji: true,
+              emoji: 'assets/icons/pngs/dart.png',
+            ),
 
             _buildFlexibleCatchUpsListView(), // 주요 캐치업 리스트뷰 구성
           ],
@@ -63,27 +72,29 @@ class CatchUpPage extends GetView<CatchUpController> {
         itemCount: hotCatchUpsList.length,
         itemBuilder: (context, index) {
           final catchUp = hotCatchUpsList[index];
-          // String을 DateTime으로 변환
+
+          // 날짜 포맷팅
           final createdAtDate = DateTime.parse(catchUp.createdAt);
           final dateOnly = DateTime(
               createdAtDate.year, createdAtDate.month, createdAtDate.day);
           final formattedDate = DateFormat('yyyy.MM.dd').format(dateOnly);
 
           return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CardWidget(
-              temperature: catchUp.upProfiles.length.toString(),
-              avatar: catchUp.author.avatar ?? 'assets/man-a.svg',
-              position: catchUp.author.nickname,
-              nickname: catchUp.author.nickname,
-              url: catchUp.url,
-              hashTags: catchUp.category,
-              thumbnail: catchUp.thumbnail,
-              description: catchUp.title,
-              createdTime: formattedDate,
-              postId: catchUp.id,
-            ),
-          );
+              padding: const EdgeInsets.all(8.0),
+              child: CardWidget(
+                minibadge: catchUp.author.role, // 이 필드의 정의가 위에 없으나 예시에 포함됨
+                temperature: catchUp.upProfiles.length.toString(),
+                avatar: catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
+                position: catchUp.author.badge.shortName ??
+                    'Unknown Position', // 기본값 예시
+                nickname: catchUp.author.nickname,
+                url: catchUp.url,
+                hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
+                thumbnail: catchUp.thumbnail,
+                description: catchUp.title,
+                createdTime: formattedDate,
+                postId: catchUp.id,
+              ));
         },
       ),
     );
@@ -109,21 +120,24 @@ class CatchUpPage extends GetView<CatchUpController> {
       itemCount: catchUpsList.length,
       itemBuilder: (context, index) {
         final catchUp = catchUpsList[index];
-        // String을 DateTime으로 변환
+
+        // 날짜 포맷팅
         final createdAtDate = DateTime.parse(catchUp.createdAt);
         final dateOnly = DateTime(
             createdAtDate.year, createdAtDate.month, createdAtDate.day);
         final formattedDate = DateFormat('yyyy.MM.dd').format(dateOnly);
 
         return Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: const EdgeInsets.all(8.0),
           child: CardWidget(
+            minibadge: catchUp.author.role, // 이 필드는 이전 예제와 동일하게 처리
             temperature: catchUp.upProfiles.length.toString(),
-            avatar: catchUp.author.avatar ?? 'assets/man-a.svg',
-            position: catchUp.author.position,
+            avatar: catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
+            position:
+                catchUp.author.badge.shortName ?? 'Unknown Position', // 기본값 예시
             nickname: catchUp.author.nickname,
             url: catchUp.url,
-            hashTags: catchUp.category ?? '태그가 없어요 ㅠㅠ',
+            hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
             thumbnail: catchUp.thumbnail,
             description: catchUp.title,
             createdTime: formattedDate,
@@ -157,7 +171,7 @@ class CatchUpPage extends GetView<CatchUpController> {
                 controller.startSearch(value);
               },
               decoration: InputDecoration(
-                suffixIcon: IconButton(
+                prefixIcon: IconButton(
                     onPressed: () {
                       controller
                           .startSearch(controller.searchTextcontroller.text);
@@ -165,7 +179,7 @@ class CatchUpPage extends GetView<CatchUpController> {
                     icon: Icon(Icons.search)),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                hintText: '검색하기',
+                hintText: '내용 검색하기',
                 fillColor: Colors.white,
                 filled: true,
                 enabledBorder: OutlineInputBorder(

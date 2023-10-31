@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/login_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/view/page/catch_up_page.dart';
+import 'package:spec/view/page/login_page.dart';
 import 'package:spec/view/page/signup_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 
@@ -21,12 +24,13 @@ class MyApp extends StatelessWidget {
           Get.put(AuthController());
           Get.put(LoginController());
           Get.lazyPut(() => SignupController());
+          Get.put(CatchUpController());
         },
       ),
       // getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: const SplashPage(),
+      home: SplashPage(),
     );
   }
 }

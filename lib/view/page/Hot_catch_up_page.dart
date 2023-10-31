@@ -154,6 +154,7 @@ class HotCatchUp extends GetView<CatchUpController> {
             child: Column(
               children: [
                 CardWidget(
+                  minibadge: catchUp.author.role,
                   temperature: catchUp.temperature.toString(),
                   avatar: catchUp.author.avatar ?? 'assets/man-a.svg',
                   position: catchUp.author.position,

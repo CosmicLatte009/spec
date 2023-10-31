@@ -24,7 +24,7 @@ class LikeButtonWidget extends GetView<CatchUpController> {
                       .favorite_border, // Change to favorite_border for not liked
             ),
             color: controller.isLiked(catchUpId) ? Colors.red : Colors.grey,
-            iconSize: iconSize, // Set the icon size
+            iconSize: 20, // Set the icon size
             onPressed: () => controller.sendLike(catchUpId),
           ),
         ));

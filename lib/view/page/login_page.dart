@@ -19,34 +19,36 @@ class LoginScreen extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _buildLoginForm(),
-      ),
+      body: _buildLoginForm(),
     );
   }
 
   Widget _buildLoginForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return ListView(
       children: [
-        Expanded(flex: 7, child: SvgPicture.asset('assets/icon_logo.svg')),
+        SizedBox(height: 100),
+        Expanded(flex: 4, child: SvgPicture.asset('assets/logo/icon_logo.svg')),
+        SizedBox(height: 50),
         Expanded(
-          flex: 5,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                _buildEmailField(),
-                SizedBox(height: 5),
-                _buildPasswordField(),
-                SizedBox(height: 5),
-                _buildAuxiliaryOptions(),
-              ],
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _buildEmailField(),
+                  SizedBox(height: 5),
+                  _buildPasswordField(),
+                  SizedBox(height: 5),
+                  _buildAuxiliaryOptions(),
+                ],
+              ),
             ),
           ),
         ),
-        Expanded(flex: 4, child: _buildLoginButton()),
+        SizedBox(height: 100),
+        Expanded(flex: 1, child: _buildLoginButton()),
       ],
     );
   }
@@ -176,17 +178,17 @@ class LoginScreen extends GetView<LoginController> {
 
   Widget _buildLoginButton() {
     return Padding(
-      padding: EdgeInsetsDirectional.symmetric(vertical: 80),
-      child: CustomButton(
-        size: ButtonSize.xLarge,
-        onTap: () {
-          isSubmitted.value = true;
-          if (_formKey.currentState!.validate()) {
-            controller.login();
-          }
-        },
-        text: '로그인',
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+        child: CustomButton(
+          width: 360,
+          height: 56,
+          onTap: () {
+            isSubmitted.value = true;
+            if (_formKey.currentState!.validate()) {
+              controller.login();
+            }
+          },
+          text: '로그인',
+        ));
   }
 }

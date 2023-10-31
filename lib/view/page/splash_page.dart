@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:spec/view/page/login_page.dart';
 import 'package:spec/view/widget/button/button_xlarge.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -22,12 +23,18 @@ class SplashPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 Image.asset('assets/logo/Logo.png'),
                 const SizedBox(height: 150),
-                ButtonXlarge(
-                  text: '시작하기',
-                  onTap: () {
-                    Get.to(() => LoginScreen());
-                  },
-                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                  child: CustomButton(
+                    width: 370,
+                    height: 56,
+                    onTap: () {
+                      Get.to(LoginScreen());
+                    },
+                    text: '로그인',
+                  ),
+                )
               ],
             ),
           )),

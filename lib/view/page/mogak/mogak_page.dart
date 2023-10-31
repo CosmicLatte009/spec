@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
@@ -30,16 +31,14 @@ class MogakPage extends GetView<MogakController> {
           const CustomInput(
             type: InputType.search,
           ),
-          GestureDetector(
-            onTap: () {
-              Get.to(const HotMogakPage());
+          NavMenu(
+            title: '핫한 모각코',
+            titleDirection: TitleDirection.left,
+            withEmoji: true,
+            emoji: 'assets/icons/pngs/letter.png',
+            onButtonPressed: () {
+              Get.toNamed(AppPagesRoutes.hotMogak);
             },
-            child: const NavMenu(
-              title: '핫한 모각코',
-              titleDirection: TitleDirection.left,
-              withEmoji: true,
-              emoji: 'assets/icons/pngs/letter.png',
-            ),
           ),
           Obx(
             () => controller.hotMogak != null && controller.hotMogak!.isNotEmpty
@@ -56,16 +55,14 @@ class MogakPage extends GetView<MogakController> {
                   )
                 : Container(),
           ),
-          GestureDetector(
-            onTap: () {
-              Get.to(const AllMogakPage());
+          NavMenu(
+            title: '모든 모각코',
+            titleDirection: TitleDirection.left,
+            withEmoji: true,
+            emoji: 'assets/icons/pngs/letter.png',
+            onButtonPressed: () {
+              Get.toNamed(AppPagesRoutes.allMogak);
             },
-            child: const NavMenu(
-              title: '모든 모각코',
-              titleDirection: TitleDirection.left,
-              withEmoji: true,
-              emoji: 'assets/icons/pngs/letter.png',
-            ),
           ),
           Obx(
             () => controller.allMogak != null && controller.hotMogak!.isNotEmpty

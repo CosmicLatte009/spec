@@ -86,12 +86,12 @@ class MogakPage extends GetView<MogakController> {
           Get.to(const CreateMogakPage());
         },
       ),
-      // bottomNavigationBar: CustomBottomNavigationBar(
-      //   currentIndex: 3,
-      //   onTap: (val) {
-      //     print(val);
-      //   },
-      // ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: 3,
+        onTap: (val) {
+          print(val);
+        },
+      ),
     );
   }
 }

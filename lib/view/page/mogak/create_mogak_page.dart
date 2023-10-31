@@ -92,12 +92,12 @@ class CreateMogakPage extends GetView<CreateMogakController> {
           const SizedBox(height: 37),
         ],
       ),
-      // bottomNavigationBar: CustomBottomNavigationBar(
-      //   currentIndex: 3,
-      //   onTap: (val) {
-      //     print(val);
-      //   },
-      // ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: 3,
+        onTap: (val) {
+          print(val);
+        },
+      ),
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 import 'package:spec/view/widget/select/custom_radio_group.dart';
-
-// 모각 상태: "HIDDEN", "OPEN", "CLOSE" 형태로 서버에 전송
-enum RecruitState { HIDDEN, OPEN, CLOSE }
 
 class PartyStatePopup extends StatefulWidget {
   const PartyStatePopup({
@@ -15,8 +14,8 @@ class PartyStatePopup extends StatefulWidget {
 }
 
 class _PartyStatePopupState extends State<PartyStatePopup> {
-  int selectedIndex = 0;
-  List recruitState = ['작성중', '모집중', '모집완료'];
+  var controller = Get.find<CreateMogakController>();
+  List visiblityStatus = ['작성중', '모집중', '모집완료'];
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +27,15 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
           const SizedBox(
             height: 24,
           ),
-          CustomRadioGroup(
-            items: recruitState,
-            tileColorActive: true,
-            selectedIndex: selectedIndex,
-            onItemSelect: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
+          Obx(
+            () => CustomRadioGroup(
+              items: visiblityStatus,
+              tileColorActive: true,
+              selectedIndex: controller.selectedIndex,
+              onItemSelect: (index) {
+                controller.selectedIndex(index);
+              },
+            ),
           ),
           const SizedBox(
             height: 10,

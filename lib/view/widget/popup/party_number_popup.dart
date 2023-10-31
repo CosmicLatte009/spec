@@ -6,9 +6,9 @@ import 'package:spec/view/widget/popup/popup.dart';
 class PartyNumberPopup extends StatelessWidget {
   const PartyNumberPopup({
     super.key,
-    required this.partyNum,
+    this.partyNum = 0,
   });
-  final int partyNum;
+  final int? partyNum;
 
   @override
   Widget build(BuildContext context) {

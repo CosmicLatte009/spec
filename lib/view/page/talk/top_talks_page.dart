@@ -46,7 +46,13 @@ class TopTalksPage extends StatelessWidget {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: TalkBubbleBuilder(),
+              child: TalkBubbleBuilder(
+                shortName: '플러터/1기',
+                nickName: '캐서린',
+                contents: '근데 15일차 강의 푸신 분이 어쩌고저쩌고',
+                isLikePressed: true,
+                isMytalk: true,
+              ),
             ),
           ],
         ),

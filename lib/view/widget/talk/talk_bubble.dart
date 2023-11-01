@@ -82,14 +82,11 @@ class _TalkBubbleState extends State<TalkBubble> {
                                 ),
                                 const SizedBox(height: 4),
                                 if (widget.type == BubbleType.less)
-                                  SizedBox(
-                                    width: 150,
-                                    child: Text(
-                                      widget.text,
-                                      style: AppTextStyles.body14M(
-                                          color: AppColor.black80),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  Text(
+                                    widget.text,
+                                    style: AppTextStyles.body14M(
+                                        color: AppColor.black80),
+                                    overflow: TextOverflow.ellipsis,
                                   )
                                 else
                                   Container(

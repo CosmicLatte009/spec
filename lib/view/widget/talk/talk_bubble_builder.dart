@@ -1,10 +1,29 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import '../avatar/user_avatar.dart';
 import 'talk_bubble.dart';
 
 class TalkBubbleBuilder extends StatelessWidget {
-  const TalkBubbleBuilder({super.key});
+  const TalkBubbleBuilder(
+      {super.key,
+      this.userAvatar,
+      required this.shortName,
+      required this.nickName,
+      required this.contents,
+      this.commentCount,
+      this.upCount,
+      required this.isLikePressed,
+      this.isMytalk});
 
+  final String? userAvatar;
+  final String shortName;
+  final String nickName;
+  final String contents;
+  final int? commentCount;
+  final int? upCount;
+  final bool isLikePressed;
+  final bool? isMytalk;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -22,19 +41,19 @@ class TalkBubbleBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UserAvatar(
-              avatarSvg: 'assets/icons/svgs/man-a.svg',
+              avatarSvg: userAvatar,
               direction: BadgeDirection.column,
-              shortName: '개발자/1기',
-              nickName: '캐서린',
+              shortName: shortName,
+              nickName: nickName,
             ),
             SizedBox(width: 17.02),
             TalkBubble(
-              text: '근데 15일차 강의 푸신 분 계신가요? 저는 아직 잘 모르겠습니다...혹시 도움 주실 분 계실까요???',
-              isLikePressed: true,
+              text: contents,
+              isLikePressed: isLikePressed,
               type: BubbleType.less,
-              commentCount: 9,
-              upCount: 3,
-              mytalk: true,
+              commentCount: commentCount ?? 0,
+              upCount: upCount ?? 0,
+              mytalk: isMytalk ?? false,
             ),
           ],
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/button_small.dart';
-import 'package:spec/view/widget/tag.dart';
+import 'package:spec/view/widget/tag/tag.dart';
 
 class CustomTitle extends StatelessWidget {
   const CustomTitle({
@@ -88,12 +88,6 @@ class CustomTitle extends StatelessWidget {
                         children: [
                           Tag(
                             text: tag1,
-                            controller: tag1Controller,
-                          ),
-                          const SizedBox(width: 8),
-                          Tag(
-                            text: tag2,
-                            controller: tag2Controller,
                           ),
                         ],
                       ),

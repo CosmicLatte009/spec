@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_color.dart';
@@ -78,6 +80,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   final Function(int) onTap;
 
   CustomBottomNavigationBar({
+    super.key,
     required this.currentIndex,
     required this.onTap,
   });
@@ -90,10 +93,11 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 76,
+    return SizedBox(
+      height: Platform.isIOS ? 100 : 76,
       child: BottomNavigationBar(
-        unselectedLabelStyle: AppTextStyles.body12R(color: Color(0xFF999999)),
+        unselectedLabelStyle:
+            AppTextStyles.body12R(color: const Color(0xFF999999)),
         selectedLabelStyle: AppTextStyles.body12R(color: AppColor.primary80),
         type: BottomNavigationBarType.fixed,
         items: List.generate(widget.bottomNavBarItems.length, (index) {

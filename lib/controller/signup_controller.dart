@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/api_routes.dart';
-import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/signup_success_page.dart';
 
 class SignupController extends GetxController {
@@ -47,10 +46,15 @@ class SignupController extends GetxController {
         'name': name,
       });
       if (res.statusCode == 200) {
-        setToken(res.data["data"]);
-        Get.to(const SignupSuccessPage());
-        // Get.toNamed(AppPagesRoutes.signupSuccess);
-        print(res.data["data"]);
+        if (res.data['status'] != 'error') {
+          setToken(res.data["data"]);
+          Get.to(const SignupSuccessPage());
+          // Get.toNamed(AppPagesRoutes.signupSuccess);
+        } else {
+          print(res.data['status']);
+        }
+        print(res.data);
+        print(res.data["message"]);
       }
     } on DioException catch (e) {
       print('가입실패');

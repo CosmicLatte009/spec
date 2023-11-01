@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/model/catchup.dart';
-import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
 import '../../controller/catchup_controller.dart';
 import 'package:intl/intl.dart';
-import '../../model/Author.dart';
 import 'Hot_catch_up_page.dart';
 import '../../../util/app_color.dart';
 
@@ -87,7 +85,7 @@ class CatchUpPage extends GetView<CatchUpController> {
                 minibadge: catchUp.author.role, // 이 필드의 정의가 위에 없으나 예시에 포함됨
                 temperature: catchUp.upProfiles.length.toString(),
                 avatar: catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
-                position: catchUp.author.badge.shortName ??
+                position: catchUp.author.badge.shorName ??
                     'Unknown Position', // 기본값 예시
                 nickname: catchUp.author.nickname,
                 url: catchUp.url,
@@ -136,7 +134,7 @@ class CatchUpPage extends GetView<CatchUpController> {
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
             position:
-                catchUp.author.badge.shortName ?? 'Unknown Position', // 기본값 예시
+                catchUp.author.badge.shorName ?? 'Unknown Position', // 기본값 예시
             nickname: catchUp.author.nickname,
             url: catchUp.url,
             hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',

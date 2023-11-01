@@ -7,8 +7,6 @@ import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../model/catchup.dart';
 import 'widget_catchup_like.dart';
 
 class CardWidget extends GetView<CatchUpController> {

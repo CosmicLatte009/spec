@@ -4,7 +4,7 @@ class Author {
   String id;
   String? avatar;
   String nickname;
-  // Badge badge;
+  Badge badge;
   String role;
   String position;
   int temperature;
@@ -13,7 +13,7 @@ class Author {
     required this.id,
     required this.avatar,
     required this.nickname,
-    // this.badge,
+    required this.badge,
     required this.role,
     required this.position,
     required this.temperature,
@@ -24,6 +24,7 @@ class Author {
       id: map['id'],
       avatar: map['avatar'],
       nickname: map['nickname'],
+      badge: Badge.fromMap(map['badge']),
       role: map['role'],
       position: map['position'],
       temperature: map['temperature'],

@@ -5,14 +5,11 @@ import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
 import 'package:spec/controller/login_controller.dart';
-import 'package:spec/controller/mogak/all_mogak_controller.dart';
-import 'package:spec/controller/mogak/create_mogak_controller.dart';
-import 'package:spec/controller/mogak/hot_mogak_controller.dart';
-import 'package:spec/controller/mogak/mogak_controller.dart';
-import 'package:spec/controller/profile_controller.dart';
+
 import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
-import 'package:spec/view/page/signup_page.dart';
+import 'package:spec/util/app_pages.dart';
+import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 
 void main() {
@@ -39,7 +36,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: HomePage(),
+      home: SplashPage(),
     );
   }
 }

@@ -51,7 +51,7 @@ class CatchUp {
         updatedAt: json['updatedAt'] ?? 'default',
         category: json['category'] ?? 'default',
         hashtag: json['hashtag'] ?? 'default',
-        author: Author.fromJson(json['author']),
+        author: Author.fromMap(json['author']),
         upProfiles: List<UpProfile>.from(
             json['upProfiles'].map((x) => UpProfile.fromJson(x))),
       );

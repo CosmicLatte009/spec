@@ -23,7 +23,7 @@ class Profile {
         id: json['id'],
         avatar: json['avatar'],
         nickname: json['nickname'],
-        badge: Badge.fromJson(json['badge']),
+        badge: Badge.fromMap(json['badge']),
         role: json['role'],
         position: json['position'],
         temperature: json['temperature'],

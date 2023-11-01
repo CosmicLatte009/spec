@@ -1,0 +1,51 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class CreateMogakController extends GetxController {
+  Dio dio = Dio();
+  String path = '/api/mogak';
+  List<String> visiblityStatus = ["HIDDEN", "OPEN", "CLOSE"];
+  final RxInt _selectedIndex = RxInt(0);
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentsController = TextEditingController();
+  TextEditingController maxNumberController = TextEditingController();
+  TextEditingController tagController = TextEditingController();
+
+  get selectedIndex => _selectedIndex.value;
+  get _visiblityState {
+    return visiblityStatus[_selectedIndex as int];
+  }
+
+  void updateIndex(int index) {
+    _selectedIndex.value = index;
+  }
+
+  submitAction() async {
+    String content = titleController.text; //5자 이상, 50자 이하
+    String title = contentsController.text; // 10자 이상, 500자 이하
+    int maxMember = maxNumberController.text as int; // 1명 이상 100명 이하
+    String hashtag = tagController.text; // 디폴트: 빈 문자열
+    String visiblityState = _visiblityState; // 값 입력하지 않았을 경우 OPEN으로 default
+
+    try {
+      var res = await dio.post(path, data: {
+        content: content,
+        title: title,
+        maxMember: maxMember,
+        hashtag: hashtag,
+        visiblityStatus: visiblityState,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    dio.options.baseUrl = 'https://dev.sniperfactory.com';
+    //@todo submitAction이 발생하면 어디로 리다이렉트 할 것인가?
+  }
+}

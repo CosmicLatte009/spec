@@ -28,12 +28,13 @@ class ListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Column(
         children: [
           Container(
             alignment: Alignment.topCenter,
             padding: const EdgeInsets.only(right: 6),
-            width: 324,
+            width: double.infinity,
             height: 38,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

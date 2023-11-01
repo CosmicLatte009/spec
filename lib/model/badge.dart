@@ -1,17 +1,19 @@
 class Badge {
-  final String shortName;
-  final String fgColor;
-  final String bgColor;
+  String shorName;
+  String bgColor;
+  String fgColor;
 
   Badge({
-    required this.shortName,
-    required this.fgColor,
+    required this.shorName,
     required this.bgColor,
+    required this.fgColor,
   });
 
-  factory Badge.fromJson(Map<String, dynamic> json) => Badge(
-        shortName: json['shortName'],
-        fgColor: json['fgColor'],
-        bgColor: json['bgColor'],
-      );
+  factory Badge.fromMap(Map<String, dynamic> map) {
+    return Badge(
+      shorName: map['shorName'],
+      bgColor: map['bgColor'],
+      fgColor: map['fgColor'],
+    );
+  }
 }

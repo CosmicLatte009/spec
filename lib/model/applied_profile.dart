@@ -1,33 +1,28 @@
-import 'package:spec/model/badge.dart';
-
-class Author {
+class AppliedProfile {
   String id;
   String? avatar;
   String nickname;
-  // Badge badge;
   String role;
   String position;
-  int temperature;
+  int? temperature;
 
-  Author({
+  AppliedProfile({
     required this.id,
-    required this.avatar,
+    this.avatar,
     required this.nickname,
-    // this.badge,
     required this.role,
     required this.position,
-    required this.temperature,
+    this.temperature,
   });
 
-  factory Author.fromMap(Map<String, dynamic> map) {
-    return Author(
+  factory AppliedProfile.fromMap(Map<String, dynamic> map) {
+    return AppliedProfile(
       id: map['id'],
       avatar: map['avatar'],
       nickname: map['nickname'],
       role: map['role'],
       position: map['position'],
       temperature: map['temperature'],
-      // badge: Badge.fromMap(map['badge']),
     );
   }
 }

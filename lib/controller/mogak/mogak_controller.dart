@@ -58,7 +58,6 @@ class MogakController extends GetxController {
     try {
       String path = '/api/mogak/$id';
       var res = await dio.get(path);
-      print(res.data); //인증 필요
       return DetailMogak.fromMap(res.data["data"]);
     } catch (e) {
       print(e);

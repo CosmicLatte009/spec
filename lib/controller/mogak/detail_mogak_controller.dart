@@ -6,9 +6,9 @@ class DetailMogakController extends GetxController {
   var controller = Get.find<MogakController>();
 
   RxString mogakId = RxString('');
-  final Rxn<DetailMogak> _detailMogak = Rxn();
+  final Rxn<DetailMogak> _detailMogak = Rxn<DetailMogak>();
 
-  Rxn<DetailMogak>? get detailMogak => _detailMogak;
+  Rxn<DetailMogak> get detailMogak => _detailMogak;
 
   // 동적으로 route를 생성하기 위해 생성자가 필요함.
   DetailMogakController(String id) {
@@ -16,7 +16,9 @@ class DetailMogakController extends GetxController {
   }
 
   getDetailMogak() async {
-    _detailMogak.value = await controller.getMogakById(id: mogakId.value);
+    _detailMogak(
+      await controller.getMogakById(id: mogakId.value),
+    );
   }
 
   @override

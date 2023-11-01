@@ -51,8 +51,8 @@ class DetailMogak {
       temperature: map['temperature'],
       appliedProfiles: List<AppliedProfile>.from(
           map['appliedProfiles'].map((x) => AppliedProfile.fromMap(x))),
-      talks: List<String>.from(map['talks']) ?? [],
-      upProfiles: List<String>.from(map['upProfiles']) ?? [],
+      talks: List<String>.from(map['talks']),
+      upProfiles: List<String>.from(map['upProfiles']),
     );
   }
 }

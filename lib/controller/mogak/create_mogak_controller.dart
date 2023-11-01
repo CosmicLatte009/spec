@@ -34,7 +34,7 @@ class CreateMogakController extends GetxController {
         content: content,
         title: title,
         maxMember: maxMember,
-        hashtag: hashtag ?? "",
+        hashtag: hashtag,
         visiblityStatus: visiblityState,
       });
     } catch (e) {

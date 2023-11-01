@@ -65,7 +65,7 @@ class HotMogakPage extends GetView<HotMogakController> {
               child: Obx(
                 () => ListView.separated(
                   shrinkWrap: true,
-                  itemCount: controller.hotMogak!.length ?? 0,
+                  itemCount: controller.hotMogak!.length,
                   itemBuilder: (context, index) {
                     return MogakCard(mogak: controller.hotMogak![index]);
                   },

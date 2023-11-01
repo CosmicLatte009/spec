@@ -150,14 +150,16 @@ class HotCatchUp extends GetView<CatchUpController> {
           final formattedDate = DateFormat('yyyy.MM.dd').format(dateOnly);
 
           return Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(.0),
             child: Column(
               children: [
                 CardWidget(
-                  minibadge: catchUp.author.role,
-                  temperature: catchUp.temperature.toString(),
-                  avatar: catchUp.author.avatar ?? 'assets/man-a.svg',
-                  position: catchUp.author.position,
+                  minibadge: catchUp.author.role, // 이 필드의 정의가 위에 없으나 예시에 포함됨
+                  temperature: catchUp.upProfiles.length.toString(),
+                  avatar:
+                      catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
+                  position: catchUp.author.badge.shortName ??
+                      'Unknown Position', // 기본값 예시
                   nickname: catchUp.author.nickname,
                   url: catchUp.url,
                   hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',

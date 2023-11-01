@@ -88,7 +88,7 @@ class CardWidget extends GetView<CatchUpController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   StackAvatars(
-                    upLength: temperature.toString(),
+                    upLength: int.parse(temperature),
                     commentLength: 0,
                   ),
                 ],

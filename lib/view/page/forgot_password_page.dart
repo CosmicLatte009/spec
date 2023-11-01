@@ -34,7 +34,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   ),
                 ),
                 CustomButton(
-                  // onTap: () {},
+                  onTap: () {},
                   text: '보내기',
                   type: ButtonType.main,
                   height: 56,

@@ -31,18 +31,20 @@ class CatchUpPage extends GetView<CatchUpController> {
           children: [
             _buildSearchTextField(), // 검색 필드 구성
             NavMenu(
-              title: '핫한 캐치업',
-              titleDirection: TitleDirection.left,
-              withEmoji: true,
-              emoji: 'assets/icons/pngs/dart.png',
-            ),
-
+                title: '캐치업!',
+                titleDirection: TitleDirection.left,
+                withEmoji: true,
+                emoji: 'assets/icons/pngs/dart.png',
+                onButtonPressed: () => Get.to(HotCatchUp())),
             _buildHotCatchUpsSection(), // '핫한 캐치업' 섹션 구성
             NavMenu(
               title: '캐치업!',
               titleDirection: TitleDirection.left,
               withEmoji: true,
               emoji: 'assets/icons/pngs/dart.png',
+              onButtonPressed: () {
+                Get.to(HotCatchUp());
+              },
             ),
 
             _buildFlexibleCatchUpsListView(), // 주요 캐치업 리스트뷰 구성

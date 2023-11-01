@@ -10,7 +10,6 @@ import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/all_talks_controller.dart';
-import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/splash_page.dart';

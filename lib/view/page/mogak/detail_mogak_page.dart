@@ -28,7 +28,7 @@ class DetailMogakPage extends GetView<DetailMogakController> {
           children: [
             const SizedBox(height: 24),
             const NavMenu(
-              title: '핫한 모각코',
+              title: '핫한 모각코', // @todo "핫한 모각코" "전체 모각코"
               titleDirection: TitleDirection.center,
             ),
             const SizedBox(height: 24),

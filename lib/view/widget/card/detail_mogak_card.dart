@@ -41,24 +41,29 @@ class DetailMogakCard extends StatelessWidget {
                 // user
                 Row(
                   children: [
-                    // @todo author Id로 유저정보 받아와야 할 듯.
-                    //https://dev.sniperfactory.com/api/profile/$authorId
-                    // Text(mogak.authorId[0]),
-                    const AvatarWithRole(),
-                    // mogak.author.avatar != null
-                    //     ? Text(mogak.author.avatar.toString())
-                    //     : const AvatarWithRole(),
-                    // const SizedBox(width: 8),
-                    // Text(
-                    //   mogak.author.nickname,
-                    //   style: AppTextStyles.body12B(),
-                    // ),
-                    const SizedBox(width: 8),
-                    CustomButton(
-                      text: '수료생',
-                      height: 22,
-                      type: ButtonType.neutral,
-                    ),
+                    mogak.appliedProfiles[0].avatar != null
+                        ? UserAvatar(
+                            avatarUrl: mogak.appliedProfiles[0].avatar,
+                            avatarSize: AvatarSize.w40,
+                            direction: BadgeDirection.row,
+                            shortName: mogak.appliedProfiles[0].badge != null
+                                ? mogak.appliedProfiles[0].badge!.shortName
+                                : '개발자/1기',
+                            nickName: mogak.appliedProfiles[0].nickname,
+                            nickNameSize: AppTextStyles.body12B(),
+                            role: '수료생',
+                          )
+                        : UserAvatar(
+                            avatarSvg: 'assets/icons/svgs/man-a.svg',
+                            avatarSize: AvatarSize.w40,
+                            direction: BadgeDirection.row,
+                            shortName: mogak.appliedProfiles[0].badge != null
+                                ? mogak.appliedProfiles[0].badge!.shortName
+                                : '개발자/1기',
+                            nickName: mogak.appliedProfiles[0].nickname,
+                            nickNameSize: AppTextStyles.body12B(),
+                            role: '수료생',
+                          ),
                   ],
                 ),
                 GestureDetector(

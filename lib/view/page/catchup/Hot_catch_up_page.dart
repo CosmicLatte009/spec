@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/page/catch_up_page.dart';
+import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
 
-import '../../../util/app_color.dart';
-import '../../controller/catchup_controller.dart';
+import '../../../../util/app_color.dart';
+import '../../../controller/catchup_controller.dart';
 
 class HotCatchUp extends GetView<CatchUpController> {
   @override

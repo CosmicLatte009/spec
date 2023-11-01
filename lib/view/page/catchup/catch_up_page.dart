@@ -4,10 +4,10 @@ import 'package:spec/model/catchup.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
-import '../../controller/catchup_controller.dart';
+import '../../../controller/catchup_controller.dart';
 import 'package:intl/intl.dart';
 import 'Hot_catch_up_page.dart';
-import '../../../util/app_color.dart';
+import '../../../../util/app_color.dart';
 
 // 'CatchUpPage' 클래스는 캐치업 페이지를 나타냄
 class CatchUpPage extends GetView<CatchUpController> {

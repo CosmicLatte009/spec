@@ -1,7 +1,10 @@
+import 'package:spec/model/badge.dart';
+
 class AppliedProfile {
   String id;
   String? avatar;
   String nickname;
+  Badge? badge;
   String role;
   String position;
   int? temperature;
@@ -10,6 +13,7 @@ class AppliedProfile {
     required this.id,
     this.avatar,
     required this.nickname,
+    this.badge,
     required this.role,
     required this.position,
     this.temperature,
@@ -23,6 +27,7 @@ class AppliedProfile {
       role: map['role'],
       position: map['position'],
       temperature: map['temperature'],
+      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
     );
   }
 }

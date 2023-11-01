@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/login_controller.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
@@ -35,12 +36,12 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => CreateMogakController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => AllTalksController());
+          Get.lazyPut(() => LikeController());
         },
       ),
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
-      // home: const SplashPage(),
-      home: const MogakPage(),
+      home: const SplashPage(),
     );
   }
 }

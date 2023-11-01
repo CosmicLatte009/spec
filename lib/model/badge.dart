@@ -1,17 +1,17 @@
 class Badge {
-  String shorName;
+  String shortName;
   String bgColor;
   String fgColor;
 
   Badge({
-    required this.shorName,
+    required this.shortName,
     required this.bgColor,
     required this.fgColor,
   });
 
   factory Badge.fromMap(Map<String, dynamic> map) {
     return Badge(
-      shorName: map['shorName'],
+      shortName: map['shortName'],
       bgColor: map['bgColor'],
       fgColor: map['fgColor'],
     );

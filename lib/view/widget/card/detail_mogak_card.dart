@@ -6,14 +6,20 @@ import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/atavar_with_role.dart';
+import 'package:spec/view/widget/avatar/join_avatars.dart';
+import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
 class DetailMogakCard extends StatelessWidget {
   const DetailMogakCard({
     super.key,
     required this.mogak,
+    this.controller,
+    this.like,
   });
   final DetailMogak mogak;
+  final controller;
+  final like;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +61,14 @@ class DetailMogakCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SvgPicture.asset(
-                  'assets/icons/svgs/Like.svg',
-                  width: 20,
-                  height: 20,
-                  color: AppColor.black10, //@todo click시 red
+                GestureDetector(
+                  onTap: like,
+                  child: SvgPicture.asset(
+                    'assets/icons/svgs/Like.svg',
+                    width: 20,
+                    height: 20,
+                    color: AppColor.black10, //@todo click시 red
+                  ),
                 ),
               ],
             ),
@@ -124,6 +133,24 @@ class DetailMogakCard extends StatelessWidget {
                   style: AppTextStyles.body12R(),
                 ),
               ],
+            ),
+            const SizedBox(height: 8),
+            //appliedProfiles
+            SizedBox(
+              height: 95,
+              child: JoinAvatars(
+                appliedProfiles: mogak.appliedProfiles,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              // @todo 버튼: join중일 때: 탈퇴하기, default: 참여하기
+              child: CustomButton(
+                text: '참여하기',
+                height: 56,
+                onTap: controller,
+              ),
             ),
           ],
         ),

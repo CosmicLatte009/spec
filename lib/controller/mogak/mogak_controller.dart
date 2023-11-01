@@ -58,6 +58,7 @@ class MogakController extends GetxController {
     try {
       String path = '/api/mogak/$id';
       var res = await dio.get(path);
+      print(res.data["data"]);
       return DetailMogak.fromMap(res.data["data"]);
     } catch (e) {
       print(e);
@@ -98,27 +99,6 @@ class MogakController extends GetxController {
         }
       } else {
         print(res.data['message']);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  /// 모각 좋아요
-  upMogak({required String mogakId}) async {
-    String path = '/api/up';
-    try {
-      var res = await dio.post(path, data: {
-        'mogakId': mogakId,
-      });
-      if (res.statusCode == 200) {
-        if (res.data["status"] == 'success') {
-          getAllMogak();
-          getHotMogak();
-          print('$mogakId 좋아요');
-        } else {
-          print(res.data["message"]);
-        }
       }
     } catch (e) {
       print(e);

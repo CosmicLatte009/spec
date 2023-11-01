@@ -48,7 +48,12 @@ class MogakCard extends StatelessWidget {
                   Row(
                     children: [
                       mogak.author.avatar != null
-                          ? Text(mogak.author.avatar.toString())
+                          ? CircleAvatar(
+                              backgroundColor: AppColor.primary05,
+                              child: Image.network(
+                                mogak.author.avatar!,
+                              ),
+                            )
                           : const AvatarWithRole(),
                       const SizedBox(width: 8),
                       Text(

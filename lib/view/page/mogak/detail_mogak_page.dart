@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/card/detail_mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
@@ -35,21 +36,11 @@ class DetailMogakPage extends GetView<DetailMogakController> {
               () => controller.detailMogak.value != null
                   ? DetailMogakCard(
                       mogak: controller.detailMogak.value!,
+                      controller:
+                          controller.joinMogak, // 혹은 controller.cancelJoin
+                      like: controller.like,
                     )
                   : Container(),
-            ),
-            //appliedProfiles
-            const Row(
-              children: [],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              // @todo 버튼: join중일 때: 탈퇴하기, default: 참여하기
-              child: CustomButton(
-                text: '참여하기',
-                height: 56,
-                onTap: controller.joinMogak,
-              ),
             ),
             const SizedBox(height: 8),
             // 댓글

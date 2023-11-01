@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,14 +32,13 @@ class ProfileController extends GetxController {
   TextEditingController githubController = TextEditingController();
   TextEditingController portfolio1Controller = TextEditingController();
   TextEditingController portfolio2Controller = TextEditingController();
-
   String? avatar;
 
   createProfile() async {
     String path = '/api/me/profile';
     String nickname = nicknameController.text;
-    // String bio = bioController.text ?? "이건뭐야";
-    String bio = "이건뭐야";
+    // String bio = bioController.text;
+    String bio = '뭐람';
     String position = _selectedPosition;
     // String? urlGithub = githubController.text;
     // String? urlPortfolio = portfolio1Controller.text;
@@ -45,18 +46,22 @@ class ProfileController extends GetxController {
 
     try {
       var res = await dio.post(path, data: {
-        nickname,
-        bio,
-        position,
-        avatar,
+        'nickname': nickname,
+        'bio': bio,
+        'position': position,
+        'avatar': avatar,
         // urlGithub,
         // urlPortfolio,
         // urlEtc,
       });
       print(res.data);
       if (res.statusCode == 200) {
-        if (res.data['status'] == 'sucsess') {
-          controller.setToken(res.data["data"]);
+        if (res.data['status'] == 'success') {
+          String newToken = res.data["data"];
+          controller.setToken(newToken); //토큰을 업데이트해야함.
+          dio.options.headers['Authorization'] = newToken;
+          //업데이트해야하는 토큰: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsb2R5Z2wxazAwMDBsODA4b2dtMHpheWUiLCJlbWFpbCI6InNlb2xnaXVubmllQHRlc3QuY29tIiwidmVyaWZpZWRFbWFpbCI6ZmFsc2UsInZlcmlmaWVkUGhvbmUiOmZhbHNlLCJuYW1lIjoi7ISk6riw7Ja464uIIiwicHJvZmlsZSI6eyJpZCI6ImNsb2Y0dmNwMDAwMDBrejA4bGJ4eHNwbGciLCJuaWNrbmFtZSI6IuyEpOq4sOyWuOuLiCIsImF2YXRhciI6bnVsbCwicG9zaXRpb24iOiJERVZFTE9QRVIiLCJyb2xlIjoiTkVXQklFIn0sImlhdCI6MTY5ODgwNTM5OH0._Mv3t4rE9g1POXQZNrLHLpN6QfqUbDnv92PI4A5hJUo
+          //기존토큰: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsb2R5Z2wxazAwMDBsODA4b2dtMHpheWUiLCJlbWFpbCI6InNlb2xnaXVubmllQHRlc3QuY29tIiwidmVyaWZpZWRFbWFpbCI6ZmFsc2UsInZlcmlmaWVkUGhvbmUiOmZhbHNlLCJuYW1lIjoi7ISk6riw7Ja464uIIiwicHJvZmlsZSI6bnVsbCwiaWF0IjoxNjk4Nzk3NDg1fQ.YioByqaojKQCo2nEaZuBjunMhcmnozxHzCfMlQQVD_0
           print('성공');
         } else {
           print('실패');
@@ -82,9 +87,14 @@ class ProfileController extends GetxController {
   void onInit() async {
     super.onInit();
     dio.options.baseUrl = baseUrl;
-    String? authToken = await getAuth();
+    RxString authToken = await getAuth();
     dio.options.headers['Authorization'] = authToken;
 
-    print(authToken);
+    ever(
+      authToken,
+      (callback) => {
+        dio.options.headers['Authorization'] = authToken,
+      },
+    );
   }
 }

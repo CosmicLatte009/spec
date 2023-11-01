@@ -7,10 +7,16 @@ class CircleButton extends StatelessWidget {
     super.key,
     required this.svg,
     required this.onTap,
+    this.backColor,
+    this.buttonWidth,
+    this.iconWidth,
   });
 
   final String svg;
   final Function() onTap;
+  final Color? backColor;
+  final double? buttonWidth;
+  final double? iconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +27,11 @@ class CircleButton extends StatelessWidget {
         onTap: onTap,
         customBorder: const CircleBorder(),
         child: CircleAvatar(
-          radius: 15,
-          backgroundColor: AppColor.primary05,
+          radius: (buttonWidth ?? 30) / 2,
+          backgroundColor: backColor ?? AppColor.primary05,
           child: SvgPicture.asset(
             svg,
+            width: iconWidth ?? 16.36,
           ),
         ),
       ),

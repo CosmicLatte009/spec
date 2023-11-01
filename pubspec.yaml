@@ -35,10 +35,10 @@ dependencies:
   flutter_secure_storage: ^5.1.2
   flutter_svg: ^2.0.7
   flutter_switch: ^0.3.2
-  get: ^4.6.6
-  intl: ^0.18.1
-  shimmer: ^3.0.0
   bubble: ^1.2.1
+  intl: ^0.18.1
+  get: ^4.6.6
+  shimmer: ^3.0.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

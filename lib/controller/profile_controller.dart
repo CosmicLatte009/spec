@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/view/page/mogak/mogak_page.dart';
 
 class ProfileController extends GetxController {
   var controller = Get.find<SignupController>();
@@ -59,12 +60,9 @@ class ProfileController extends GetxController {
         if (res.data['status'] == 'success') {
           String newToken = res.data["data"];
           controller.setToken(newToken); //토큰을 업데이트해야함.
-          dio.options.headers['Authorization'] = newToken;
-          //업데이트해야하는 토큰: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsb2R5Z2wxazAwMDBsODA4b2dtMHpheWUiLCJlbWFpbCI6InNlb2xnaXVubmllQHRlc3QuY29tIiwidmVyaWZpZWRFbWFpbCI6ZmFsc2UsInZlcmlmaWVkUGhvbmUiOmZhbHNlLCJuYW1lIjoi7ISk6riw7Ja464uIIiwicHJvZmlsZSI6eyJpZCI6ImNsb2Y0dmNwMDAwMDBrejA4bGJ4eHNwbGciLCJuaWNrbmFtZSI6IuyEpOq4sOyWuOuLiCIsImF2YXRhciI6bnVsbCwicG9zaXRpb24iOiJERVZFTE9QRVIiLCJyb2xlIjoiTkVXQklFIn0sImlhdCI6MTY5ODgwNTM5OH0._Mv3t4rE9g1POXQZNrLHLpN6QfqUbDnv92PI4A5hJUo
-          //기존토큰: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsb2R5Z2wxazAwMDBsODA4b2dtMHpheWUiLCJlbWFpbCI6InNlb2xnaXVubmllQHRlc3QuY29tIiwidmVyaWZpZWRFbWFpbCI6ZmFsc2UsInZlcmlmaWVkUGhvbmUiOmZhbHNlLCJuYW1lIjoi7ISk6riw7Ja464uIIiwicHJvZmlsZSI6bnVsbCwiaWF0IjoxNjk4Nzk3NDg1fQ.YioByqaojKQCo2nEaZuBjunMhcmnozxHzCfMlQQVD_0
-          print('성공');
+          Get.to(const MogakPage());
         } else {
-          print('실패');
+          print(res.data['message']);
         }
       }
     } catch (e) {
@@ -87,14 +85,7 @@ class ProfileController extends GetxController {
   void onInit() async {
     super.onInit();
     dio.options.baseUrl = baseUrl;
-    RxString authToken = await getAuth();
+    RxString? authToken = RxString(await getAuth() ?? "");
     dio.options.headers['Authorization'] = authToken;
-
-    ever(
-      authToken,
-      (callback) => {
-        dio.options.headers['Authorization'] = authToken,
-      },
-    );
   }
 }

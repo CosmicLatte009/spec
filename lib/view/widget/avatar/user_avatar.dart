@@ -19,9 +19,11 @@ class UserAvatar extends StatelessWidget {
     this.role,
     this.roleHeight,
     this.nickNameSize,
+    this.avatarUrl,
   });
 
   final String? avatarSvg;
+  final String? avatarUrl;
   final AvatarSize avatarSize;
   final BadgeDirection direction;
   final String? nickName;
@@ -122,11 +124,17 @@ class UserAvatar extends StatelessWidget {
             CircleAvatar(
               radius: finalRadius,
               backgroundColor: AppColor.primary05,
-              child: SvgPicture.asset(
-                avatarSvg ?? 'assets/icons/svgs/man-a.svg',
-                width: finalSvgSize,
-                height: finalSvgSize,
-              ),
+              child: avatarUrl != null
+                  ? Image.network(
+                      avatarUrl!,
+                      width: finalSvgSize,
+                      height: finalSvgSize,
+                    )
+                  : SvgPicture.asset(
+                      avatarSvg ?? 'assets/icons/svgs/man-a.svg',
+                      width: finalSvgSize,
+                      height: finalSvgSize,
+                    ),
             ),
             if (shortName != null)
               Positioned(

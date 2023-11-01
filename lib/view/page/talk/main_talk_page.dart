@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/talk/all_talks_controller.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/talk/talk_bubble_builder.dart';
 import 'package:spec/view/widget/custom_input.dart';
@@ -9,7 +11,7 @@ import '../../../util/app_color.dart';
 import '../../widget/avatar/user_avatar.dart';
 import '../../widget/talk/talk_bubble.dart';
 
-class MainTalkPage extends StatelessWidget {
+class MainTalkPage extends GetView<AllTalksController> {
   const MainTalkPage({super.key});
 
   @override
@@ -22,7 +24,7 @@ class MainTalkPage extends StatelessWidget {
         backColor: AppColor.primary80,
         buttonWidth: 50,
         onTap: () {
-          print('호잇');
+          // controller.getAllTalks();
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -78,7 +80,13 @@ class MainTalkPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: TalkBubbleBuilder(),
+              child: TalkBubbleBuilder(
+                shortName: '플러터/1기',
+                nickName: '캐서린',
+                contents: '근데 15일차 강의 푸신 분이 어쩌고저쩌고',
+                isLikePressed: true,
+                isMytalk: true,
+              ),
             ),
           ],
         ),

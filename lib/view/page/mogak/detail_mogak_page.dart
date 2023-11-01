@@ -9,6 +9,7 @@ import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+import 'package:spec/view/widget/talk/comment_talk_builder.dart';
 
 class DetailMogakPage extends GetView<DetailMogakController> {
   static const route = '/mogak/:id';
@@ -43,12 +44,15 @@ class DetailMogakPage extends GetView<DetailMogakController> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              // @todo 버튼: join중일 때: 탈퇴하기, default: 참여하기
               child: CustomButton(
                 text: '참여하기',
                 height: 56,
+                onTap: controller.joinMogak,
               ),
             ),
             const SizedBox(height: 8),
+            // 댓글
             Container(
               color: Colors.white,
               child: Padding(
@@ -72,7 +76,11 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 16),
                     //톡 리스트뷰
+                    const CommentTalkBuilder(
+                        //@todo 톡 리스트 전달
+                        ),
                   ],
                 ),
               ),

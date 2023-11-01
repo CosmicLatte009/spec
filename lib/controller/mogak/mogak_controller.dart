@@ -64,6 +64,67 @@ class MogakController extends GetxController {
     }
   }
 
+  /// 모각 신청
+  joinMogak({required String mogakId}) async {
+    String path = '/api/mogak/$mogakId/apply';
+    try {
+      var res = await dio.post(path);
+      if (res.statusCode == 200) {
+        if (res.data['status'] == 'success') {
+          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          print(res.data['data']['appliedProfiles']);
+        } else {
+          print(res.data['message']);
+        }
+      } else {
+        print(res.data['message']);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// 모각 참여 취소
+  cancelJoin({required String mogakId}) async {
+    String path = '/api/mogak/$mogakId/apply';
+    try {
+      var res = await dio.delete(path);
+      if (res.statusCode == 200) {
+        if (res.data['status'] == 'success') {
+          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          print(res.data['data']['appliedProfiles']);
+        } else {
+          print(res.data['message']);
+        }
+      } else {
+        print(res.data['message']);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// 모각 좋아요
+  upMogak({required String mogakId}) async {
+    String path = '/api/up';
+    try {
+      var res = await dio.post(path, data: {
+        'mogakId': mogakId,
+      });
+      if (res.statusCode == 200) {
+        if (res.data["status"] == 'success') {
+          getAllMogak();
+          getHotMogak();
+          print('$mogakId 좋아요');
+        } else {
+          print(res.data["message"]);
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void onInit() async {
     super.onInit();

@@ -6,10 +6,9 @@ import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
+import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_pages.dart';
-import 'package:spec/view/page/mogak/mogak_page.dart';
-import 'package:spec/view/page/signup_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 
 void main() {
@@ -31,13 +30,12 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => AllMogakController());
           Get.lazyPut(() => HotMogakController());
           Get.lazyPut(() => CreateMogakController());
+          Get.lazyPut(() => ProfileController());
         },
       ),
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
-      // home: const SplashPage(),
-      // home: const SignupPage(),
-      home: const MogakPage(),
+      home: const SplashPage(),
     );
   }
 }

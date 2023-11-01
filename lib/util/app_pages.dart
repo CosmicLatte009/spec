@@ -7,6 +7,11 @@ import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/signup_page.dart';
 import 'package:spec/view/page/signup_success_page.dart';
+import 'package:spec/view/page/talk/all_talk_page.dart';
+import '../controller/talk/detail_talk_controller.dart';
+import '../view/page/talk/details_talk_page.dart';
+import '../view/page/talk/hot_talk_page.dart';
+import '../view/page/talk/main_talk_page.dart';
 
 class AppPages {
   static final pages = [
@@ -35,6 +40,22 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.put(DetailMogakController(Get.parameters['id']!));
       }),
+    ),
+    GetPage(
+      name: AppPagesRoutes.mainTalk,
+      page: () => const MainTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.allTalk,
+      page: () => const AllTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.detailTalk + ':id',
+      page: () => const DetailTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.hotTalk,
+      page: () => const HotTalkPage(),
     ),
   ];
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/api_routes.dart';
-import 'package:spec/view/page/signup_success_page.dart';
+import 'package:spec/view/page/auth/signup_success_page.dart';
 
 class SignupController extends GetxController {
   final RxBool _isAllInputHasValue = true.obs;

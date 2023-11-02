@@ -24,7 +24,7 @@ class JoinAvatars extends StatelessWidget {
                 nickName: appliedProfiles[idx].nickname,
               )
             : UserAvatar(
-                avatarSvg: 'assets/icons/svgs/man-a.svg',
+                // avatarSvg: 'assets/icons/svgs/man-a.svg',
                 direction: BadgeDirection.column,
                 shortName: appliedProfiles[idx].badge != null
                     ? appliedProfiles[idx].badge!.shortName

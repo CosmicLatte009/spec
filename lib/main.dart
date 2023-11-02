@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
       ),
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
-      home: const SplashPage(),
+      // home: const SplashPage(),
+      home: const MogakPage(),
     );
   }
 }

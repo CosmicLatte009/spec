@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
-import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
@@ -12,6 +11,10 @@ import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
+import '../view/page/talk/all_talk_page.dart';
+import '../view/page/talk/detail_talk_page.dart';
+import '../view/page/talk/hot_talk_page.dart';
+import '../view/page/talk/main_talk_page.dart';
 
 class AppPages {
   static final pages = [
@@ -56,6 +59,22 @@ class AppPages {
     GetPage(
       name: AppPagesRoutes.login,
       page: () => LoginScreen(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.mainTalk,
+      page: () => const MainTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.allTalk,
+      page: () => const AllTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.detailTalk + ':id',
+      page: () => const DetailTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.hotTalk,
+      page: () => const HotTalkPage(),
     ),
   ];
 }

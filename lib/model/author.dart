@@ -28,7 +28,7 @@ class Author {
       role: map['role'],
       position: map['position'],
       temperature: map['temperature'],
-      // badge: Badge.fromMap(map['badge']),
+      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
     );
   }
 }

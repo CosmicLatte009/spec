@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/talk/detail_talk_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -8,8 +10,9 @@ import '../../widget/avatar/user_avatar.dart';
 import '../../widget/talk/talk_bubble.dart';
 import '../../widget/talk/comment_talk_builder.dart';
 
-class TalkDetailPage extends StatelessWidget {
-  const TalkDetailPage({super.key});
+class DetailTalkPage extends GetView<DetailTalkController> {
+  const DetailTalkPage({super.key});
+  static const route = '/talk/detail/';
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,9 @@ class TalkDetailPage extends StatelessWidget {
           print(val);
         },
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        controller.getTalkById(id: 'clo2mqply0002mg08wlnjc5xv');
+      }),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -37,7 +43,7 @@ class TalkDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UserAvatar(
-                    avatarSvg: 'assets/icons/svgs/man-a.svg',
+                    avatarSvg: null,
                     direction: BadgeDirection.column,
                     shortName: '개발자/1기',
                     nickName: '캐서린',
@@ -51,6 +57,7 @@ class TalkDetailPage extends StatelessWidget {
                     commentCount: 9,
                     upCount: 3,
                     mytalk: true,
+                    talkId: 'clo2mqply0002mg08wlnjc5xv',
                   ),
                 ],
               ),

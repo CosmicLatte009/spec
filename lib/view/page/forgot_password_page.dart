@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/forgot_pw_controller.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import '../../util/app_color.dart';
 import 'package:spec/view/widget/custom_input.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends GetView<ForgotPasswordController> {
   const ForgotPasswordPage({super.key});
 
   @override
@@ -13,7 +15,7 @@ class ForgotPasswordPage extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: [
-        const SizedBox(height: 32),
+        const SizedBox(height: 78),
         const NavMenu(title: '비밀번호 찾기', titleDirection: TitleDirection.center),
         const SizedBox(height: 32),
         Text(
@@ -34,11 +36,13 @@ class ForgotPasswordPage extends StatelessWidget {
                   ),
                 ),
                 CustomButton(
-                  // onTap: () {},
+                  onTap: () {
+                    controller.findPassword("toodie270@gmail.com");
+                  },
                   text: '보내기',
                   type: ButtonType.main,
                   height: 56,
-                  disabled: true,
+                  // disabled: true,
                 ),
                 const SizedBox(height: 113),
               ],

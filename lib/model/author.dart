@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:spec/model/badge.dart';
 
 class Author {
@@ -29,5 +30,10 @@ class Author {
       temperature: map['temperature'],
       badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Author(id: $id, avatar: $avatar, nickname: $nickname, role: $role, position: $position, temperature: $temperature , badge: $badge)';
   }
 }

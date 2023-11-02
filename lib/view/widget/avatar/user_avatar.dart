@@ -79,7 +79,11 @@ class UserAvatar extends StatelessWidget {
           break;
 
         case AvatarSize.w40:
-          finalContainerMinWidth = 79;
+          if (direction == BadgeDirection.column) {
+            finalContainerMinWidth = 79;
+          } else {
+            finalContainerMinWidth = 0;
+          }
           if (direction == BadgeDirection.column) {
             finalContainerHeight = role != null
                 ? 77.25

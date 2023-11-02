@@ -16,8 +16,8 @@ class CatchUp {
   final String updatedAt;
   final String category;
   final String hashtag;
-  final Author author;
-  final List<UpProfile> upProfiles;
+  Author? author;
+  final List<UpProfiles> upProfiles;
 
   CatchUp({
     required this.id,
@@ -36,23 +36,26 @@ class CatchUp {
     required this.author,
     required this.upProfiles,
   });
-
-  factory CatchUp.fromJson(Map<String, dynamic> json) => CatchUp(
-        id: json['id'] ?? 'default',
-        title: json['title'] ?? 'default',
-        slug: json['slug'] ?? 'default',
-        content: json['content'] ?? 'default',
-        url: json['url'] ?? 'default',
-        thumbnail: json['thumbnail'] ?? 'default',
-        authorId: json['authorId'] ?? 'default',
-        temperature: json['temperature'] ?? 'default',
-        status: json['status'] ?? 'default',
-        createdAt: json['createdAt'] ?? 'default',
-        updatedAt: json['updatedAt'] ?? 'default',
-        category: json['category'] ?? 'default',
-        hashtag: json['hashtag'] ?? 'default',
-        author: Author.fromMap(json['author']),
-        upProfiles: List<UpProfile>.from(
-            json['upProfiles'].map((x) => UpProfile.fromJson(x))),
+  factory CatchUp.fromMap(Map<String, dynamic> map) => CatchUp(
+        id: map['id'] as String? ?? 'default',
+        title: map['title'] as String? ?? 'default',
+        slug: map['slug'] as String? ?? 'default',
+        content: map['content'] as String? ?? 'default',
+        url: map['url'] as String? ?? 'default',
+        thumbnail: map['thumbnail'] as String? ?? 'default',
+        authorId: map['authorId'] as String? ?? 'default',
+        temperature: map['temperature'] as int? ?? 0, // default value as 0
+        status: map['status'] as String? ?? 'default',
+        createdAt: map['createdAt'] as String? ?? 'default',
+        updatedAt: map['updatedAt'] as String? ?? 'default',
+        category: map['category'] as String? ?? 'default',
+        hashtag: map['hashtag'] as String? ?? 'default',
+        author: map['author'] != null
+            ? Author.fromMap(map['author'])
+            : null, // assuming Author can be null
+        upProfiles: map['upProfiles'] != null
+            ? List<UpProfiles>.from(
+                map['upProfiles'].map((x) => UpProfiles.fromMap(x)))
+            : <UpProfiles>[],
       );
 }

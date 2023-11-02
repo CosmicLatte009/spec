@@ -154,13 +154,14 @@ class HotCatchUp extends GetView<CatchUpController> {
             child: Column(
               children: [
                 CardWidget(
-                  minibadge: catchUp.author.role, // 이 필드의 정의가 위에 없으나 예시에 포함됨
+                  minibadge: catchUp.author?.role ??
+                      'null', // 이 필드의 정의가 위에 없으나 예시에 포함됨
                   temperature: catchUp.upProfiles.length.toString(),
                   avatar:
-                      catchUp.author.avatar ?? 'assets/icons/pngs/man-a.png',
-                  position: catchUp.author.badge.shorName ??
+                      catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
+                  position: catchUp.author?.badge.shorName ??
                       'Unknown Position', // 기본값 예시
-                  nickname: catchUp.author.nickname,
+                  nickname: catchUp.author?.nickname ?? 'null',
                   url: catchUp.url,
                   hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
                   thumbnail: catchUp.thumbnail,

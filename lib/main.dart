@@ -10,6 +10,7 @@ import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/home_page.dart';
+import 'package:spec/view/page/login_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 
 void main() {
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: SplashPage(),
+      home: LoginScreen(),
     );
   }
 }

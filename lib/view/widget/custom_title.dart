@@ -85,9 +85,9 @@ class CustomTitle extends StatelessWidget {
                       bottom: 0,
                       child: Row(
                         children: [
-                          Tag(
-                            text: tag1,
-                          ),
+                          //Tag(
+                          // text: tag1,
+                          //),
                         ],
                       ),
                     ),

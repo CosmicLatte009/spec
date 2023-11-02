@@ -19,13 +19,13 @@ class Profile {
     required this.temperature,
   });
 
-  factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-        id: json['id'],
-        avatar: json['avatar'],
-        nickname: json['nickname'],
-        badge: Badge.fromMap(json['badge']),
-        role: json['role'],
-        position: json['position'],
-        temperature: json['temperature'],
+  factory Profile.fromMap(Map<String, dynamic> map) => Profile(
+        id: map['id'],
+        avatar: map['avatar'],
+        nickname: map['nickname'],
+        badge: Badge.fromMap(map['badge']),
+        role: map['role'],
+        position: map['position'],
+        temperature: map['temperature'],
       );
 }

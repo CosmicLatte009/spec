@@ -4,7 +4,7 @@ class Author {
   String id;
   String? avatar;
   String nickname;
-  Badge badge;
+  Badge? badge;
   String role;
   String position;
   int temperature;

@@ -105,7 +105,7 @@ class CatchUpController extends GetxController {
         if (resData != null && resData['data'] != null) {
           List<CatchUp> fetchedCatchUps =
               List<Map<String, dynamic>>.from(resData['data'])
-                  .map((item) => CatchUp.fromJson(item))
+                  .map((item) => CatchUp.fromMap(item))
                   .toList();
           print(fetchedCatchUps);
           catchUps.value = fetchedCatchUps;
@@ -146,7 +146,7 @@ class CatchUpController extends GetxController {
         print(resData.runtimeType);
 
         List<CatchUp> HotCatchUpsList = List<Map<String, dynamic>>.from(resData)
-            .map((item) => CatchUp.fromJson(item))
+            .map((item) => CatchUp.fromMap(item))
             .toList();
         hotCatchUps.value = HotCatchUpsList;
         print(HotCatchUpsList);
@@ -177,7 +177,7 @@ class CatchUpController extends GetxController {
             response.data.containsKey('data') &&
             response.data['data'] is List) {
           List<CatchUp> searchedCatchUps = (response.data['data'] as List)
-              .map((item) => CatchUp.fromJson(item))
+              .map((item) => CatchUp.fromMap(item))
               .toList();
           print(searchedCatchUps);
 

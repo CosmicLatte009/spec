@@ -16,14 +16,14 @@ class BestSpacer {
   });
 
   // JSON을 User 객체로 변환하는 팩토리 생성자
-  factory BestSpacer.fromJson(Map<String, dynamic> json) {
+  factory BestSpacer.fromMap(Map<String, dynamic> map) {
     return BestSpacer(
-      id: json['id'],
-      avatar: json['avatar'],
-      nickname: json['nickname'],
-      role: json['role'],
-      position: json['position'],
-      temperature: json['temperature'],
+      id: map['id'],
+      avatar: map['avatar'],
+      nickname: map['nickname'],
+      role: map['role'],
+      position: map['position'],
+      temperature: map['temperature'],
     );
   }
 }

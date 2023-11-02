@@ -121,7 +121,7 @@ class CardWidget extends GetView<CatchUpController> {
       children: [
         _buildProfileSection(),
         SizedBox(width: 0),
-        Align(child: LikeButtonWidget(catchUpId: postId)),
+        Align(child: LikeButtonWidget(catchUpId: postId ?? 'null')),
       ],
     );
   }

@@ -1,16 +1,16 @@
 import 'Profile.dart';
 
-class UpProfile {
+class UpProfiles {
   final String id;
   final Profile profile;
 
-  UpProfile({
+  UpProfiles({
     required this.id,
     required this.profile,
   });
 
-  factory UpProfile.fromJson(Map<String, dynamic> json) => UpProfile(
-        id: json['id'],
-        profile: Profile.fromJson(json['profile']),
+  factory UpProfiles.fromMap(Map<String, dynamic> map) => UpProfiles(
+        id: map['id'],
+        profile: Profile.fromMap(map['profile']),
       );
 }

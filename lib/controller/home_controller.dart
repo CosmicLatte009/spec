@@ -109,7 +109,7 @@ class HomeController extends GetxController {
         print(resData);
         if (resData is List) {
           List<BestSpacer> bestSpacers =
-              resData.map((json) => BestSpacer.fromJson(json)).toList();
+              resData.map((json) => BestSpacer.fromMap(json)).toList();
           allBestSpacer.value = bestSpacers;
           return bestSpacers;
         } else {

@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
 import 'package:spec/controller/login_controller.dart';
-
 import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_pages.dart';
-import 'package:spec/view/page/home_page.dart';
-import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 import 'controller/talk/all_talk_controller.dart';
 import 'controller/talk/detail_talk_controller.dart';
@@ -37,6 +35,7 @@ class MyApp extends StatelessWidget {
           Get.put(MyPageController());
           Get.put(HomeController());
           Get.lazyPut(() => ProfileController());
+          Get.lazyPut(() => LikeController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
           Get.lazyPut(() => DetailTalkController());
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: SplashPage(),
+      home: const SplashPage(),
     );
   }
 }

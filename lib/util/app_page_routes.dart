@@ -3,6 +3,8 @@ import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
+import 'package:spec/view/page/mogak/create_mogak_page.dart';
+import 'package:spec/view/page/mogak/detail_mogak_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
@@ -20,6 +22,8 @@ class AppPagesRoutes {
   static const String mogak = MogakPage.route;
   static const String hotMogak = HotMogakPage.route;
   static const String allMogak = AllMogakPage.route;
+  static const String createMogak = CreateMogakPage.route;
+  static const String detailMogak = DetailMogakPage.route;
   static const String catchUp = CatchUpPage.route;
   static const String hotCatchUp = HotCatchUp.route;
   static const String mainTalk = MainTalkPage.route;

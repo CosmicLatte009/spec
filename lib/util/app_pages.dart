@@ -6,6 +6,7 @@ import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
+import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/detail_mogak_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
@@ -43,6 +44,10 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.put(DetailMogakController(Get.parameters['id']!));
       }),
+    ),
+    GetPage(
+      name: AppPagesRoutes.createMogak,
+      page: () => const CreateMogakPage(),
     ),
     GetPage(
       name: AppPagesRoutes.catchUp,

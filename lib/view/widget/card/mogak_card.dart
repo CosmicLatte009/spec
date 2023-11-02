@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/model/mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/page/mogak/detail_mogak_page.dart';
 import 'package:spec/view/widget/avatar/atavar_with_role.dart';
-import 'package:spec/view/widget/avatar/default_avatar.dart';
-import 'package:spec/view/widget/avatar/default_circle_avatar.dart';
+import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
 class MogakCard extends StatelessWidget {
@@ -45,24 +42,29 @@ class MogakCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // user
-                  Row(
-                    children: [
-                      mogak.author.avatar != null
-                          ? Text(mogak.author.avatar.toString())
-                          : const AvatarWithRole(),
-                      const SizedBox(width: 8),
-                      Text(
-                        mogak.author.nickname,
-                        style: AppTextStyles.body12B(),
-                      ),
-                      const SizedBox(width: 8),
-                      CustomButton(
-                        text: '수료생',
-                        height: 22,
-                        type: ButtonType.neutral,
-                      ),
-                    ],
-                  ),
+                  mogak.author.avatar != null
+                      ? UserAvatar(
+                          avatarUrl: mogak.author.avatar,
+                          avatarSize: AvatarSize.w40,
+                          direction: BadgeDirection.row,
+                          shortName: mogak.author.badge != null
+                              ? mogak.author.badge!.shortName
+                              : '개발자/1기',
+                          nickName: mogak.author.nickname,
+                          nickNameSize: AppTextStyles.body12B(),
+                          role: '수료생',
+                        )
+                      : UserAvatar(
+                          avatarSvg: 'assets/icons/svgs/man-a.svg',
+                          avatarSize: AvatarSize.w40,
+                          direction: BadgeDirection.row,
+                          shortName: mogak.author.badge != null
+                              ? mogak.author.badge!.shortName
+                              : '개발자/1기',
+                          nickName: mogak.author.nickname,
+                          nickNameSize: AppTextStyles.body12B(),
+                          role: '수료생',
+                        ),
                   SvgPicture.asset(
                     'assets/icons/svgs/Like.svg',
                     width: 20,

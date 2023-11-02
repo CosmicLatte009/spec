@@ -29,9 +29,9 @@ class LoginScreen extends GetView<LoginController> {
   Widget _buildLoginForm() {
     return ListView(
       children: [
-        SizedBox(height: 100),
+        const SizedBox(height: 100),
         Expanded(flex: 4, child: SvgPicture.asset('assets/logo/icon_logo.svg')),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Expanded(
           flex: 1,
           child: Padding(
@@ -41,16 +41,16 @@ class LoginScreen extends GetView<LoginController> {
               child: Column(
                 children: [
                   _buildEmailField(),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   _buildPasswordField(),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   _buildAuxiliaryOptions(),
                 ],
               ),
             ),
           ),
         ),
-        SizedBox(height: 100),
+        const SizedBox(height: 100),
         Expanded(flex: 1, child: _buildLoginButton()),
       ],
     );
@@ -158,7 +158,7 @@ class LoginScreen extends GetView<LoginController> {
   Widget _signupButton() {
     return GestureDetector(
       onTap: () {
-        Get.to(SignupPage());
+        Get.to(const SignupPage());
       },
       child: Text(
         '회원가입하기',
@@ -170,7 +170,7 @@ class LoginScreen extends GetView<LoginController> {
   Widget _findPWButton() {
     return GestureDetector(
       onTap: () {
-        Get.to(ForgotPasswordPage());
+        Get.to(const ForgotPasswordPage());
       },
       child: Text(
         '비밀번호 찾기',

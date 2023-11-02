@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
-import 'package:spec/view/widget/card/card_seperator.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -72,7 +72,12 @@ class AllMogakPage extends GetView<AllMogakController> {
                   separatorBuilder: (context, index) {
                     return Column(
                       children: [
-                        CardSeperator(mogak: controller.allMogak![index]),
+                        const SizedBox(height: 8),
+                        StackAvatars(
+                          commentLength: controller
+                              .allMogak![index].appliedProfiles.length,
+                          upLength: controller.allMogak![index].up ?? 0,
+                        ),
                         const SizedBox(height: 16),
                       ],
                     );

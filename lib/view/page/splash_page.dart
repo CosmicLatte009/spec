@@ -12,27 +12,6 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return SafeArea(
-      child: Scaffold(
-          extendBodyBehindAppBar: true,
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 100),
-                SvgPicture.asset('assets/logo/splash.svg'),
-                const SizedBox(height: 10),
-                Image.asset('assets/logo/Logo.png'),
-                const SizedBox(height: 150),
-                ButtonXlarge(
-                  text: '시작하기',
-                  onTap: () {
-                    Get.to(LoginScreen());
-                  },
-                ),
-              ],
-=======
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -48,7 +27,6 @@ class SplashPage extends StatelessWidget {
                   Image.asset('assets/logo/Logo.png'),
                 ],
               ),
->>>>>>> f8a0e0554a3ba0b2c0ef6f53c115a04333bd3da1
             ),
             CustomButton(
               text: '로그인',

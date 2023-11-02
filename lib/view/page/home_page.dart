@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spec/controller/Home_controller.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_best_spacer.dart';
 
 class HomePage extends StatefulWidget {
+  static const String route = '/home';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -105,9 +108,19 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: CustomInput(type: InputType.search),
           ),
-          NavMenu(title: '핫한 톡', titleDirection: TitleDirection.left),
+          NavMenu(
+            title: '핫한 톡',
+            titleDirection: TitleDirection.left,
+            onButtonPressed: () {},
+          ),
           Container(height: 202),
-          NavMenu(title: '핫한 캐치업', titleDirection: TitleDirection.left),
+          NavMenu(
+            title: '핫한 캐치업',
+            titleDirection: TitleDirection.left,
+            onButtonPressed: () {
+              Get.toNamed(AppPagesRoutes.catchUp);
+            },
+          ),
           Container(height: 202),
           NavMenu(title: '핫한 모각코', titleDirection: TitleDirection.left),
           Container(height: 255),

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
+import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
@@ -36,7 +38,7 @@ class AuthController extends GetxController {
           print('성공');
           await storage.write(key: 'jwt_token', value: token);
           dmddo = await storage.read(key: 'jwt_token');
-          Get.to(CatchUpPage());
+          Get.toNamed(AppPagesRoutes.home);
 
           if (dmddo != null) {
             print(dmddo);

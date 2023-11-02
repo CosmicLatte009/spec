@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/model/catchup.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
@@ -11,6 +12,8 @@ import '../../../../util/app_color.dart';
 
 // 'CatchUpPage' 클래스는 캐치업 페이지를 나타냄
 class CatchUpPage extends GetView<CatchUpController> {
+  static const String route = '/catchup';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +44,7 @@ class CatchUpPage extends GetView<CatchUpController> {
               withEmoji: true,
               emoji: 'assets/icons/pngs/dart.png',
               onButtonPressed: () {
-                Get.to(HotCatchUp());
+                Get.toNamed(AppPagesRoutes.hotCatchUp);
               },
             ),
 
@@ -82,7 +85,7 @@ class CatchUpPage extends GetView<CatchUpController> {
           return Padding(
               padding: const EdgeInsets.all(8.0),
               child: CardWidget(
-                minibadge: catchUp.author?.badge!.shortName ?? 
+                minibadge: catchUp.author?.badge!.shortName ??
                     'null', // 이 필드의 정의가 위에 없으나 예시에 포함됨
                 temperature: catchUp.upProfiles.length.toString(),
                 avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
@@ -134,8 +137,8 @@ class CatchUpPage extends GetView<CatchUpController> {
             minibadge: catchUp.author?.role ?? ' null', // 이 필드는 이전 예제와 동일하게 처리
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-            position:
-                catchUp.author?.badge!.shortName ?? 'Unknown Position', // 기본값 예시
+            position: catchUp.author?.badge!.shortName ??
+                'Unknown Position', // 기본값 예시
             nickname: catchUp.author?.nickname ?? 'null',
             url: catchUp.url,
             hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',

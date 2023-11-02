@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:spec/view/page/login_page.dart';
+import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/widget/button/button_xlarge.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 

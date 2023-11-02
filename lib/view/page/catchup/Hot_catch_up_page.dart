@@ -11,6 +11,9 @@ import '../../../../util/app_color.dart';
 import '../../../controller/catchup_controller.dart';
 
 class HotCatchUp extends GetView<CatchUpController> {
+
+    static const String route = '/catchup/hot';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

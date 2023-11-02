@@ -1,4 +1,5 @@
 import 'package:spec/model/applied_profile.dart';
+import 'package:spec/model/profile.dart';
 
 class DetailMogak {
   String id;
@@ -14,8 +15,8 @@ class DetailMogak {
   String visiblityStatus;
   int temperature;
   List<AppliedProfile> appliedProfiles;
-  List<String?> talks;
-  List<String?> upProfiles;
+  List<dynamic> talks; //@todo 추후 talk 수정
+  List<Profile?> upProfiles;
 
   DetailMogak({
     required this.id,
@@ -51,8 +52,9 @@ class DetailMogak {
       temperature: map['temperature'],
       appliedProfiles: List<AppliedProfile>.from(
           map['appliedProfiles'].map((x) => AppliedProfile.fromMap(x))),
-      talks: List<String>.from(map['talks']),
-      upProfiles: List<String>.from(map['upProfiles']),
+      talks: List<dynamic>.from(map['talks'] ?? []),
+      upProfiles: List<Profile>.from(
+          map['upProfiles'].map((x) => AppliedProfile.fromMap(x))),
     );
   }
 }

@@ -58,8 +58,48 @@ class MogakController extends GetxController {
     try {
       String path = '/api/mogak/$id';
       var res = await dio.get(path);
-      print(res.data); //인증 필요
+      print(res.data["data"]);
       return DetailMogak.fromMap(res.data["data"]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// 모각 신청
+  joinMogak({required String mogakId}) async {
+    String path = '/api/mogak/$mogakId/apply';
+    try {
+      var res = await dio.post(path);
+      if (res.statusCode == 200) {
+        if (res.data['status'] == 'success') {
+          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          print(res.data['data']['appliedProfiles']);
+        } else {
+          print(res.data['message']);
+        }
+      } else {
+        print(res.data['message']);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// 모각 참여 취소
+  cancelJoin({required String mogakId}) async {
+    String path = '/api/mogak/$mogakId/apply';
+    try {
+      var res = await dio.delete(path);
+      if (res.statusCode == 200) {
+        if (res.data['status'] == 'success') {
+          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          print(res.data['data']['appliedProfiles']);
+        } else {
+          print(res.data['message']);
+        }
+      } else {
+        print(res.data['message']);
+      }
     } catch (e) {
       print(e);
     }

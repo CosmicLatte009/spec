@@ -135,7 +135,7 @@ class UserAvatar extends StatelessWidget {
                       height: finalSvgSize,
                     )
                   : SvgPicture.asset(
-                      avatarSvg ?? 'assets/icons/svgs/man-a.svg',
+                      'assets/icons/svgs/man-a.svg',
                       width: finalSvgSize,
                       height: finalSvgSize,
                     ),

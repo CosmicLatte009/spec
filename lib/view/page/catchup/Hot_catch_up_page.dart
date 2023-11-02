@@ -159,7 +159,7 @@ class HotCatchUp extends GetView<CatchUpController> {
                   temperature: catchUp.upProfiles.length.toString(),
                   avatar:
                       catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-                  position: catchUp.author?.badge.shorName ??
+                  position: catchUp.author?.badge!.shortName ??
                       'Unknown Position', // 기본값 예시
                   nickname: catchUp.author?.nickname ?? 'null',
                   url: catchUp.url,

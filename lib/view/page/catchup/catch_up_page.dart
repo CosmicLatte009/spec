@@ -82,11 +82,11 @@ class CatchUpPage extends GetView<CatchUpController> {
           return Padding(
               padding: const EdgeInsets.all(8.0),
               child: CardWidget(
-                minibadge: catchUp.author?.badge.shorName ??
+                minibadge: catchUp.author?.badge!.shortName ?? 
                     'null', // 이 필드의 정의가 위에 없으나 예시에 포함됨
                 temperature: catchUp.upProfiles.length.toString(),
                 avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-                position: catchUp.author?.badge.shorName ??
+                position: catchUp.author?.badge!.shortName ??
                     'Unknown Position', // 기본값 예시
                 nickname: catchUp.author?.nickname ?? 'null',
                 url: catchUp.url,
@@ -135,7 +135,7 @@ class CatchUpPage extends GetView<CatchUpController> {
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
             position:
-                catchUp.author?.badge.shorName ?? 'Unknown Position', // 기본값 예시
+                catchUp.author?.badge!.shortName ?? 'Unknown Position', // 기본값 예시
             nickname: catchUp.author?.nickname ?? 'null',
             url: catchUp.url,
             hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',

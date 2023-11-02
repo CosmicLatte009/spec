@@ -13,7 +13,7 @@ class Author {
     required this.id,
     required this.avatar,
     required this.nickname,
-    required this.badge,
+    this.badge,
     required this.role,
     required this.position,
     required this.temperature,
@@ -24,11 +24,11 @@ class Author {
       id: map['id'],
       avatar: map['avatar'],
       nickname: map['nickname'],
-      badge: Badge.fromMap(map['badge']),
+      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
       role: map['role'],
       position: map['position'],
-      temperature: map['temperature'],
-      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
+      temperature: map['temperature'] != null ? map['temperature'] as int : 0,
+      // Assuming temperature should default to 0 if not provided
     );
   }
 }

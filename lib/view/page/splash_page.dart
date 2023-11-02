@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:spec/view/page/login_page.dart';
-import 'package:spec/view/widget/button/button_xlarge.dart';
+import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/page/me/profile_edit_page.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return SafeArea(
       child: Scaffold(
           extendBodyBehindAppBar: true,
@@ -29,8 +32,35 @@ class SplashPage extends StatelessWidget {
                   },
                 ),
               ],
+=======
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/logo/splash.svg'),
+                  const SizedBox(height: 10),
+                  Image.asset('assets/logo/Logo.png'),
+                ],
+              ),
+>>>>>>> f8a0e0554a3ba0b2c0ef6f53c115a04333bd3da1
             ),
-          )),
+            CustomButton(
+              text: '로그인',
+              height: 56,
+              onTap: () {
+                Get.toNamed(AppPagesRoutes.login);
+              },
+            ),
+            const SizedBox(height: 114),
+          ],
+        ),
+      ),
     );
   }
 }

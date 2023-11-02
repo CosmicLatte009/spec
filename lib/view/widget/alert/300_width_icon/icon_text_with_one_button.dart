@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class IconTextWithOneButton extends StatelessWidget {
   const IconTextWithOneButton(
@@ -23,7 +23,7 @@ class IconTextWithOneButton extends StatelessWidget {
       ),
       content: SizedBox(
         width: 242,
-        height: 203,
+        height: 181,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,15 +50,16 @@ class IconTextWithOneButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ButtonSmall(
+                CustomButton(
+                  width: 100,
+                  height: 32,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: buttonTitle,
-                  width: 180,
+                  text: '${buttonTitle}',
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

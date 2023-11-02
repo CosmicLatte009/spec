@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
-import 'package:spec/view/widget/button/button_xsmall.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 
 class ProfilePopup extends StatelessWidget {
@@ -44,10 +44,11 @@ class ProfilePopup extends StatelessWidget {
                       Positioned(
                         right: 0,
                         left: 0,
-                        bottom: -10,
-                        child: Text(
-                          position,
-                          style: AppTextStyles.body12R(),
+                        bottom: -8,
+                        child: CustomButton(
+                          text: position,
+                          width: double.infinity,
+                          height: 18,
                         ),
                       ),
                     ],
@@ -62,11 +63,10 @@ class ProfilePopup extends StatelessWidget {
                   const SizedBox(
                     width: 2.5,
                   ),
-                  ButtonXsmall(
-                    //버튼 완성되면 컬러 바꾸기
-                    onTap: () {},
+                  CustomButton(
                     text: role,
-                    width: 47,
+                    height: 22,
+                    type: ButtonType.neutral,
                   ),
                 ],
               ),

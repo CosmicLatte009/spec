@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Top extends StatelessWidget {
-  const Top({super.key});
+// 사용자 지정 앱 바
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 56,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(
-                color: Color(0xFFE7E7E7), // 테두리의 색상 설정
-                width: 1.0, // 테두리의 두께 설정
-              ),
-            ),
-          ),
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 1,
+      leadingWidth: 80,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: SvgPicture.asset(
+          'assets/icons/svgs/SFACE.svg',
+          width: 63,
+          height: 13,
         ),
-        Positioned(
-          left: 10,
-          bottom: 20,
-          child: SvgPicture.asset(
-            'assets/icons/svgs/SFACE.svg',
-            width: 63,
-            height: 13,
-          ),
-        ),
-      ],
+      ),
+      // 여기에 다른 AppBar 속성을 추가할 수 있습니다.
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(56); // 앱 바의 높이 설정
 }

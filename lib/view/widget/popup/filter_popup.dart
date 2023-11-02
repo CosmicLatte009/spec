@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spec/view/widget/button/button_xsmall.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/popup/filter_items.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 
@@ -20,38 +20,42 @@ class _FilterPopupState extends State<FilterPopup> {
   Widget build(BuildContext context) {
     return Popup(
       label: '필터',
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            height: 33,
-          ),
-          FilterItems(label: '날짜', list: dateFilter),
-          FilterItems(label: '이름', list: nameFilter),
-          FilterItems(label: '좋아요', list: like),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ButtonXsmall(
-                onTap: () {},
-                text: '초기화',
-                width: 100,
-                outline: true,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              ButtonXsmall(
-                onTap: () {},
-                text: '확인',
-                width: 100,
-              ),
-            ],
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 33,
+            ),
+            FilterItems(label: '날짜', list: dateFilter),
+            FilterItems(label: '이름', list: nameFilter),
+            FilterItems(label: '좋아요', list: like),
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    text: '초기화',
+                    height: 24,
+                    type: ButtonType.outline,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: CustomButton(
+                    height: 24,
+                    text: '확인',
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

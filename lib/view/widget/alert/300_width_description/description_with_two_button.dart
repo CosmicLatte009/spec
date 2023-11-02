@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_small.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class DescriptionWithTwoButton extends StatelessWidget {
   const DescriptionWithTwoButton(
@@ -43,24 +43,26 @@ class DescriptionWithTwoButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ButtonSmall(
+                CustomButton(
+                  width: 100,
+                  height: 32,
+                  type: ButtonType.outline,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: buttonTitle1,
-                  width: 104,
-                  outline: true,
+                  text: '${buttonTitle1}',
                 ),
-                const SizedBox(width: 10),
-                ButtonSmall(
+                SizedBox(width: 10),
+                CustomButton(
+                  width: 100,
+                  height: 32,
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: buttonTitle2,
-                  width: 104,
+                  text: '${buttonTitle2}',
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

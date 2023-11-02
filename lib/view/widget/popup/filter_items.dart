@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/button/button_xsmall.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 
 class FilterItems extends StatelessWidget {
   const FilterItems({
@@ -27,10 +27,10 @@ class FilterItems extends StatelessWidget {
           children: list
               .map((item) => Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: ButtonXsmall(
-                      text: item,
-                      width: 57,
+                    child: CustomButton(
+                      size: ButtonSize.xSmall,
                       onTap: () {},
+                      text: item,
                     ),
                   ))
               .toList(),

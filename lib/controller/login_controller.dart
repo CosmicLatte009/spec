@@ -27,21 +27,4 @@ class LoginController extends GetxController {
       isLoggedInState.value = -1;
     }
   }
-
-  // 로그인 실패 다이얼로그 표시
-
-  // 기타 다이얼로그 표시 메소드
-  void showDialog_5(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const IconTextWithOneButton(
-          svgPath: 'assets/icons/svgs/SFACE.svg',
-          mainMessage: 'adsds',
-          subMessage: 'sdsd',
-          buttonTitle: 'sfsf',
-        );
-      },
-    );
-  }
 }

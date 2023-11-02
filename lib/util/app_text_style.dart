@@ -55,6 +55,9 @@ class AppTextStyles {
   static TextStyle body12B({Color color = Colors.black}) =>
       bold.copyWith(fontSize: 12, color: color);
 
+  static TextStyle body9B({Color color = Colors.black}) =>
+      bold.copyWith(fontSize: 9, color: color);
+
   static TextStyle body20M({Color color = Colors.black}) =>
       medium.copyWith(fontSize: 20, color: color);
 

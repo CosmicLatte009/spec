@@ -13,6 +13,9 @@ import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/splash_page.dart';
+import 'controller/talk/all_talk_controller.dart';
+import 'controller/talk/detail_talk_controller.dart';
+import 'controller/talk/hot_talk_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +37,9 @@ class MyApp extends StatelessWidget {
           Get.put(MyPageController());
           Get.put(HomeController());
           Get.lazyPut(() => ProfileController());
+          Get.lazyPut(() => AllTalkController());
+          Get.lazyPut(() => HotTalkController());
+          Get.lazyPut(() => DetailTalkController());
         },
       ),
       getPages: AppPages.pages,

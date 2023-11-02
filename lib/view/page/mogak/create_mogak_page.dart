@@ -13,7 +13,7 @@ import 'package:spec/view/widget/navigation/top.dart';
 
 class CreateMogakPage extends GetView<CreateMogakController> {
   const CreateMogakPage({super.key});
-  static const route = 'mogak/create';
+  static const route = '/mogak/create';
 
   @override
   Widget build(BuildContext context) {

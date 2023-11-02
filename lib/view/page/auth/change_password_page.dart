@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/changes_pw_controller.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/custom_input.dart';
 
-class ChangePasswordPage extends StatelessWidget {
+class ChangePasswordPage extends GetView<ChangePWController> {
   const ChangePasswordPage({super.key});
 
   @override
@@ -29,14 +31,14 @@ class ChangePasswordPage extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomInput(
-                            controller: TextEditingController(),
+                            controller: controller.currentPassword,
                             label: '현재 비밀번호',
                             hint: '비밀번호',
                             type: InputType.password,
                           ),
                           const SizedBox(height: 8),
                           CustomInput(
-                            controller: TextEditingController(),
+                            controller: controller.newPassword,
                             label: '새 비밀번호',
                             hint: '비밀번호',
                             type: InputType.password,
@@ -45,11 +47,13 @@ class ChangePasswordPage extends StatelessWidget {
                       ),
                     ),
                     CustomButton(
-                      // onTap: () {},
+                      onTap: () {
+                        controller.attemptChangePassword();
+                      },
                       text: '변경하기',
                       type: ButtonType.main,
                       height: 56,
-                      disabled: true,
+                      //disabled: true,
                     ),
                     const SizedBox(height: 113),
                   ],

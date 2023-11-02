@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/button_small.dart';
-import 'package:spec/view/widget/tag/tag.dart';
 
 class CustomTitle extends StatelessWidget {
   const CustomTitle({
@@ -86,9 +85,9 @@ class CustomTitle extends StatelessWidget {
                       bottom: 0,
                       child: Row(
                         children: [
-                          Tag(
-                            text: tag1,
-                          ),
+                          //Tag(
+                          // text: tag1,
+                          //),
                         ],
                       ),
                     ),

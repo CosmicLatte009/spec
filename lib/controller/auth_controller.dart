@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/page/catchup/catch_up_page.dart';
+import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
@@ -35,6 +38,7 @@ class AuthController extends GetxController {
           print('성공');
           await storage.write(key: 'jwt_token', value: token);
           dmddo = await storage.read(key: 'jwt_token');
+          Get.toNamed(AppPagesRoutes.home);
 
           if (dmddo != null) {
             print(dmddo);
@@ -104,6 +108,61 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<bool> attemptChangePassword(
+      String currentPassword, String newPassword) async {
+    // 필요에 따라 비밀번호 인코딩
+    currentPassword = base64Encode(utf8.encode(currentPassword));
+    newPassword = base64Encode(utf8.encode(newPassword));
+
+    final token = await getToken(); // JWT 토큰 가져오기
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    try {
+      final response = await _dio.post(
+        'https://dev.sniperfactory.com/api/auth/change-password',
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        }),
+        data: jsonEncode(
+            {'currentPassword': currentPassword, 'newPassword': newPassword}),
+      );
+
+      if (response.statusCode == 200) {
+        // 요청이 성공했다면, 처리 결과에 따라 반환
+        if (response.data['data'] == null) {
+          void showLoginFailDialog() {
+            Get.dialog(
+              IconTextWithOneButton(
+                svgPath: 'dsd',
+                mainMessage: 'sdsd',
+                buttonTitle: 'sdsd',
+                subMessage: 'sdsds',
+              ),
+            ); // 실패 시 표시할 다이얼로그
+          }
+
+          showLoginFailDialog();
+        }
+        print(response.data);
+        return true;
+      } else {
+        // 실패 처리
+        throw Exception('Failed to change password');
+      }
+    } on DioError catch (e) {
+      // Dio 관련 오류 처리
+      throw Exception('Dio error: ${e.message}');
+    } catch (e) {
+      // 기타 오류 처리
+      throw Exception('Unexpected error: $e');
+    }
+  }
+}
+
+
 //   void logout() {
 //     // 로그아웃 로직 구현, 예: 토큰 삭제, 사용자 데이터 삭제 등.
 //     Future<void> deleteToken() async {
@@ -117,4 +176,4 @@ class AuthController extends GetxController {
 //     }
 //   }
 // }
-}
+

@@ -25,10 +25,11 @@ class Author {
       id: map['id'],
       avatar: map['avatar'],
       nickname: map['nickname'],
+      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
       role: map['role'],
       position: map['position'],
-      temperature: map['temperature'],
-      badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
+      temperature: map['temperature'] != null ? map['temperature'] as int : 0,
+      // Assuming temperature should default to 0 if not provided
     );
   }
 

@@ -24,7 +24,7 @@ class ProfileEditPage extends GetView<ProfileController> {
 
     return Scaffold(
         appBar: const CustomAppBar(),
-        body: Column(
+        body: ListView(
           children: [
             const SizedBox(height: 89),
             Stack(

@@ -1,6 +1,8 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 import '../../../util/app_color.dart';
@@ -19,6 +21,7 @@ class TalkBubble extends StatefulWidget {
     required this.commentCount,
     required this.upCount,
     this.mytalk = false,
+    required this.talkId,
   });
 
   final String text;
@@ -27,6 +30,7 @@ class TalkBubble extends StatefulWidget {
   final int commentCount;
   final int upCount;
   final bool mytalk;
+  final String talkId;
 
   @override
   State<TalkBubble> createState() => _TalkBubbleState();
@@ -46,6 +50,9 @@ class _TalkBubbleState extends State<TalkBubble> {
                 });
               }
             : null,
+        onTap: () {
+          Get.toNamed(AppPagesRoutes.detailTalk + widget.talkId);
+        },
         child: Stack(
           children: [
             Column(
@@ -82,14 +89,11 @@ class _TalkBubbleState extends State<TalkBubble> {
                                 ),
                                 const SizedBox(height: 4),
                                 if (widget.type == BubbleType.less)
-                                  SizedBox(
-                                    width: 150,
-                                    child: Text(
-                                      widget.text,
-                                      style: AppTextStyles.body14M(
-                                          color: AppColor.black80),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  Text(
+                                    widget.text,
+                                    style: AppTextStyles.body14M(
+                                        color: AppColor.black80),
+                                    overflow: TextOverflow.ellipsis,
                                   )
                                 else
                                   Container(

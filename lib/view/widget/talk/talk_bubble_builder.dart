@@ -1,59 +1,51 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../model/talk.dart';
 import '../avatar/user_avatar.dart';
 import 'talk_bubble.dart';
 
 class TalkBubbleBuilder extends StatelessWidget {
-  const TalkBubbleBuilder(
-      {super.key,
-      this.userAvatar,
-      required this.shortName,
-      required this.nickName,
-      required this.contents,
-      this.commentCount,
-      this.upCount,
-      required this.isLikePressed,
-      this.isMytalk});
+  const TalkBubbleBuilder({
+    super.key,
+    required this.talkDataList,
+  });
 
-  final String? userAvatar;
-  final String shortName;
-  final String nickName;
-  final String contents;
-  final int? commentCount;
-  final int? upCount;
-  final bool isLikePressed;
-  final bool? isMytalk;
+  final RxList<Talk> talkDataList;
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       controller: ScrollController(),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: talkDataList.length,
       separatorBuilder: (BuildContext context, int index) {
-        if (index == 9) return const SizedBox.shrink();
-
+        if (index == talkDataList.length) return const SizedBox.shrink();
         return const SizedBox(height: 16.0);
       },
       itemBuilder: (BuildContext context, int index) {
+        var talk = talkDataList[index];
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UserAvatar(
-              avatarSvg: userAvatar,
+              avatarUrl: talk.author.avatar,
               direction: BadgeDirection.column,
-              shortName: shortName,
-              nickName: nickName,
+              shortName: talk.author.badge?.shortName,
+              nickName: talk.author.nickname,
             ),
             SizedBox(width: 17.02),
             TalkBubble(
-              text: contents,
-              isLikePressed: isLikePressed,
+              text: talk.content,
+              isLikePressed: true,
               type: BubbleType.less,
-              commentCount: commentCount ?? 0,
-              upCount: upCount ?? 0,
-              mytalk: isMytalk ?? false,
+              commentCount: talk.childrenLength,
+              upCount: (talk.upProfiles?.isEmpty ?? true)
+                  ? 0
+                  : talk.upProfiles!.length,
+              mytalk: false,
+              talkId: talk.id,
             ),
           ],
         );

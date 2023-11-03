@@ -4,7 +4,7 @@ class Profile {
   final String id;
   final String? avatar;
   final String nickname;
-  final Badge? badge;
+  final Badge badge;
   final String role;
   final String position;
   final int temperature;
@@ -13,7 +13,7 @@ class Profile {
     required this.id,
     this.avatar,
     required this.nickname,
-    this.badge,
+    required this.badge,
     required this.role,
     required this.position,
     required this.temperature,
@@ -23,7 +23,7 @@ class Profile {
         id: map['id'],
         avatar: map['avatar'],
         nickname: map['nickname'],
-        badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
+        badge: Badge.fromMap(map['badge']),
         role: map['role'],
         position: map['position'],
         temperature: map['temperature'],

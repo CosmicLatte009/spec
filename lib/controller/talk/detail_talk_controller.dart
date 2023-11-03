@@ -6,36 +6,52 @@ import '../auth_controller.dart';
 
 class DetailTalkController extends GetxController {
   var controller = Get.find<AuthController>();
+
   Dio dio = Dio();
   String baseUrl = 'https://dev.sniperfactory.com';
 
-  RxString talkId = RxString('');
+  final String talkId;
+  DetailTalkController(this.talkId);
+
   final Rxn<Talk> _detailTalk = Rxn();
+  final RxList<Talk> _commentTalk = <Talk>[].obs;
 
-  Rxn<Talk>? get detailTalk => _detailTalk;
+  Rxn<Talk> get detailTalk => _detailTalk;
+  RxList<Talk> get commentTalk => _commentTalk;
 
-  getAuth() async {
+  RxBool isLoading = true.obs;
+
+  // getAuth() async {
+  //   try {
+  //     var res = await controller.getToken();
+  //     print(res);
+  //     return res;
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  getTalkById() async {
     try {
-      var res = await controller.getToken();
-      print(res);
-      return res;
-    } catch (e) {
-      print(e);
-    }
-  }
+      isLoading.value = true;
+      String path = '${ApiRoutes.talk}/$talkId';
+      var res = await dio.get(path);
+      var resData = res.data["data"];
 
-  getTalkById({required String id}) async {
-    try {
-      String path = ApiRoutes.talk;
-      var res = await dio.get(path + id);
-      var talkData = res.data["data"];
-      _detailTalk.value = talkData;
-      print(_detailTalk);
+      _detailTalk.value = Talk.fromMap(resData["talk"]);
+
+      var commentData = List<Map<String, dynamic>>.from(resData["children"]);
+      var commentList = commentData.map((map) => Talk.fromMap(map)).toList();
+      _commentTalk.assignAll(commentList);
+
+      isLoading.value = false;
+      print(detailTalk);
+      print(commentTalk);
     } on DioException catch (e) {
-      print('단일 톡 실패야');
+      isLoading.value = true;
+      print('단일 톡 불러오기 실패야');
       print(e.toString());
     }
-    print('단일 톡 불러오기는 되니');
   }
 
   @override
@@ -43,17 +59,15 @@ class DetailTalkController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
 
+    // String? authToken = await getAuth();
+    // if (authToken != null) {
+    //   dio.options.headers['Authorization'] = authToken;
+    // }
+
+    if (talkId.isNotEmpty) {
+      getTalkById();
+    }
+
     print('단일톡 onInit은 되니');
-
-    String? authToken = await getAuth();
-
-    if (authToken != null) {
-      dio.options.headers['Authorization'] = authToken;
-    }
-
-    final id = Get.parameters['id'];
-    if (id != null) {
-      getTalkById(id: id);
-    }
   }
 }

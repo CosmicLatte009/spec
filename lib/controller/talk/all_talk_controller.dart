@@ -19,20 +19,17 @@ class AllTalkController extends GetxController {
       );
       if (res.statusCode == 200 && res.data["status"] == "success") {
         var resData = List<Map<String, dynamic>>.from(res.data["data"]);
-        var talkList = resData.map(Talk.fromMap).toList();
+        var talkList = resData.map((map) => Talk.fromMap(map)).toList();
         _allTalks.assignAll(talkList);
         isLoading.value = false;
-        print(_allTalks);
       } else {
         isLoading.value = true;
         print(res.data["message"]);
       }
     } on DioException catch (e) {
       isLoading.value = true;
-      print('전체 톡 가져오기 실패여');
       print(e.toString());
     }
-    // print('요청을 보내고 있긴 하니');
   }
 
   @override
@@ -40,6 +37,5 @@ class AllTalkController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     await getAllTalks();
-    print('onInit은 되긴 되니');
   }
 }

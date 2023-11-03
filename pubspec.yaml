@@ -65,10 +65,10 @@ flutter:
   assets:
     - assets/
     - assets/icons/svgs/
-    - assets/avatar/face/
-    - assets/avatar/hair/
-    - assets/avatar/item/
-    - assets/avatar/skin/
+    - assets/avatar/Emotion/
+    - assets/avatar/Face/
+    - assets/avatar/Hair/
+    - assets/avatar/Item/
     - assets/icons/pngs/
     - assets/logo/Logo.png
     - assets/logo/splash.svg

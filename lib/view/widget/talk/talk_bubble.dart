@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/util/time_utils.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/popup/popup.dart';
+import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import '../alert/300_width_description/description_with_two_button.dart';
@@ -15,23 +17,17 @@ enum BubbleType { less, detail }
 class TalkBubble extends StatefulWidget {
   const TalkBubble({
     super.key,
-    required this.text,
+    required this.talk,
+    this.mytalk = false,
     this.type = BubbleType.less,
     required this.isLikePressed,
-    required this.commentCount,
-    required this.upCount,
-    this.mytalk = false,
-    required this.talkId,
+    this.onTapEnabled = true,
   });
-
-  final String text;
+  final Talk? talk;
+  final bool mytalk;
   final BubbleType type;
   final bool isLikePressed;
-  final int commentCount;
-  final int upCount;
-  final bool mytalk;
-  final String talkId;
-
+  final bool onTapEnabled;
   @override
   State<TalkBubble> createState() => _TalkBubbleState();
 }
@@ -50,9 +46,12 @@ class _TalkBubbleState extends State<TalkBubble> {
                 });
               }
             : null,
-        onTap: () {
-          Get.toNamed(AppPagesRoutes.detailTalk + widget.talkId);
-        },
+        onTap: widget.onTapEnabled && widget.talk != null
+            ? () {
+                Get.toNamed(AppPagesRoutes.detailTalk,
+                    parameters: {'id': widget.talk!.id});
+              }
+            : null,
         child: Stack(
           children: [
             Column(
@@ -83,14 +82,17 @@ class _TalkBubbleState extends State<TalkBubble> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '24분 전',
+                                  widget.talk?.createdAt != null
+                                      ? TimeUtils.relativeTime(
+                                          widget.talk!.createdAt)
+                                      : '날짜 정보 없음',
                                   style: AppTextStyles.body12R(
                                       color: AppColor.black40),
                                 ),
                                 const SizedBox(height: 4),
                                 if (widget.type == BubbleType.less)
                                   Text(
-                                    widget.text,
+                                    widget.talk?.content ?? '',
                                     style: AppTextStyles.body14M(
                                         color: AppColor.black80),
                                     overflow: TextOverflow.ellipsis,
@@ -101,7 +103,7 @@ class _TalkBubbleState extends State<TalkBubble> {
                                         minWidth: 200,
                                         maxWidth: double.infinity),
                                     child: Text(
-                                      widget.text,
+                                      widget.talk?.content ?? '내용이 없습니다.',
                                       style: AppTextStyles.body14M(
                                           color: AppColor.black80),
                                     ),
@@ -194,8 +196,8 @@ class _TalkBubbleState extends State<TalkBubble> {
                 ),
                 const SizedBox(height: 3),
                 StackAvatars(
-                  commentLength: widget.commentCount,
-                  upLength: widget.upCount,
+                  commentLength: widget.talk?.childrenLength ?? 0,
+                  upLength: widget.talk?.upProfiles?.length ?? 0,
                 ),
               ],
             ),

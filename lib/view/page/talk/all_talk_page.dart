@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/talk/all_talk_controller.dart';
-import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/talk/talk_bubble_builder.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -33,33 +32,40 @@ class AllTalkPage extends GetView<AllTalkController> {
           print(val);
         },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
-              child: CustomInput(
-                type: InputType.search,
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
+            child: CustomInput(
+              type: InputType.search,
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const NavMenu(
+                    title: '톡톡톡',
+                    titleDirection: TitleDirection.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Obx(() {
+                      if (controller.isLoading.value) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        return TalkBubbleBuilder(
+                          data: controller.allTalks,
+                        );
+                      }
+                    }),
+                  ),
+                ],
               ),
             ),
-            NavMenu(
-              title: '톡톡톡',
-              titleDirection: TitleDirection.center,
-              // onButtonPressed: () => Get.toNamed(AppPagesRoutes.mainTalk),
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Obx(() {
-                if (controller.isLoading.value) {
-                  return const CircularProgressIndicator();
-                } else {
-                  return TalkBubbleBuilder(talkDataList: controller.allTalks);
-                }
-              }),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

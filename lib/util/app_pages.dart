@@ -18,6 +18,7 @@ import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
+import '../controller/talk/detail_talk_controller.dart';
 import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';
 import '../view/page/talk/hot_talk_page.dart';
@@ -97,8 +98,18 @@ class AppPages {
       page: () => const AllTalkPage(),
     ),
     GetPage(
-      name: '${AppPagesRoutes.detailTalk}:id',
+      name: AppPagesRoutes.detailTalk,
       page: () => const DetailTalkPage(),
+      binding: BindingsBuilder(() {
+        String? id = Get.parameters['id'];
+        print('Binding for DetailTalkController with id: $id');
+        if (id != null) {
+          Get.put(DetailTalkController(id));
+        } else {
+          print('Error: Talk ID is null');
+          // 에러 처리 로직을 여기에 추가할 수 있습니다.
+        }
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.hotTalk,

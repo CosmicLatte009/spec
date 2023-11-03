@@ -13,14 +13,18 @@ class DetailMogakController extends GetxController {
   final Rxn<DetailMogak> _detailMogak = Rxn<DetailMogak>();
 
   Rxn<DetailMogak> get detailMogak => _detailMogak;
-  RxBool get isJoined => _isJoined;
-  RxBool get isLiked => _isLiked;
+  bool get isJoined => _isJoined.value;
+  bool get isLiked => _isLiked.value;
 
   // @todo _detailMogak.appliedProfiles에 내 id가 있는지 여부 판별
 
   // * 동적으로 route를 생성하기 위해 생성자가 필요함.
   DetailMogakController(String id) {
     mogakId.value = id;
+  }
+
+  detailMogakState(val) {
+    return controller.getMogakState(val);
   }
 
   getDetailMogak() async {

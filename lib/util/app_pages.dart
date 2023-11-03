@@ -103,7 +103,7 @@ class AppPages {
       page: () => const AllTalkPage(),
     ),
     GetPage(
-      name: AppPagesRoutes.detailTalk,
+      name: '${AppPagesRoutes.detailTalk}:id',
       page: () => const DetailTalkPage(),
       binding: BindingsBuilder(() {
         String? id = Get.parameters['id'];

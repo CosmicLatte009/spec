@@ -1,5 +1,6 @@
 import 'package:spec/model/applied_profile.dart';
-import 'package:spec/model/profile.dart';
+import 'package:spec/model/mogak_talk.dart';
+import 'package:spec/model/up_profile.dart';
 
 class DetailMogak {
   String id;
@@ -15,8 +16,8 @@ class DetailMogak {
   String visiblityStatus;
   int temperature;
   List<AppliedProfile> appliedProfiles;
-  List<dynamic> talks; //@todo 추후 talk 수정
-  List<Profile?> upProfiles;
+  List<MogakTalk?> talks;
+  List<UpProfiles?> upProfiles;
 
   DetailMogak({
     required this.id,
@@ -38,23 +39,35 @@ class DetailMogak {
 
   factory DetailMogak.fromMap(Map<String, dynamic> map) {
     return DetailMogak(
-      id: map['id'],
-      title: map['title'],
-      content: map['content'],
-      isDeleted: map['isDeleted'],
-      maxMember: map['maxMember'],
-      createdAt: map['createdAt'],
-      updatedAt: map['updatedAt'],
-      deletedAt: map['deletedAt'],
-      authorId: map['authorId'],
-      hashtag: map['hashtag'],
-      visiblityStatus: map['visiblityStatus'],
-      temperature: map['temperature'],
+      id: map['id'] as String,
+      title: map['title'] as String,
+      content: map['content'] as String,
+      isDeleted: map['isDeleted'] as bool,
+      maxMember: map['maxMember'] as int,
+      createdAt: map['createdAt'] as String,
+      updatedAt: map['updatedAt'] as String,
+      deletedAt: map['deletedAt'] != null ? map['deletedAt'] as String : null,
+      authorId: map['authorId'] as String,
+      hashtag: map['hashtag'] != null ? map['hashtag'] as String : null,
+      visiblityStatus: map['visiblityStatus'] as String,
+      temperature: map['temperature'] as int,
       appliedProfiles: List<AppliedProfile>.from(
-          map['appliedProfiles'].map((x) => AppliedProfile.fromMap(x))),
-      talks: List<dynamic>.from(map['talks'] ?? []),
-      upProfiles: List<Profile>.from(
-          map['upProfiles'].map((x) => AppliedProfile.fromMap(x))),
+        (map['appliedProfiles'] as List).map(
+          (x) => AppliedProfile.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      talks: List<MogakTalk?>.from(
+        (map['talks'] as List).map(
+          (x) =>
+              x != null ? MogakTalk.fromMap(x as Map<String, dynamic>) : null,
+        ),
+      ),
+      upProfiles: List<UpProfiles?>.from(
+        (map['upProfiles'] as List).map(
+          (x) =>
+              x != null ? UpProfiles.fromMap(x as Map<String, dynamic>) : null,
+        ),
+      ),
     );
   }
 }

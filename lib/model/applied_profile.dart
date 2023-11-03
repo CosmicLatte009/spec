@@ -7,7 +7,7 @@ class AppliedProfile {
   Badge? badge;
   String role;
   String position;
-  int? temperature;
+  int temperature;
 
   AppliedProfile({
     required this.id,
@@ -16,7 +16,7 @@ class AppliedProfile {
     this.badge,
     required this.role,
     required this.position,
-    this.temperature,
+    required this.temperature,
   });
 
   factory AppliedProfile.fromMap(Map<String, dynamic> map) {
@@ -26,7 +26,7 @@ class AppliedProfile {
       nickname: map['nickname'],
       role: map['role'],
       position: map['position'],
-      temperature: map['temperature'],
+      temperature: map['temperature'] ?? 0,
       badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
     );
   }

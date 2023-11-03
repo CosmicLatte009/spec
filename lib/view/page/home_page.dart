@@ -111,7 +111,9 @@ class _HomePageState extends State<HomePage> {
           NavMenu(
             title: '핫한 톡',
             titleDirection: TitleDirection.left,
-            onButtonPressed: () {},
+            onButtonPressed: () {
+              Get.toNamed(AppPagesRoutes.hotTalk);
+            },
           ),
           Container(height: 202),
           NavMenu(
@@ -122,7 +124,13 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           Container(height: 202),
-          NavMenu(title: '핫한 모각코', titleDirection: TitleDirection.left),
+          NavMenu(
+            title: '핫한 모각코',
+            titleDirection: TitleDirection.left,
+            onButtonPressed: () {
+              Get.toNamed(AppPagesRoutes.hotMogak);
+            },
+          ),
           Container(height: 255),
           NavMenu(title: '이달의 스페이서', titleDirection: TitleDirection.left),
           BestSpacerWidget(),

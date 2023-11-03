@@ -24,6 +24,8 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     fetchHomeData(); // Fetch data when the controller is initialized
+    fetchHomeData();
+    fetchBestSpacerData();
   }
 
   Future<List<Course>> fetchHomeData() async {

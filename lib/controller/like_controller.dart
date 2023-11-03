@@ -26,7 +26,7 @@ class LikeController extends GetxController {
       });
       if (res.statusCode == 200) {
         if (res.data["status"] == 'success') {
-          bool isUp = res.data["data"].isUp;
+          bool isUp = res.data["data"]["isUp"];
           handleLike(isUp);
           print('${key.name}: $id 좋아요');
         } else {

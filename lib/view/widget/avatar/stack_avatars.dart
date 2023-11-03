@@ -41,45 +41,51 @@ class StackAvatars extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Row(
-            children: [
-              SizedBox(
-                width: computeStackWidth(commentLength),
-                height: 20,
-                child:
-                    Stack(children: generatePositionedAvatars(commentLength)),
-              ),
-              const SizedBox(width: 2),
-              SvgPicture.asset(
-                'assets/icons/svgs/plus.svg',
-                width: 16,
-              ),
-              Text(
-                '$commentLength',
-                style: AppTextStyles.body12R(color: AppColor.primary80),
-              ),
-            ],
+          Visibility(
+            visible: commentLength > 0,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: computeStackWidth(commentLength),
+                  height: 20,
+                  child:
+                      Stack(children: generatePositionedAvatars(commentLength)),
+                ),
+                const SizedBox(width: 2),
+                SvgPicture.asset(
+                  'assets/icons/svgs/plus.svg',
+                  width: 16,
+                ),
+                Text(
+                  '$commentLength',
+                  style: AppTextStyles.body12R(color: AppColor.primary80),
+                ),
+              ],
+            ),
           ),
           const SizedBox(width: 8),
-          Row(
-            children: [
-              SizedBox(
-                width: computeStackWidth(upLength),
-                height: 20,
-                child: Stack(
-                  children: generatePositionedAvatars(upLength),
+          Visibility(
+            visible: upLength > 0,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: computeStackWidth(upLength),
+                  height: 20,
+                  child: Stack(
+                    children: generatePositionedAvatars(upLength),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 2),
-              SvgPicture.asset(
-                'assets/icons/svgs/Like.svg',
-                width: 16,
-              ),
-              Text(
-                '$upLength',
-                style: AppTextStyles.body12R(color: AppColor.primary80),
-              ),
-            ],
+                const SizedBox(width: 2),
+                SvgPicture.asset(
+                  'assets/icons/svgs/Like.svg',
+                  width: 16,
+                ),
+                Text(
+                  '$upLength',
+                  style: AppTextStyles.body12R(color: AppColor.primary80),
+                ),
+              ],
+            ),
           ),
         ],
       ),

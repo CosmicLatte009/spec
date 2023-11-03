@@ -1,5 +1,6 @@
 import 'package:spec/model/applied_profile.dart';
 import 'package:spec/model/author.dart';
+import 'package:spec/model/up_profile.dart';
 
 class Mogak {
   String id;
@@ -13,10 +14,11 @@ class Mogak {
   String? deletedAt;
   String authorId;
   String? hashtag;
+  String visiblityStatus;
   int temperature;
   Author author;
   List<AppliedProfile> appliedProfiles;
-  int? up;
+  List<UpProfiles?> upProfiles;
 
   Mogak({
     required this.id,
@@ -30,10 +32,11 @@ class Mogak {
     this.deletedAt,
     required this.authorId,
     this.hashtag,
+    required this.visiblityStatus,
     required this.temperature,
     required this.author,
     required this.appliedProfiles,
-    this.up,
+    required this.upProfiles,
   });
 
   factory Mogak.fromMap(Map<String, dynamic> map) {
@@ -49,11 +52,13 @@ class Mogak {
       deletedAt: map['deletedAt'],
       authorId: map['authorId'],
       hashtag: map['hashtag'],
+      visiblityStatus: map['visiblityStatus'] as String,
       temperature: map['temperature'],
       author: Author.fromMap(map['author']),
       appliedProfiles: List<AppliedProfile>.from(
           map['appliedProfiles'].map((x) => AppliedProfile.fromMap(x))),
-      up: map['up'],
+      upProfiles: List<UpProfiles>.from(
+          map['upProfiles'].map((x) => UpProfiles.fromMap(x))),
     );
   }
 }

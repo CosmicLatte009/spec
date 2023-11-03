@@ -136,13 +136,13 @@ class _CustomInputState extends State<CustomInput> {
                       color: getValidateColor ?? hintTextColor,
                     ),
                     filled: true,
+                    fillColor: widget.type == InputType.search
+                        ? AppColor.white
+                        : Colors.transparent,
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 14,
                     ),
-                    fillColor: widget.type == InputType.search
-                        ? Colors.transparent
-                        : AppColor.back05,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: widget.type == InputType.search

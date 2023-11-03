@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
-import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
@@ -67,7 +67,11 @@ class HotMogakPage extends GetView<HotMogakController> {
                   shrinkWrap: true,
                   itemCount: controller.hotMogak!.length,
                   itemBuilder: (context, index) {
-                    return MogakCard(mogak: controller.hotMogak![index]);
+                    return MogakCard(
+                      mogak: controller.hotMogak![index],
+                      mogakState: controller.mogakState(
+                          controller.hotMogak![index].visiblityStatus),
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return Column(
@@ -76,7 +80,9 @@ class HotMogakPage extends GetView<HotMogakController> {
                         StackAvatars(
                           commentLength: controller
                               .hotMogak![index].appliedProfiles.length,
-                          upLength: controller.hotMogak![index].up ?? 0,
+                          upLength:
+                              controller.hotMogak![index].upProfiles.length ??
+                                  0,
                         ),
                         const SizedBox(height: 16),
                       ],
@@ -89,12 +95,8 @@ class HotMogakPage extends GetView<HotMogakController> {
         ),
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () {},
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: 3,
-        onTap: (val) {
-          print(val);
+        onPressed: () {
+          Get.toNamed(AppPagesRoutes.createMogak);
         },
       ),
     );

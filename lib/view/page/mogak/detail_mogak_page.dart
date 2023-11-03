@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/avatar/user_avatar.dart';
-import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/card/detail_mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -39,6 +37,9 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                       controller:
                           controller.joinMogak, // 혹은 controller.cancelJoin
                       like: controller.like,
+                      isLiked: controller.isLiked,
+                      mogakState: controller.detailMogakState(
+                          controller.detailMogak.value!.visiblityStatus),
                     )
                   : Container(),
             ),

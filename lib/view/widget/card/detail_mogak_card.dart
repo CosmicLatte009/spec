@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/avatar/atavar_with_role.dart';
 import 'package:spec/view/widget/avatar/join_avatars.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
@@ -16,16 +14,19 @@ class DetailMogakCard extends StatelessWidget {
     required this.mogak,
     this.controller,
     this.like,
+    required this.mogakState,
+    this.isLiked = false,
   });
   final DetailMogak mogak;
+  final String mogakState;
   final controller;
   final like;
+  final bool isLiked;
 
   @override
   Widget build(BuildContext context) {
     List<String?> tags =
         mogak.hashtag != null ? mogak.hashtag!.split('#').skip(1).toList() : [];
-
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -41,29 +42,19 @@ class DetailMogakCard extends StatelessWidget {
                 // user
                 Row(
                   children: [
-                    mogak.appliedProfiles[0].avatar != null
-                        ? UserAvatar(
-                            avatarUrl: mogak.appliedProfiles[0].avatar,
-                            avatarSize: AvatarSize.w40,
-                            direction: BadgeDirection.row,
-                            shortName: mogak.appliedProfiles[0].badge != null
-                                ? mogak.appliedProfiles[0].badge!.shortName
-                                : '개발자/1기',
-                            nickName: mogak.appliedProfiles[0].nickname,
-                            nickNameSize: AppTextStyles.body12B(),
-                            role: '수료생',
-                          )
-                        : UserAvatar(
-                            avatarSvg: 'assets/icons/svgs/man-a.svg',
-                            avatarSize: AvatarSize.w40,
-                            direction: BadgeDirection.row,
-                            shortName: mogak.appliedProfiles[0].badge != null
-                                ? mogak.appliedProfiles[0].badge!.shortName
-                                : '개발자/1기',
-                            nickName: mogak.appliedProfiles[0].nickname,
-                            nickNameSize: AppTextStyles.body12B(),
-                            role: '수료생',
-                          ),
+                    UserAvatar(
+                      avatarUrl: mogak.appliedProfiles[0].avatar,
+                      avatarSize: AvatarSize.w40,
+                      direction: BadgeDirection.row,
+                      shortName: mogak.appliedProfiles[0].badge != null
+                          ? mogak.appliedProfiles[0].badge!.shortName
+                          : null,
+                      nickName: mogak.appliedProfiles[0].nickname,
+                      nickNameSize: AppTextStyles.body12B(),
+                      role: mogak.appliedProfiles[0].role == 'NEWBIE'
+                          ? '수료생'
+                          : null, //@todo 수료생 뱃지 어디있는지?
+                    )
                   ],
                 ),
                 GestureDetector(
@@ -72,18 +63,27 @@ class DetailMogakCard extends StatelessWidget {
                     'assets/icons/svgs/Like.svg',
                     width: 20,
                     height: 20,
-                    color: AppColor.black10, //@todo click시 red
+                    color: isLiked ? AppColor.warning : AppColor.black10,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            //@todo 모집중 등의 상태? [모집중] <= 이거
-            Text(
-              mogak.title,
-              textAlign: TextAlign.start,
-              style: AppTextStyles.body16B(),
-              overflow: TextOverflow.ellipsis,
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '[$mogakState] ',
+                    style: AppTextStyles.body16B(
+                      color: AppColor.primary,
+                    ),
+                  ),
+                  TextSpan(
+                    text: mogak.title,
+                    style: AppTextStyles.body16B(),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 8),
             Text(

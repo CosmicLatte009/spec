@@ -42,14 +42,20 @@ class MogakPage extends GetView<MogakController> {
             () => controller.hotMogak != null && controller.hotMogak!.isNotEmpty
                 ? Column(
                     children: [
-                      MogakCard(mogak: controller.hotMogak!.first),
+                      MogakCard(
+                        mogak: controller.hotMogak!.first,
+                        mogakState: controller.getMogakState(
+                          controller.hotMogak!.first.visiblityStatus,
+                        ),
+                      ),
                       Column(
                         children: [
                           const SizedBox(height: 8),
                           StackAvatars(
                             commentLength:
                                 controller.hotMogak![0].appliedProfiles.length,
-                            upLength: controller.hotMogak![0].up ?? 0,
+                            upLength:
+                                controller.hotMogak![0].upProfiles.length ?? 0,
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -68,17 +74,23 @@ class MogakPage extends GetView<MogakController> {
             },
           ),
           Obx(
-            () => controller.allMogak != null && controller.hotMogak!.isNotEmpty
+            () => controller.allMogak != null && controller.allMogak!.isNotEmpty
                 ? Column(
                     children: [
-                      MogakCard(mogak: controller.allMogak!.first),
+                      MogakCard(
+                        mogak: controller.allMogak!.first,
+                        mogakState: controller.getMogakState(
+                          controller.allMogak!.first.visiblityStatus,
+                        ),
+                      ),
                       Column(
                         children: [
                           const SizedBox(height: 8),
                           StackAvatars(
                             commentLength:
                                 controller.allMogak![0].appliedProfiles.length,
-                            upLength: controller.allMogak![0].up ?? 0,
+                            upLength:
+                                controller.allMogak![0].upProfiles.length ?? 0,
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -91,7 +103,8 @@ class MogakPage extends GetView<MogakController> {
       ),
       floatingActionButton: CustomFloatingActionButton(
         onPressed: () {
-          Get.to(const CreateMogakPage());
+          Get.toNamed(AppPagesRoutes.createMogak);
+          // Get.to(const CreateMogakPage());
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

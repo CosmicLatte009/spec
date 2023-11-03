@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
@@ -67,7 +68,12 @@ class AllMogakPage extends GetView<AllMogakController> {
                   shrinkWrap: true,
                   itemCount: controller.allMogak!.length,
                   itemBuilder: (context, index) {
-                    return MogakCard(mogak: controller.allMogak![index]);
+                    return MogakCard(
+                      mogak: controller.allMogak![index],
+                      mogakState: controller.mogakState(
+                        controller.allMogak![index].visiblityStatus,
+                      ),
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return Column(
@@ -76,7 +82,9 @@ class AllMogakPage extends GetView<AllMogakController> {
                         StackAvatars(
                           commentLength: controller
                               .allMogak![index].appliedProfiles.length,
-                          upLength: controller.allMogak![index].up ?? 0,
+                          upLength:
+                              controller.allMogak![index].upProfiles.length ??
+                                  0,
                         ),
                         const SizedBox(height: 16),
                       ],
@@ -89,12 +97,8 @@ class AllMogakPage extends GetView<AllMogakController> {
         ),
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () {},
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: 3,
-        onTap: (val) {
-          print(val);
+        onPressed: () {
+          Get.toNamed(AppPagesRoutes.createMogak);
         },
       ),
     );

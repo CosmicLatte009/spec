@@ -5,7 +5,7 @@ import 'package:spec/model/me_up.dart';
 
 enum LikeType { talkId, mogakId, catchUpId }
 
-enum MyLikeType { talk, mogak, catchUp }
+enum MyLikeType { talk, mogak, catchup }
 
 class LikeController extends GetxController {
   var controller = Get.find<AuthController>();

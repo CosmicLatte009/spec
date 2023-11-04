@@ -9,6 +9,7 @@ import 'package:spec/view/widget/custom_input.dart';
 
 class ForgotPasswordPage extends GetView<ForgotPasswordController> {
   const ForgotPasswordPage({super.key});
+  static const route = '/forgot-pw';
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +31,15 @@ class ForgotPasswordPage extends GetView<ForgotPasswordController> {
               children: [
                 Expanded(
                   child: CustomInput(
-                    controller: TextEditingController(),
+                    controller: controller.emailController,
                     label: '이메일',
                     hint: '이메일을 입력해주세요.',
                   ),
                 ),
                 CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    controller.findPassword(controller.emailController.text);
+                  },
                   text: '보내기',
                   type: ButtonType.main,
                   height: 56,

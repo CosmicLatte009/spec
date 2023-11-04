@@ -7,6 +7,7 @@ import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
@@ -90,6 +91,10 @@ class AppPages {
       page: () => LoginScreen(),
     ),
     GetPage(
+      name: AppPagesRoutes.forgotPw,
+      page: () => const ForgotPasswordPage(),
+    ),
+    GetPage(
       name: AppPagesRoutes.mainTalk,
       page: () => const MainTalkPage(),
     ),
@@ -107,7 +112,6 @@ class AppPages {
           Get.put(DetailTalkController(id));
         } else {
           print('Error: Talk ID is null');
-          // 에러 처리 로직을 여기에 추가할 수 있습니다.
         }
       }),
     ),

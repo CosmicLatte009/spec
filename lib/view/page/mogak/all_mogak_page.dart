@@ -25,8 +25,12 @@ class AllMogakPage extends GetView<AllMogakController> {
             const SizedBox(
               height: 16,
             ),
-            const CustomInput(
+            CustomInput(
               type: InputType.search,
+              controller: controller.searchController.searchTextController,
+              onSubmit: (value) {
+                controller.controller.getAllMogak(query: value);
+              },
             ),
             //이전페이지 네비게이션
             const NavMenu(

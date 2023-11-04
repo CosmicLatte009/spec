@@ -5,6 +5,7 @@ import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
+import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
@@ -37,6 +38,7 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => MogakController());
           Get.lazyPut(() => FilterController());
+          Get.lazyPut(() => ContentSearchController());
         })),
     GetPage(
       name: AppPagesRoutes.allMogak,
@@ -44,6 +46,7 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => AllMogakController());
         Get.lazyPut(() => FilterController());
+        Get.lazyPut(() => ContentSearchController());
       }),
     ),
     GetPage(
@@ -52,6 +55,7 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => HotMogakController());
         Get.lazyPut(() => FilterController());
+        Get.lazyPut(() => ContentSearchController());
       }),
     ),
     GetPage(

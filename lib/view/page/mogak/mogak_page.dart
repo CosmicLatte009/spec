@@ -26,8 +26,12 @@ class MogakPage extends GetView<MogakController> {
           const SizedBox(
             height: 16,
           ),
-          const CustomInput(
+          CustomInput(
             type: InputType.search,
+            controller: controller.searchController.searchTextController,
+            onSubmit: (value) {
+              controller.getAllMogak(query: value);
+            },
           ),
           NavMenu(
             title: '핫한 모각코',

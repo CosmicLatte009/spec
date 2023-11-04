@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/model/detail_mogak.dart';
@@ -14,6 +15,9 @@ class MogakController extends GetxController {
   var controller = Get.find<AuthController>();
   var upController = Get.find<LikeController>();
   var filterController = Get.find<FilterController>();
+  var searchController = Get.find<ContentSearchController>();
+
+  String get searchKeyword => searchController.keyword.value;
   final RxList<MeUp> _myLikeList = RxList([]);
 
   /// 좋아요 토글
@@ -68,12 +72,16 @@ class MogakController extends GetxController {
     }
   }
 
-  getHotMogak() async {
+  getHotMogak({String? query}) async {
+    var queryParameters = {
+      'orderBy': filterController.orderBy,
+      'filter': query,
+    };
     try {
       String path = '/api/top/mogak';
       var res = await dio.get(
         path,
-        queryParameters: {'orderBy': filterController.orderBy},
+        queryParameters: queryParameters,
       );
       _hotMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
@@ -85,18 +93,24 @@ class MogakController extends GetxController {
     }
   }
 
-  getAllMogak() async {
+  getAllMogak({String? query}) async {
+    var queryParameters = {
+      'orderBy': filterController.orderBy,
+      'filter': query,
+    };
     try {
       String path = '/api/mogak';
       var res = await dio.get(
         path,
-        queryParameters: {'orderBy': filterController.orderBy},
+        queryParameters: queryParameters,
       );
       _allMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
             (mogak) => Mogak.fromMap(mogak),
           )
           .toList();
+      print(_allMogak[0].title);
+      print(_allMogak[0].content);
     } catch (e) {
       print(e);
     }
@@ -173,14 +187,14 @@ class MogakController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     String? authToken = await getAuth();
-    // dio.interceptors.add(
-    //   LogInterceptor(
-    //     request: true,
-    //     responseBody: true,
-    //     requestBody: true,
-    //     responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
-    //   ),
-    // );
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        responseBody: true,
+        requestBody: true,
+        responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
+      ),
+    );
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;

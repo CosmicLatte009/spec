@@ -1,3 +1,5 @@
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
@@ -19,6 +21,7 @@ class AppPagesRoutes {
   static const String login = LoginScreen.route;
   static const String signup = SignupPage.route;
   static const String signupSuccess = SignupSuccessPage.route;
+  static const String forgotPw = ForgotPasswordPage.route;
   static const String mogak = MogakPage.route;
   static const String hotMogak = HotMogakPage.route;
   static const String allMogak = AllMogakPage.route;

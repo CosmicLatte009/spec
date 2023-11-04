@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/forgot_pw_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
@@ -9,11 +10,10 @@ import 'package:spec/controller/login_controller.dart';
 import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/splash_page.dart';
-import 'package:spec/view/page/splash_page.dart';
 import 'controller/talk/all_talk_controller.dart';
-import 'controller/talk/detail_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';
 
 void main() {
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
           Get.put(AuthController());
           Get.put(LoginController());
           Get.lazyPut(() => SignupController());
+          Get.lazyPut(() => ForgotPasswordController());
           Get.put(CatchUpController());
           Get.put(ChangePWController());
           Get.put(MyPageController());
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => LikeController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
+          Get.lazyPut(() => MainTalkController());
         },
       ),
       getPages: AppPages.pages,

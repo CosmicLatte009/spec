@@ -61,7 +61,7 @@ class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UserAvatar(
-              avatarSvg: comment.author.avatar,
+              avatarUrl: comment.author.avatar,
               direction: BadgeDirection.row,
               shortName: comment.author.badge?.shortName,
               nickName: comment.author.nickname,

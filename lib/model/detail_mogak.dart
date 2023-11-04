@@ -1,5 +1,5 @@
 import 'package:spec/model/applied_profile.dart';
-import 'package:spec/model/mogak_talk.dart';
+import 'package:spec/model/talk.dart';
 import 'package:spec/model/up_profile.dart';
 
 class DetailMogak {
@@ -16,7 +16,7 @@ class DetailMogak {
   String visiblityStatus;
   int temperature;
   List<AppliedProfile> appliedProfiles;
-  List<MogakTalk?> talks;
+  List<Talk?> talks;
   List<UpProfiles?> upProfiles;
 
   DetailMogak({

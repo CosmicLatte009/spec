@@ -19,78 +19,111 @@ class MogakPage extends GetView<MogakController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: ListView(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(10.0),
+      body: Column(
         children: [
-          const SizedBox(
-            height: 16,
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomInput(
+              type: InputType.search,
+              controller: controller.searchController.searchTextController,
+              onSubmit: (value) {
+                controller.getAllMogak(query: value);
+              },
+            ),
           ),
-          const CustomInput(
-            type: InputType.search,
-          ),
-          NavMenu(
-            title: '핫한 모각코',
-            titleDirection: TitleDirection.left,
-            withEmoji: true,
-            emoji: 'assets/icons/pngs/letter.png',
-            onButtonPressed: () {
-              Get.toNamed(AppPagesRoutes.hotMogak);
-            },
-          ),
-          Obx(
-            () => controller.hotMogak != null && controller.hotMogak!.isNotEmpty
-                ? Column(
-                    children: [
-                      MogakCard(mogak: controller.hotMogak!.first),
-                      Column(
-                        children: [
-                          const SizedBox(height: 8),
-                          StackAvatars(
-                            commentLength:
-                                controller.hotMogak![0].appliedProfiles.length,
-                            upLength: controller.hotMogak![0].up ?? 0,
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      ),
-                    ],
-                  )
-                : Container(),
-          ),
-          NavMenu(
-            title: '모든 모각코',
-            titleDirection: TitleDirection.left,
-            withEmoji: true,
-            emoji: 'assets/icons/pngs/letter.png',
-            onButtonPressed: () {
-              Get.toNamed(AppPagesRoutes.allMogak);
-            },
-          ),
-          Obx(
-            () => controller.allMogak != null && controller.hotMogak!.isNotEmpty
-                ? Column(
-                    children: [
-                      MogakCard(mogak: controller.allMogak!.first),
-                      Column(
-                        children: [
-                          const SizedBox(height: 8),
-                          StackAvatars(
-                            commentLength:
-                                controller.allMogak![0].appliedProfiles.length,
-                            upLength: controller.allMogak![0].up ?? 0,
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      ),
-                    ],
-                  )
-                : Container(),
+          const SizedBox(height: 6),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(10.0),
+              children: [
+                NavMenu(
+                  title: '핫한 모각코',
+                  titleDirection: TitleDirection.left,
+                  withEmoji: true,
+                  emoji: 'assets/icons/pngs/letter.png',
+                  onButtonPressed: () {
+                    Get.toNamed(AppPagesRoutes.hotMogak);
+                  },
+                ),
+                Obx(
+                  () => controller.hotMogak != null &&
+                          controller.hotMogak!.isNotEmpty
+                      ? Column(
+                          children: [
+                            MogakCard(
+                              mogak: controller.hotMogak!.first,
+                              mogakState: controller.getMogakState(
+                                controller.hotMogak!.first.visiblityStatus,
+                              ),
+                              isUped: controller
+                                  .isUped(controller.hotMogak!.first.id),
+                              controller: controller.toggleLike,
+                            ),
+                            Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                StackAvatars(
+                                  commentLength: controller
+                                      .hotMogak![0].appliedProfiles.length,
+                                  upLength:
+                                      controller.hotMogak![0].upProfiles.length,
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ],
+                        )
+                      : Container(),
+                ),
+                NavMenu(
+                  title: '모든 모각코',
+                  titleDirection: TitleDirection.left,
+                  withEmoji: true,
+                  emoji: 'assets/icons/pngs/letter.png',
+                  onButtonPressed: () {
+                    Get.toNamed(AppPagesRoutes.allMogak);
+                  },
+                ),
+                Obx(
+                  () => controller.allMogak != null &&
+                          controller.allMogak!.isNotEmpty
+                      ? Column(
+                          children: [
+                            MogakCard(
+                              mogak: controller.allMogak!.first,
+                              mogakState: controller.getMogakState(
+                                controller.allMogak!.first.visiblityStatus,
+                              ),
+                              isUped: controller
+                                  .isUped(controller.allMogak!.first.id),
+                              controller: controller.toggleLike,
+                            ),
+                            Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                StackAvatars(
+                                  commentLength: controller
+                                      .allMogak![0].appliedProfiles.length,
+                                  upLength:
+                                      controller.allMogak![0].upProfiles.length,
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ],
+                        )
+                      : Container(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
       floatingActionButton: CustomFloatingActionButton(
         onPressed: () {
+          // Get.toNamed(AppPagesRoutes.createMogak);
           Get.to(const CreateMogakPage());
         },
       ),

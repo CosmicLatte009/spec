@@ -1,5 +1,11 @@
 import 'package:get/get.dart';
+import 'package:spec/controller/filter_controller.dart';
+import 'package:spec/controller/mogak/all_mogak_controller.dart';
+import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
+import 'package:spec/controller/mogak/hot_mogak_controller.dart';
+import 'package:spec/controller/mogak/mogak_controller.dart';
+import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
@@ -29,27 +35,44 @@ class AppPages {
         name: AppPagesRoutes.signupSuccess,
         page: () => const SignupSuccessPage()),
     GetPage(
-      name: AppPagesRoutes.mogak,
-      page: () => const MogakPage(),
-    ),
+        name: AppPagesRoutes.mogak,
+        page: () => const MogakPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => MogakController());
+          Get.lazyPut(() => FilterController());
+          Get.lazyPut(() => ContentSearchController());
+        })),
     GetPage(
       name: AppPagesRoutes.allMogak,
       page: () => const AllMogakPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AllMogakController());
+        Get.lazyPut(() => FilterController());
+        Get.lazyPut(() => ContentSearchController());
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.hotMogak,
       page: () => const HotMogakPage(),
-    ),
-    GetPage(
-      name: '/mogak/:id',
-      page: () => const DetailMogakPage(),
       binding: BindingsBuilder(() {
-        Get.put(DetailMogakController(Get.parameters['id']!));
+        Get.lazyPut(() => HotMogakController());
+        Get.lazyPut(() => FilterController());
+        Get.lazyPut(() => ContentSearchController());
       }),
     ),
     GetPage(
       name: AppPagesRoutes.createMogak,
       page: () => const CreateMogakPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CreateMogakController());
+      }),
+    ),
+    GetPage(
+      name: '/mogak/:id',
+      page: () => const DetailMogakPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DetailMogakController(Get.parameters['id']!));
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.catchUp,

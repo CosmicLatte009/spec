@@ -7,20 +7,26 @@ class DetailMogakController extends GetxController {
   var controller = Get.find<MogakController>();
   var likeController = Get.find<LikeController>();
 
+  bool isUped(id) => controller.isUped(id);
+
   RxString mogakId = RxString('');
   final RxBool _isJoined = false.obs; //join 상태인지 여부
   final RxBool _isLiked = false.obs; //like 상태인지 여부
   final Rxn<DetailMogak> _detailMogak = Rxn<DetailMogak>();
 
   Rxn<DetailMogak> get detailMogak => _detailMogak;
-  RxBool get isJoined => _isJoined;
-  RxBool get isLiked => _isLiked;
+  bool get isJoined => _isJoined.value;
+  bool get isLiked => _isLiked.value;
 
   // @todo _detailMogak.appliedProfiles에 내 id가 있는지 여부 판별
 
   // * 동적으로 route를 생성하기 위해 생성자가 필요함.
   DetailMogakController(String id) {
     mogakId.value = id;
+  }
+
+  detailMogakState(val) {
+    return controller.getMogakState(val);
   }
 
   getDetailMogak() async {
@@ -37,17 +43,18 @@ class DetailMogakController extends GetxController {
     controller.cancelJoin(mogakId: mogakId.value);
   }
 
-  like() {
+  toggleLike() {
     likeController.likeUp(
       key: LikeType.mogakId,
       id: mogakId.value,
     );
-    _isLiked(!_isLiked.value);
+    _isLiked.toggle();
   }
 
   @override
   void onInit() {
     super.onInit();
     getDetailMogak();
+    _isLiked.value = controller.isUped(mogakId.value);
   }
 }

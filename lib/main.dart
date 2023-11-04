@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => LikeController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
-          Get.lazyPut(() => DetailTalkController());
         },
       ),
       getPages: AppPages.pages,

@@ -21,15 +21,15 @@ class DetailTalkController extends GetxController {
 
   RxBool isLoading = true.obs;
 
-  // getAuth() async {
-  //   try {
-  //     var res = await controller.getToken();
-  //     print(res);
-  //     return res;
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  getAuth() async {
+    try {
+      var res = await controller.getToken();
+      print(res);
+      return res;
+    } catch (e) {
+      print(e);
+    }
+  }
 
   getTalkById() async {
     try {
@@ -59,10 +59,10 @@ class DetailTalkController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
 
-    // String? authToken = await getAuth();
-    // if (authToken != null) {
-    //   dio.options.headers['Authorization'] = authToken;
-    // }
+    String? authToken = await getAuth();
+    if (authToken != null) {
+      dio.options.headers['Authorization'] = authToken;
+    }
 
     if (talkId.isNotEmpty) {
       getTalkById();

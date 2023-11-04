@@ -189,7 +189,11 @@ class UserAvatar extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               CustomButton(
-                  text: role ?? 'role',
+                  text: role != null
+                      ? role == "NEWBIE"
+                          ? '수료생'
+                          : (role == 'Admin' ? '관리자' : '멘토')
+                      : 'role',
                   height: roleHeight ?? getFinalRoleHeightSize(),
                   type: ButtonType.neutral),
             ],
@@ -224,7 +228,11 @@ class UserAvatar extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             CustomButton(
-                text: role ?? 'role',
+                text: role != null
+                    ? role == "NEWBIE"
+                        ? '수료생'
+                        : (role == 'Admin' ? '관리자' : '멘토')
+                    : 'role',
                 height: roleHeight ?? getFinalRoleHeightSize(),
                 type: ButtonType.neutral),
           ],

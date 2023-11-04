@@ -109,8 +109,6 @@ class MogakController extends GetxController {
             (mogak) => Mogak.fromMap(mogak),
           )
           .toList();
-      print(_allMogak[0].title);
-      print(_allMogak[0].content);
     } catch (e) {
       print(e);
     }

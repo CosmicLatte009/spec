@@ -22,13 +22,13 @@ class Author {
 
   factory Author.fromMap(Map<String, dynamic> map) {
     return Author(
-      id: map['id'],
+      id: map['id'] ?? '',
       avatar: map['avatar'],
-      nickname: map['nickname'],
+      nickname: map['nickname'] ?? '',
       badge: map['badge'] != null ? Badge.fromMap(map['badge']) : null,
-      role: map['role'],
-      position: map['position'],
-      temperature: map['temperature'],
+      role: map['role'] ?? '',
+      position: map['position'] ?? '',
+      temperature: map['temperature'] ?? 0,
     );
   }
 

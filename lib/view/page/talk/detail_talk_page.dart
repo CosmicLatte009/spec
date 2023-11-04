@@ -72,13 +72,12 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: CommentTalkBuilder(
-                            data: controller.commentTalk ?? []),
+                        child: CommentTalkBuilder(data: controller.commentTalk),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 113),
               ],
             ),
           );

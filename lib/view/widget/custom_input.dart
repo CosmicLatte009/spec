@@ -141,7 +141,7 @@ class _CustomInputState extends State<CustomInput> {
                     filled: true,
                     fillColor: widget.type == InputType.search
                         ? AppColor.white
-                        : Colors.transparent,
+                        : AppColor.black05,
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 14,

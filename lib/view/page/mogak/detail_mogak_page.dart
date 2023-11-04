@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/card/detail_mogak_card.dart';
+import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/talk/comment_talk_builder.dart';
@@ -68,15 +69,37 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                     ),
                     const SizedBox(height: 16),
                     //톡 리스트뷰
-                    const CommentTalkBuilder(
+                    Obx(
+                      () => CommentTalkBuilder(
                         //@todo 톡 리스트 전달
-                        ),
+                        data: controller.detailMogak.value?.talks ?? [],
+                      ),
+                    ),
                   ],
                 ),
               ),
             )
           ],
         ),
+      ),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: AppColor.black10,
+              ),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CustomInput(
+                type: InputType.comment,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

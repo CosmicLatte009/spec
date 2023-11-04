@@ -22,9 +22,7 @@ class HotMogakPage extends GetView<HotMogakController> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             CustomInput(
               type: InputType.search,
               controller: controller.searchController.searchTextController,
@@ -32,50 +30,58 @@ class HotMogakPage extends GetView<HotMogakController> {
                 controller.controller.getHotMogak(query: value);
               },
             ),
-            //이전페이지 네비게이션
-            const NavMenu(
-              title: '핫한 모각코',
-              titleDirection: TitleDirection.center,
-            ),
-            // FilterButton
-            OrderbyButton(
-              onTap: () {
-                controller.filterController.toggleOrderBy();
-                controller.controller.getAllMogak();
-              },
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            //모각코 카드
+            const SizedBox(height: 6),
             Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.hotMogak!.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        MogakCard(
-                          mogak: controller.hotMogak![index],
-                          mogakState: controller.mogakState(
-                              controller.hotMogak![index].visiblityStatus),
-                          isUped:
-                              controller.isUped(controller.hotMogak![index].id),
-                          controller: controller.toggleLike,
-                        ),
-                        const SizedBox(height: 8),
-                        StackAvatars(
-                          commentLength: controller
-                              .hotMogak![index].appliedProfiles.length,
-                          upLength:
-                              controller.hotMogak![index].upProfiles.length,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    );
-                  },
-                ),
+              child: ListView(
+                children: [
+                  //이전페이지 네비게이션
+                  const NavMenu(
+                    title: '핫한 모각코',
+                    titleDirection: TitleDirection.center,
+                  ),
+                  // FilterButton
+                  OrderbyButton(
+                    onTap: () {
+                      controller.filterController.toggleOrderBy();
+                      controller.controller.getAllMogak();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  //모각코 카드
+                  Expanded(
+                    child: Obx(
+                      () => ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.hotMogak!.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              MogakCard(
+                                mogak: controller.hotMogak![index],
+                                mogakState: controller.mogakState(controller
+                                    .hotMogak![index].visiblityStatus),
+                                isUped: controller
+                                    .isUped(controller.hotMogak![index].id),
+                                controller: controller.toggleLike,
+                              ),
+                              const SizedBox(height: 8),
+                              StackAvatars(
+                                commentLength: controller
+                                    .hotMogak![index].appliedProfiles.length,
+                                upLength: controller
+                                    .hotMogak![index].upProfiles.length,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

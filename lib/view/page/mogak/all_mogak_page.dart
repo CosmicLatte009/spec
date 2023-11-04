@@ -21,6 +21,7 @@ class AllMogakPage extends GetView<AllMogakController> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
               height: 16,
@@ -32,51 +33,59 @@ class AllMogakPage extends GetView<AllMogakController> {
                 controller.controller.getAllMogak(query: value);
               },
             ),
-            //이전페이지 네비게이션
-            const NavMenu(
-              title: '모든 모각코',
-              titleDirection: TitleDirection.center,
-            ),
-            // FilterButton
-            OrderbyButton(
-              onTap: () {
-                controller.filterController.toggleOrderBy();
-                controller.controller.getAllMogak();
-              },
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            //모각코 카드
+            const SizedBox(height: 6),
             Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.allMogak!.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        MogakCard(
-                          mogak: controller.allMogak![index],
-                          mogakState: controller.mogakState(
-                            controller.allMogak![index].visiblityStatus,
-                          ),
-                          isUped:
-                              controller.isUped(controller.allMogak![index].id),
-                          controller: controller.toggleLike,
-                        ),
-                        const SizedBox(height: 8),
-                        StackAvatars(
-                          commentLength: controller
-                              .allMogak![index].appliedProfiles.length,
-                          upLength:
-                              controller.allMogak![index].upProfiles.length,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    );
-                  },
-                ),
+              child: ListView(
+                children: [
+                  //이전페이지 네비게이션
+                  const NavMenu(
+                    title: '모든 모각코',
+                    titleDirection: TitleDirection.center,
+                  ),
+                  // FilterButton
+                  OrderbyButton(
+                    onTap: () {
+                      controller.filterController.toggleOrderBy();
+                      controller.controller.getAllMogak();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  //모각코 카드
+                  Expanded(
+                    child: Obx(
+                      () => ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.allMogak!.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              MogakCard(
+                                mogak: controller.allMogak![index],
+                                mogakState: controller.mogakState(
+                                  controller.allMogak![index].visiblityStatus,
+                                ),
+                                isUped: controller
+                                    .isUped(controller.allMogak![index].id),
+                                controller: controller.toggleLike,
+                              ),
+                              const SizedBox(height: 8),
+                              StackAvatars(
+                                commentLength: controller
+                                    .allMogak![index].appliedProfiles.length,
+                                upLength: controller
+                                    .allMogak![index].upProfiles.length,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

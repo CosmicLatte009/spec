@@ -109,6 +109,8 @@ class MogakController extends GetxController {
             (mogak) => Mogak.fromMap(mogak),
           )
           .toList();
+      print(_allMogak[0].title);
+      print(_allMogak[0].content);
     } catch (e) {
       print(e);
     }
@@ -185,14 +187,14 @@ class MogakController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     String? authToken = await getAuth();
-    // dio.interceptors.add(
-    //   LogInterceptor(
-    //     request: true,
-    //     responseBody: true,
-    //     requestBody: true,
-    //     responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
-    //   ),
-    // );
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        responseBody: true,
+        requestBody: true,
+        responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
+      ),
+    );
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;

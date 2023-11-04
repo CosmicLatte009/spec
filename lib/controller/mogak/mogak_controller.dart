@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/model/me_up.dart';
@@ -12,9 +13,8 @@ enum VisibilityStatus { hidden, open, close }
 class MogakController extends GetxController {
   var controller = Get.find<AuthController>();
   var upController = Get.find<LikeController>();
+  var filterController = Get.find<FilterController>();
   final RxList<MeUp> _myLikeList = RxList([]);
-
-  List<MeUp> get myLikeList => _myLikeList;
 
   /// 좋아요 토글
   toggleLike(String mogakId) {
@@ -71,7 +71,10 @@ class MogakController extends GetxController {
   getHotMogak() async {
     try {
       String path = '/api/top/mogak';
-      var res = await dio.get(path);
+      var res = await dio.get(
+        path,
+        queryParameters: {'orderBy': filterController.orderBy},
+      );
       _hotMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
             (mogak) => Mogak.fromMap(mogak),
@@ -85,7 +88,10 @@ class MogakController extends GetxController {
   getAllMogak() async {
     try {
       String path = '/api/mogak';
-      var res = await dio.get(path);
+      var res = await dio.get(
+        path,
+        queryParameters: {'orderBy': filterController.orderBy},
+      );
       _allMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
             (mogak) => Mogak.fromMap(mogak),
@@ -167,6 +173,14 @@ class MogakController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     String? authToken = await getAuth();
+    // dio.interceptors.add(
+    //   LogInterceptor(
+    //     request: true,
+    //     responseBody: true,
+    //     requestBody: true,
+    //     responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
+    //   ),
+    // );
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;

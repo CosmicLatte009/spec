@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
@@ -35,12 +36,14 @@ class AppPages {
         page: () => const MogakPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => MogakController());
+          Get.lazyPut(() => FilterController());
         })),
     GetPage(
       name: AppPagesRoutes.allMogak,
       page: () => const AllMogakPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => AllMogakController());
+        Get.lazyPut(() => FilterController());
       }),
     ),
     GetPage(
@@ -48,6 +51,7 @@ class AppPages {
       page: () => const HotMogakPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => HotMogakController());
+        Get.lazyPut(() => FilterController());
       }),
     ),
     GetPage(

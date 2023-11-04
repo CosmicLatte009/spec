@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
-import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
+import 'package:spec/view/widget/button/orderby_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
@@ -35,27 +34,11 @@ class AllMogakPage extends GetView<AllMogakController> {
               titleDirection: TitleDirection.center,
             ),
             // FilterButton
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/svgs/Filter.svg',
-                    width: 16,
-                    height: 16,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Text(
-                    '날짜순',
-                    style: TextStyle(
-                      color: AppColor.primary,
-                    ),
-                  ),
-                ],
-              ),
+            OrderbyButton(
+              onTap: () {
+                controller.filterController.toggleOrderBy();
+                controller.controller.getAllMogak();
+              },
             ),
             const SizedBox(
               height: 16,

@@ -7,6 +7,8 @@ class DetailMogakController extends GetxController {
   var controller = Get.find<MogakController>();
   var likeController = Get.find<LikeController>();
 
+  bool isUped(id) => controller.isUped(id);
+
   RxString mogakId = RxString('');
   final RxBool _isJoined = false.obs; //join 상태인지 여부
   final RxBool _isLiked = false.obs; //like 상태인지 여부
@@ -41,17 +43,18 @@ class DetailMogakController extends GetxController {
     controller.cancelJoin(mogakId: mogakId.value);
   }
 
-  like() {
+  toggleLike() {
     likeController.likeUp(
       key: LikeType.mogakId,
       id: mogakId.value,
     );
-    _isLiked(!_isLiked.value);
+    _isLiked.toggle();
   }
 
   @override
   void onInit() {
     super.onInit();
     getDetailMogak();
+    _isLiked.value = controller.isUped(mogakId.value);
   }
 }

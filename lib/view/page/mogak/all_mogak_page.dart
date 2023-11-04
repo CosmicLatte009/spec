@@ -8,7 +8,6 @@ import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
-import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
@@ -64,27 +63,27 @@ class AllMogakPage extends GetView<AllMogakController> {
             //모각코 카드
             Expanded(
               child: Obx(
-                () => ListView.separated(
+                () => ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.allMogak!.length,
                   itemBuilder: (context, index) {
-                    return MogakCard(
-                      mogak: controller.allMogak![index],
-                      mogakState: controller.mogakState(
-                        controller.allMogak![index].visiblityStatus,
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
                     return Column(
                       children: [
+                        MogakCard(
+                          mogak: controller.allMogak![index],
+                          mogakState: controller.mogakState(
+                            controller.allMogak![index].visiblityStatus,
+                          ),
+                          isUped:
+                              controller.isUped(controller.allMogak![index].id),
+                          controller: controller.toggleLike,
+                        ),
                         const SizedBox(height: 8),
                         StackAvatars(
                           commentLength: controller
                               .allMogak![index].appliedProfiles.length,
                           upLength:
-                              controller.allMogak![index].upProfiles.length ??
-                                  0,
+                              controller.allMogak![index].upProfiles.length,
                         ),
                         const SizedBox(height: 16),
                       ],

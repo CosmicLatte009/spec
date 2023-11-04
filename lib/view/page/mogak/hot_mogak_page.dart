@@ -63,26 +63,26 @@ class HotMogakPage extends GetView<HotMogakController> {
             //모각코 카드
             Expanded(
               child: Obx(
-                () => ListView.separated(
+                () => ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.hotMogak!.length,
                   itemBuilder: (context, index) {
-                    return MogakCard(
-                      mogak: controller.hotMogak![index],
-                      mogakState: controller.mogakState(
-                          controller.hotMogak![index].visiblityStatus),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
                     return Column(
                       children: [
+                        MogakCard(
+                          mogak: controller.hotMogak![index],
+                          mogakState: controller.mogakState(
+                              controller.hotMogak![index].visiblityStatus),
+                          isUped:
+                              controller.isUped(controller.hotMogak![index].id),
+                          controller: controller.toggleLike,
+                        ),
                         const SizedBox(height: 8),
                         StackAvatars(
                           commentLength: controller
                               .hotMogak![index].appliedProfiles.length,
                           upLength:
-                              controller.hotMogak![index].upProfiles.length ??
-                                  0,
+                              controller.hotMogak![index].upProfiles.length,
                         ),
                         const SizedBox(height: 16),
                       ],

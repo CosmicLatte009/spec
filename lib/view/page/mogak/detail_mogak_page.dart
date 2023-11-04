@@ -36,11 +36,12 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                       mogak: controller.detailMogak.value!,
                       controller:
                           controller.joinMogak, // 혹은 controller.cancelJoin
-                      like: controller.like,
-                      isLiked: controller.isLiked,
+                      toggleLike: controller.toggleLike,
                       mogakState: controller.detailMogakState(
                           controller.detailMogak.value!.visiblityStatus),
-                    )
+                      isUped:
+                          controller.isUped(controller.detailMogak.value!.id),
+                      isLiked: controller.isLiked)
                   : Container(),
             ),
             const SizedBox(height: 8),
@@ -79,31 +80,6 @@ class DetailMogakPage extends GetView<DetailMogakController> {
             )
           ],
         ),
-      ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: AppColor.black10,
-              ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CustomInput(
-                type: InputType.comment,
-              ),
-            ),
-          ),
-          CustomBottomNavigationBar(
-            currentIndex: 3,
-            onTap: (val) {
-              print(val);
-            },
-          ),
-        ],
       ),
     );
   }

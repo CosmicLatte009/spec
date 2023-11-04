@@ -2,32 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:spec/controller/like_controller.dart';
 import 'package:spec/model/mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
-class MogakCard extends StatelessWidget {
+class MogakCard extends StatefulWidget {
   const MogakCard({
     super.key,
     required this.mogak,
     required this.mogakState,
+    required this.isUped,
+    this.controller,
   });
   final Mogak mogak;
   final String mogakState;
+  final bool isUped;
+  final controller;
+
+  @override
+  State<MogakCard> createState() => _MogakCardState();
+}
+
+class _MogakCardState extends State<MogakCard> {
+  RxBool isLiked = false.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked.value = widget.isUped;
+  }
 
   @override
   Widget build(BuildContext context) {
-    var likeController = Get.find<LikeController>();
-
-    List<String> tags =
-        mogak.hashtag != null ? mogak.hashtag!.split('#').skip(1).toList() : [];
-
+    List<String> tags = widget.mogak.hashtag != null
+        ? widget.mogak.hashtag!.split('#').skip(1).toList()
+        : [];
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/mogak/${mogak.id}');
+        Get.toNamed('/mogak/${widget.mogak.id}');
       },
       child: Container(
         decoration: BoxDecoration(
@@ -47,32 +61,32 @@ class MogakCard extends StatelessWidget {
                 children: [
                   // user
                   UserAvatar(
-                    avatarUrl: mogak.author.avatar,
+                    avatarUrl: widget.mogak.author.avatar,
                     avatarSize: AvatarSize.w40,
                     direction: BadgeDirection.row,
-                    shortName: mogak.author.badge != null
-                        ? mogak.author.badge!.shortName
+                    shortName: widget.mogak.author.badge != null
+                        ? widget.mogak.author.badge!.shortName
                         : null,
-                    nickName: mogak.author.nickname,
+                    nickName: widget.mogak.author.nickname,
                     nickNameSize: AppTextStyles.body12B(),
-                    role: mogak.appliedProfiles[0].role == 'NEWBIE'
+                    role: widget.mogak.appliedProfiles[0].role == 'NEWBIE'
                         ? '수료생'
                         : null, //@todo 수료생 뱃지 어디있는지?
                   ),
                   GestureDetector(
-                    onTap: () {
-                      likeController.likeUp(
-                        key: LikeType.mogakId,
-                        id: mogak.id,
-                      );
+                    onTap: () async {
+                      isLiked.value = await widget.controller(widget.mogak.id);
+                      print(isLiked);
                     },
-                    child: SvgPicture.asset(
-                      'assets/icons/svgs/Like.svg',
-                      width: 20,
-                      height: 20,
-                      color: likeController.isLiked
-                          ? AppColor.warning
-                          : AppColor.black10,
+                    child: Obx(
+                      () => SvgPicture.asset(
+                        'assets/icons/svgs/Like.svg',
+                        width: 20,
+                        height: 20,
+                        color: isLiked == true
+                            ? AppColor.warning
+                            : AppColor.black10,
+                      ),
                     ),
                   ),
                 ],
@@ -81,7 +95,7 @@ class MogakCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '[$mogakState] ',
+                    '[${widget.mogakState}] ',
                     textAlign: TextAlign.start,
                     style: AppTextStyles.body16B(
                       color: AppColor.primary,
@@ -90,7 +104,7 @@ class MogakCard extends StatelessWidget {
                   ),
                   Flexible(
                     child: Text(
-                      mogak.title,
+                      widget.mogak.title,
                       textAlign: TextAlign.start,
                       style: AppTextStyles.body16B(),
                       overflow: TextOverflow.ellipsis,
@@ -100,7 +114,7 @@ class MogakCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                mogak.content,
+                widget.mogak.content,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
@@ -117,20 +131,20 @@ class MogakCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        mogak.appliedProfiles.length.toString(),
+                        widget.mogak.appliedProfiles.length.toString(),
                         style: AppTextStyles.body12B(
                           color: AppColor.primary,
                         ),
                       ),
                       Text(
-                        '/${mogak.maxMember} 참여',
+                        '/${widget.mogak.maxMember} 참여',
                         style: AppTextStyles.body12R(),
                       ),
                     ],
                   ),
                   Text(
                     DateFormat("yyyy. MM. dd").format(
-                      DateTime.parse(mogak.createdAt),
+                      DateTime.parse(widget.mogak.createdAt),
                     ),
                     style: AppTextStyles.body12R(
                       color: AppColor.black40,

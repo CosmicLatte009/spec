@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/model/detail_mogak.dart';
+import 'package:spec/model/me_up.dart';
 import 'package:spec/model/mogak.dart';
 import 'package:spec/util/app_page_routes.dart';
 
@@ -10,17 +11,30 @@ enum VisibilityStatus { hidden, open, close }
 
 class MogakController extends GetxController {
   var controller = Get.find<AuthController>();
-  var likeController = Get.find<LikeController>();
+  var upController = Get.find<LikeController>();
+  final RxList<MeUp> _myLikeList = RxList([]);
 
-  final RxBool _isLiked = false.obs; //like 상태인지 여부
-  bool get isLiked => _isLiked.value;
+  List<MeUp> get myLikeList => _myLikeList;
 
-  like(String mogakId) {
-    likeController.likeUp(
+  /// 좋아요 토글
+  toggleLike(String mogakId) {
+    var res = upController.likeUp(
       key: LikeType.mogakId,
       id: mogakId,
     );
-    _isLiked(!_isLiked.value);
+    return res;
+  }
+
+  /// 내 up인지 확인
+  bool isUped(String id) {
+    return upController.isUped(id, _myLikeList);
+  }
+
+  /// 내 모든 up mogak 리스트
+  getMyUpMogak() async {
+    _myLikeList(
+      await upController.myLikeUp(key: MyLikeType.mogak),
+    );
   }
 
   final RxList<Mogak> _allMogak = <Mogak>[].obs;
@@ -159,5 +173,6 @@ class MogakController extends GetxController {
     }
     await getAllMogak();
     await getHotMogak();
+    await getMyUpMogak();
   }
 }

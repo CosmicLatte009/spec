@@ -47,6 +47,9 @@ class MogakPage extends GetView<MogakController> {
                         mogakState: controller.getMogakState(
                           controller.hotMogak!.first.visiblityStatus,
                         ),
+                        isUped:
+                            controller.isUped(controller.hotMogak!.first.id),
+                        controller: controller.toggleLike,
                       ),
                       Column(
                         children: [
@@ -54,8 +57,7 @@ class MogakPage extends GetView<MogakController> {
                           StackAvatars(
                             commentLength:
                                 controller.hotMogak![0].appliedProfiles.length,
-                            upLength:
-                                controller.hotMogak![0].upProfiles.length ?? 0,
+                            upLength: controller.hotMogak![0].upProfiles.length,
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -82,6 +84,9 @@ class MogakPage extends GetView<MogakController> {
                         mogakState: controller.getMogakState(
                           controller.allMogak!.first.visiblityStatus,
                         ),
+                        isUped:
+                            controller.isUped(controller.allMogak!.first.id),
+                        controller: controller.toggleLike,
                       ),
                       Column(
                         children: [
@@ -89,8 +94,7 @@ class MogakPage extends GetView<MogakController> {
                           StackAvatars(
                             commentLength:
                                 controller.allMogak![0].appliedProfiles.length,
-                            upLength:
-                                controller.allMogak![0].upProfiles.length ?? 0,
+                            upLength: controller.allMogak![0].upProfiles.length,
                           ),
                           const SizedBox(height: 16),
                         ],
@@ -103,8 +107,8 @@ class MogakPage extends GetView<MogakController> {
       ),
       floatingActionButton: CustomFloatingActionButton(
         onPressed: () {
-          Get.toNamed(AppPagesRoutes.createMogak);
-          // Get.to(const CreateMogakPage());
+          // Get.toNamed(AppPagesRoutes.createMogak);
+          Get.to(const CreateMogakPage());
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

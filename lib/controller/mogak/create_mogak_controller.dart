@@ -31,7 +31,8 @@ class CreateMogakController extends GetxController {
     String title = contentsController.text; // 10자 이상, 500자 이하
     int maxMember = int.parse(maxNumberController.text); // 1명 이상 100명 이하
     String hashtag = tagController.text; // 디폴트: 빈 문자열
-    String visiblityState = _visiblityState; // 값 입력하지 않았을 경우 OPEN으로 default
+    String visiblityState =
+        _visiblityState ?? "OPEN"; // 값 입력하지 않았을 경우 OPEN으로 default
 
     try {
       var res = await dio.post(path, data: {

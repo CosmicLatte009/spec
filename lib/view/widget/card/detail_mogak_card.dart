@@ -13,15 +13,17 @@ class DetailMogakCard extends StatelessWidget {
     super.key,
     required this.mogak,
     this.controller,
-    this.like,
+    this.toggleLike,
     required this.mogakState,
     this.isLiked = false,
+    required this.isUped,
   });
   final DetailMogak mogak;
   final String mogakState;
   final controller;
-  final like;
+  final toggleLike;
   final bool isLiked;
+  final bool isUped;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class DetailMogakCard extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: like,
+                  onTap: toggleLike,
                   child: SvgPicture.asset(
                     'assets/icons/svgs/Like.svg',
                     width: 20,

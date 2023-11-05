@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/page/catchup/catch_up_page.dart';
+import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
+import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
 
@@ -11,75 +13,91 @@ import '../../../../util/app_color.dart';
 import '../../../controller/catchup_controller.dart';
 
 class HotCatchUp extends GetView<CatchUpController> {
-
-    static const String route = '/catchup/hot';
+  static const String route = '/catchup/hot';
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: CustomAppBar(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            controller.fetchCatchUp();
-            controller.HotCatchup();
-          },
-          child: Icon(Icons.refresh),
-        ),
-        body: Column(
-          children: [
-            _buildSearchTextField(),
-            Expanded(
-              flex: 1,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildTabContainer('WEB'),
-                  _buildTabContainer('APP'),
-                  _buildTabContainer('GAME'),
-                  _buildTabContainer('AI'),
-                  _buildTabContainer('UIUX'),
-                  _buildTabContainer('DESIGN'),
-                  _buildTabContainer('SECURITY'),
-                  _buildTabContainer('ETC'),
-                  _buildTabContainer('NEXTJS'),
-                  _buildTabContainer('PYTHON'),
-                  _buildTabContainer('FLUTTER'),
-                  _buildTabContainer('DART'),
-                  _buildTabContainer('SOFTWARE'),
-                  _buildTabContainer('HARDWARE'),
-                  _buildTabContainer('ANDROID'),
-                  _buildTabContainer('IOS'),
-                  _buildTabContainer('JAVA'),
-                  _buildTabContainer('KOTLIN'),
-                  _buildTabContainer('SWIFT'),
-                  _buildTabContainer('CSHARP'),
-                  _buildTabContainer('CPLUS'),
-                  _buildTabContainer('C'),
-                  _buildTabContainer('INFO'),
-                ],
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      controller.HotCatchup();
+    });
+
+    return GestureDetector(
+      onHorizontalDragEnd: (dragEndDetails) {
+        // 스와이프 방향이 오른쪽으로 갔는지 체크합니다.
+        if (dragEndDetails.primaryVelocity! > 0) {
+          // 속도가 양수이면 오른쪽으로 스와이프 된 것입니다.
+          Navigator.of(context).pop(); // 현재 페이지를 닫습니다.
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey[200],
+          appBar: CustomAppBar(),
+          body: Column(
+            children: [
+              _buildSearchTextField(),
+              NavMenu(title: '핫한 캐치업', titleDirection: TitleDirection.center),
+              Expanded(
+                flex: 1,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _buildTabContainer('WEB', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer('APP', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer('GAME', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer('AI', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer('UIUX', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer(
+                        'DESIGN', 'assets/catchup_category/Figma.svg'),
+                    _buildTabContainer(
+                        'SECURITY', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer('ETC', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer(
+                        'NEXTJS', 'assets/catchup_category/Next.js.svg'),
+                    _buildTabContainer(
+                        'PYTHON', 'assets/catchup_category/Python.svg'),
+                    _buildTabContainer(
+                        'Flutter', 'assets/icons/svgs/Flutter.svg'),
+                    _buildTabContainer('DART', 'assets/icons/svgs/Python.svg'),
+                    _buildTabContainer(
+                        'SOFTWARE', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer(
+                        'HARDWARE', 'assets/icons/svgs/SFACE.svg'),
+                    _buildTabContainer(
+                        'ANDROID', 'assets/catchup_category/Android.svg'),
+                    _buildTabContainer(
+                        'IOS', 'assets/catchup_category/IOS_Icon.svg'),
+                    _buildTabContainer(
+                        'JAVA', 'assets/catchup_category/Java.svg'),
+                    _buildTabContainer(
+                        'KOTLIN', 'assets/catchup_category/Kotlin.svg'),
+                    _buildTabContainer(
+                        'SWIFT', 'assets/catchup_category/Swift.svg'),
+                    _buildTabContainer(
+                        'CSHARP', 'assets/catchup_category/C#-(CSharp).svg'),
+                    _buildTabContainer(
+                        'CPLUS', 'assets/catchup_category/ISO_C++_Logo.svg'),
+                    _buildTabContainer('C', 'assets/catchup_category/C.svg'),
+                    _buildTabContainer('INFO', 'assets/icons/svgs/SFACE.svg'),
+                  ],
+                ),
               ),
-            ),
-            TextButton(
-                onPressed: () {
-                  Get.to(() => CatchUpPage()); // CatchUpPage의 인스턴스 생성
-                },
-                child: Text('뒤로가기')),
-            Expanded(
-              flex: 4,
-              child: Obx(() {
-                var hotCatchUpsList = controller.hotCatchUps.value;
-                return _buildHotListView(hotCatchUpsList);
-              }),
-            ),
-          ],
+              Expanded(
+                flex: 4,
+                child: Obx(() {
+                  var hotCatchUpsList = controller.hotCatchUps.value;
+                  return _buildHotListView(hotCatchUpsList);
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildTabContainer(String? hashTag) {
+  Widget _buildTabContainer(String? hashTag, String imgUrl) {
     if (hashTag != null && hashTag.isNotEmpty) {
       // 해시태그가 있을 경우
       return Padding(
@@ -95,7 +113,11 @@ class HotCatchUp extends GetView<CatchUpController> {
               child: Column(
                 children: [
                   Container(
-                    child: Icon(Icons.add),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(imgUrl) ??
+                          SvgPicture.asset('assets/logo/Logo_s.svg'),
+                    ),
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
@@ -105,10 +127,11 @@ class HotCatchUp extends GetView<CatchUpController> {
                         color: controller.selectedCategory.value == hashTag
                             ? AppColor.primary40
                             : Colors.grey,
-                        width: 1,
+                        width: 2,
                       ),
                     ),
                   ),
+                  SizedBox(height: 5),
                   Text(
                     hashTag,
                     style: AppTextStyles.body12B(color: Colors.black),
@@ -223,29 +246,21 @@ class HotCatchUp extends GetView<CatchUpController> {
               onChanged: (value) {
                 if (value.isEmpty) {
                   controller.endSearch();
-                } else {
-                  // 검색어가 변경될 때마다 필터링된 결과 업데이트
-                  filterAndDisplaySearchResults(value);
                 }
               },
               onSubmitted: (value) {
                 controller.startSearch(value);
-                // 검색 버튼을 눌렀을 때도 필터링된 결과 업데이트
-                filterAndDisplaySearchResults(value);
               },
               decoration: InputDecoration(
-                suffixIcon: IconButton(
+                prefixIcon: IconButton(
                     onPressed: () {
                       controller
                           .startSearch(controller.searchTextcontroller.text);
-                      // 검색 버튼을 눌렀을 때도 필터링된 결과 업데이트
-                      filterAndDisplaySearchResults(
-                          controller.searchTextcontroller.text);
                     },
                     icon: Icon(Icons.search)),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                hintText: '검색하기',
+                hintText: '내용 검색하기',
                 fillColor: Colors.white,
                 filled: true,
                 enabledBorder: OutlineInputBorder(

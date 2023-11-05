@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/model/catchup.dart';
+import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 
 class CatchUpController extends GetxController {
   final AuthController _authController = Get.find<AuthController>();
@@ -76,6 +77,7 @@ class CatchUpController extends GetxController {
     super.onInit();
     fetchCatchUp(); // 컨트롤러 초기화시 데이터 로드
     searchTextcontroller.addListener(_onSearchTextChanged);
+    HotCatchUp();
   }
 
   void _onSearchTextChanged() {

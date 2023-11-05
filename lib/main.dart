@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/best_spacer_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
@@ -11,7 +12,12 @@ import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/model/best_spacer.dart';
 import 'package:spec/util/app_pages.dart';
+import 'package:spec/view/page/auth/login_page.dart';
+import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
+import 'package:spec/view/page/catchup/catch_up_page.dart';
+import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/me/my_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 import 'package:spec/view/page/splash_page.dart';
@@ -47,12 +53,13 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => HotTalkController());
           Get.lazyPut(() => DetailTalkController());
           Get.lazyPut(() => MyPageController());
+          Get.lazyPut(() => BestSpacerController());
         },
       ),
       getPages: AppPages.pages,
       // initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: const SplashPage(),
+      home: LoginScreen(),
     );
   }
 }

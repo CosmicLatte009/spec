@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/model/catchup.dart';
-import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_card.dart';
@@ -10,49 +10,83 @@ import 'package:intl/intl.dart';
 import 'Hot_catch_up_page.dart';
 import '../../../../util/app_color.dart';
 
-// 'CatchUpPage' 클래스는 캐치업 페이지를 나타냄
 class CatchUpPage extends GetView<CatchUpController> {
   static const String route = '/catchup';
+  final ScrollController _scrollController = ScrollController();
+
+  CatchUpPage() {
+    _scrollController.addListener(_scrollListener);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: CustomAppBar(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // 새로고침 버튼 누를 때 데이터 새로 가져옴
-            controller.fetchCatchUp();
-            controller.HotCatchup();
-          },
-          child: Icon(Icons.refresh),
-        ),
-        body: Column(
-          children: [
-            _buildSearchTextField(), // 검색 필드 구성
-            NavMenu(
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      controller.fetchCatchUp();
+      controller.HotCatchup();
+    });
+
+    return GestureDetector(
+      onHorizontalDragEnd: (dragEndDetails) {
+        // 스와이프 방향이 오른쪽으로 갔는지 체크합니다.
+        if (dragEndDetails.primaryVelocity! > 0) {
+          // 속도가 양수이면 오른쪽으로 스와이프 된 것입니다.
+          Navigator.of(context).pop(); // 현재 페이지를 닫습니다.
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: CustomBottomNavigationBar(
+            currentIndex: 2,
+            onTap: (val) {
+              print(val);
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              controller.fetchCatchUp();
+              controller.HotCatchup();
+            },
+            child: Icon(Icons.refresh),
+          ),
+          backgroundColor: Colors.grey[200],
+          appBar: CustomAppBar(),
+          body: Column(
+            children: [
+              _buildSearchTextField(),
+              NavMenu(
+                  title: '캐치업!',
+                  titleDirection: TitleDirection.left,
+                  withEmoji: true,
+                  emoji: 'assets/icons/pngs/dart.png',
+                  onButtonPressed: () => Get.to(HotCatchUp())),
+              _buildHotCatchUpsSection(),
+              NavMenu(
                 title: '캐치업!',
                 titleDirection: TitleDirection.left,
                 withEmoji: true,
                 emoji: 'assets/icons/pngs/dart.png',
-                onButtonPressed: () => Get.to(HotCatchUp())),
-            _buildHotCatchUpsSection(), // '핫한 캐치업' 섹션 구성
-            NavMenu(
-              title: '캐치업!',
-              titleDirection: TitleDirection.left,
-              withEmoji: true,
-              emoji: 'assets/icons/pngs/dart.png',
-              onButtonPressed: () {
-                Get.toNamed(AppPagesRoutes.hotCatchUp);
-              },
-            ),
-
-            _buildFlexibleCatchUpsListView(), // 주요 캐치업 리스트뷰 구성
-          ],
+              ),
+              Expanded(child: _buildFlexibleCatchUpsListView()),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.atEdge) {
+      if (_scrollController.position.pixels == 0) {
+        // 사용자가 최상단에 도달했습니다.
+        // 여기서 추가 로직을 구현할 수 있습니다.
+      }
+    }
   }
 
   // '핫한 캐치업' 섹션을 구성하는 위젯
@@ -85,8 +119,9 @@ class CatchUpPage extends GetView<CatchUpController> {
           return Padding(
               padding: const EdgeInsets.all(8.0),
               child: CardWidget(
-                minibadge: catchUp.author?.badge!.shortName ??
-                    'null', // 이 필드의 정의가 위에 없으나 예시에 포함됨
+                minibadge:
+                    catchUp.author?.role ?? ' null', // 이 필드는 이전 예제와 동일하게 처리
+
                 temperature: catchUp.upProfiles.length.toString(),
                 avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
                 position: catchUp.author?.badge!.shortName ??
@@ -121,6 +156,7 @@ class CatchUpPage extends GetView<CatchUpController> {
   // 주요 캐치업 리스트뷰 빌더
   ListView _buildListView(List<CatchUp> catchUpsList) {
     return ListView.builder(
+      controller: _scrollController,
       itemCount: catchUpsList.length,
       itemBuilder: (context, index) {
         final catchUp = catchUpsList[index];

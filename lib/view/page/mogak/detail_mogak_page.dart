@@ -73,12 +73,7 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                     //톡 리스트뷰
                     Obx(
                       () => CommentTalkBuilder(
-                        //@todo 톡 리스트 전달
-                        data: controller.detailMogak.value?.talks
-                                .where((talk) => talk != null)
-                                .toList()
-                                .cast<Talk>() ??
-                            [],
+                        data: controller.detailMogak.value?.talks ?? [],
                       ),
                     ),
                   ],

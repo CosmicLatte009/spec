@@ -73,88 +73,84 @@ class _HomePageState extends State<HomePage> {
         },
         child: Icon(Icons.refresh),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          Obx(() {
-            if (controller.allCourse.isEmpty) {
-              return Center(child: Text('No courses available.'));
-            }
-            return Column(
-              children: [
-                Container(
-                  height: 150,
-                  child: PageView.builder(
+      body: Container(
+        child: ListView(
+          children: [
+            Obx(() {
+              if (controller.allCourse.isEmpty) {
+                return Center(child: Text('No courses available.'));
+              }
+              return Column(
+                children: [
+                  Container(
+                    height: 150,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.allCourse.length,
+                      itemBuilder: (context, index) {
+                        var course = controller.allCourse[index];
+                        return course.thumbnail != null
+                            ? Image.network(course.thumbnail, fit: BoxFit.cover)
+                            : Container();
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SmoothPageIndicator(
                     controller: _pageController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.allCourse.length,
-                    itemBuilder: (context, index) {
-                      var course = controller.allCourse[index];
-                      return course.thumbnail != null
-                          ? Image.network(course.thumbnail, fit: BoxFit.cover)
-                          : Container();
-                    },
+                    count: controller.allCourse.length,
+                    effect: WormEffect(
+                      dotHeight: 5,
+                      dotWidth: 5,
+                      spacing: 4,
+                      activeDotColor: Colors.blue,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SmoothPageIndicator(
-                  controller: _pageController,
-                  count: controller.allCourse.length,
-                  effect: WormEffect(
-                    dotHeight: 5,
-                    dotWidth: 5,
-                    spacing: 4,
-                    activeDotColor: Colors.blue,
-                  ),
-                ),
-              ],
-            );
-          }),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomInput(type: InputType.search),
-          ),
-          NavMenu(
-            title: '핫한 톡',
-            titleDirection: TitleDirection.left,
-            onButtonPressed: () {
-              Get.toNamed(AppPagesRoutes.hotTalk);
-            },
-          ),
-          Container(height: 202),
-          NavMenu(
-            title: '핫한 캐치업',
-            titleDirection: TitleDirection.left,
-            onButtonPressed: () {
-              Get.toNamed(AppPagesRoutes.catchUp);
-            },
-          ),
-          Expanded(
-            flex: 4,
-            child: Obx(() {
+                ],
+              );
+            }),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomInput(type: InputType.search),
+            ),
+            NavMenu(
+              title: '핫한 톡',
+              titleDirection: TitleDirection.left,
+              onButtonPressed: () {
+                Get.toNamed(AppPagesRoutes.hotTalk);
+              },
+            ),
+            NavMenu(
+              title: '핫한 캐치업',
+              titleDirection: TitleDirection.left,
+              onButtonPressed: () {
+                Get.toNamed(AppPagesRoutes.catchUp);
+              },
+            ),
+            Obx(() {
               var hotCatchUpsList = controller.hotCatchUps.value;
               return _buildHotListView(hotCatchUpsList);
             }),
-          ),
-          NavMenu(
-            title: '핫한 모각코',
-            titleDirection: TitleDirection.left,
-            onButtonPressed: () {
-              Get.toNamed(AppPagesRoutes.hotMogak);
-            },
-          ),
-          Container(height: 255),
-          NavMenu(
-              title: '이달의 스페이서',
+            NavMenu(
+              title: '핫한 모각코',
               titleDirection: TitleDirection.left,
-              onButtonPressed: () => Get.to(BestSpacerPage())),
-          BestSpacerWidgetHome(),
-        ],
+              onButtonPressed: () {
+                Get.toNamed(AppPagesRoutes.hotMogak);
+              },
+            ),
+            NavMenu(
+                title: '이달의 스페이서',
+                titleDirection: TitleDirection.left,
+                onButtonPressed: () => Get.to(BestSpacerPage())),
+            BestSpacerWidgetHome(),
+          ],
+        ),
       ),
     );
   }
@@ -164,6 +160,7 @@ ListView _buildHotListView(List<CatchUp> hotCatchUpsList) {
   if (hotCatchUpsList.isEmpty) {
     // 리스트가 비어있을 경우
     return ListView(
+      shrinkWrap: true,
       children: [
         Center(
           child: Padding(

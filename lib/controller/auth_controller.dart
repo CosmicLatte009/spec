@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
@@ -42,7 +43,7 @@ class AuthController extends GetxController {
             print(dmddo);
             print('프린트 성공');
 
-            //Get.to(() => CatchUpPage());
+            Get.to(() => HomePage());
           }
         } else if (token == null) {
           isLoggedIn.value = 0;

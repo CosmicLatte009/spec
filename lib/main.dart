@@ -45,8 +45,6 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => MogakController());
           Get.lazyPut(() => FilterController());
           Get.lazyPut(() => MainTalkController());
-          Get.lazyPut(() => MogakController());
-          Get.lazyPut(() => FilterController());
         },
       ),
       getPages: AppPages.pages,

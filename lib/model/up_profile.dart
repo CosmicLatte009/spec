@@ -1,4 +1,4 @@
-import 'Profile.dart';
+import 'profile.dart';
 
 class UpProfiles {
   final String id;

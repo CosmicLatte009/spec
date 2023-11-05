@@ -16,10 +16,10 @@ import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
-import 'package:spec/view/page/auth/login_page.dart';
-import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'controller/talk/all_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';
+import 'view/page/auth/login_page.dart';
+import 'view/page/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,12 +45,11 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => MogakController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => LikeController());
+          Get.lazyPut(() => TalkEditingController());
           Get.lazyPut(() => MainTalkController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
           Get.lazyPut(() => MainTalkController());
-
-          // Get.lazyPut(() => DetailTalkController());
           Get.lazyPut(() => MyPageController());
           Get.lazyPut(() => BestSpacerController());
         },

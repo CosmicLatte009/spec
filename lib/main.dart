@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => MainTalkController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
-          Get.lazyPut(() => MainTalkController());
           Get.lazyPut(() => MyPageController());
           Get.lazyPut(() => BestSpacerController());
         },

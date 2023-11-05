@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -76,6 +78,14 @@ class CustomBottomNavigationBar extends StatefulWidget {
     ],
   ];
 
+  final navigationList = [
+    AppPagesRoutes.home,
+    AppPagesRoutes.mainTalk,
+    AppPagesRoutes.catchUp,
+    AppPagesRoutes.mogak,
+    AppPagesRoutes.home, //@todo 추후 마이페이지로 수정
+  ];
+
   final int currentIndex;
   final Function(int) onTap;
 
@@ -108,7 +118,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           );
         }),
         currentIndex: widget.currentIndex,
-        onTap: widget.onTap,
+        // onTap: widget.onTap,
+        onTap: (int index) {
+          Get.toNamed(widget.navigationList[index]);
+        },
       ),
     );
   }

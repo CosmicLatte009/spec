@@ -8,10 +8,10 @@ import 'talk_bubble.dart';
 class TalkBubbleBuilder extends StatelessWidget {
   const TalkBubbleBuilder({
     super.key,
-    required this.talkDataList,
+    required this.data,
   });
 
-  final RxList<Talk> talkDataList;
+  final RxList<Talk> data;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class TalkBubbleBuilder extends StatelessWidget {
       controller: ScrollController(),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: talkDataList.length,
+      itemCount: data.length,
       separatorBuilder: (BuildContext context, int index) {
-        if (index == talkDataList.length) return const SizedBox.shrink();
+        if (index > data.length - 1) return const SizedBox.shrink();
         return const SizedBox(height: 16.0);
       },
       itemBuilder: (BuildContext context, int index) {
-        var talk = talkDataList[index];
+        var talk = data[index];
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,15 +37,10 @@ class TalkBubbleBuilder extends StatelessWidget {
             ),
             SizedBox(width: 17.02),
             TalkBubble(
-              text: talk.content,
+              talk: talk,
               isLikePressed: true,
-              type: BubbleType.less,
-              commentCount: talk.childrenLength,
-              upCount: (talk.upProfiles?.isEmpty ?? true)
-                  ? 0
-                  : talk.upProfiles!.length,
-              mytalk: false,
-              talkId: talk.id,
+              // mytalk: talk.author.id == currentUser.id,
+              // onTapEnabled: true,
             ),
           ],
         );

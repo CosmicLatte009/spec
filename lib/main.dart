@@ -20,9 +20,7 @@ import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/me/my_page.dart';
 import 'package:spec/view/page/splash_page.dart';
-import 'package:spec/view/page/splash_page.dart';
 import 'controller/talk/all_talk_controller.dart';
-import 'controller/talk/detail_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';
 
 void main() {
@@ -40,6 +38,7 @@ class MyApp extends StatelessWidget {
           Get.put(AuthController());
           Get.put(LoginController());
           Get.lazyPut(() => SignupController());
+          Get.lazyPut(() => ForgotPasswordController());
           Get.put(CatchUpController());
           Get.put(ChangePWController());
           Get.put(MyPageController());

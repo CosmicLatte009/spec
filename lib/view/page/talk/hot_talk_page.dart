@@ -32,32 +32,40 @@ class HotTalkPage extends GetView<HotTalkController> {
           print(val);
         },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
-              child: CustomInput(
-                type: InputType.search,
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
+            child: CustomInput(
+              type: InputType.search,
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const NavMenu(
+                    title: '핫한 톡',
+                    titleDirection: TitleDirection.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Obx(() {
+                      if (controller.isLoading.value) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        return TalkBubbleBuilder(
+                          data: controller.hotTalks,
+                        );
+                      }
+                    }),
+                  ),
+                ],
               ),
             ),
-            const NavMenu(
-              title: '핫한 톡',
-              titleDirection: TitleDirection.center,
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Obx(() {
-                if (controller.isLoading.value) {
-                  return const CircularProgressIndicator();
-                } else {
-                  return TalkBubbleBuilder(talkDataList: controller.hotTalks);
-                }
-              }),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

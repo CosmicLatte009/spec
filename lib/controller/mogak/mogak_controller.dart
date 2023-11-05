@@ -1,11 +1,45 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/filter_controller.dart';
+import 'package:spec/controller/like_controller.dart';
 import 'package:spec/model/detail_mogak.dart';
+import 'package:spec/model/me_up.dart';
 import 'package:spec/model/mogak.dart';
+import 'package:spec/util/app_page_routes.dart';
+
+enum VisibilityStatus { hidden, open, close }
 
 class MogakController extends GetxController {
   var controller = Get.find<AuthController>();
+  var upController = Get.find<LikeController>();
+  var filterController = Get.find<FilterController>();
+  var searchController = Get.find<ContentSearchController>();
+
+  String get searchKeyword => searchController.keyword.value;
+  final RxList<MeUp> _myLikeList = RxList([]);
+
+  /// 좋아요 토글
+  toggleLike(String mogakId) {
+    var res = upController.likeUp(
+      key: LikeType.mogakId,
+      id: mogakId,
+    );
+    return res;
+  }
+
+  /// 내 up인지 확인
+  bool isUped(String id) {
+    return upController.isUped(id, _myLikeList);
+  }
+
+  /// 내 모든 up mogak 리스트
+  getMyUpMogak() async {
+    _myLikeList(
+      await upController.myLikeUp(key: MyLikeType.mogak),
+    );
+  }
 
   final RxList<Mogak> _allMogak = <Mogak>[].obs;
   final RxList<Mogak> _hotMogak = <Mogak>[].obs;
@@ -16,20 +50,39 @@ class MogakController extends GetxController {
   RxList<Mogak>? get allMogak => _allMogak;
   RxList<Mogak>? get hotMogak => _hotMogak;
 
+  getMogakState(val) {
+    switch (val) {
+      case "CLOSE":
+        return '모집완료';
+      case "HIDDEN":
+        return '작성중';
+      case "OPEN":
+        return '모집중';
+      default:
+        return null;
+    }
+  }
+
   getAuth() async {
     try {
       var res = await controller.getToken();
-      print(res);
       return res;
     } catch (e) {
       print(e);
     }
   }
 
-  getHotMogak() async {
+  getHotMogak({String? query}) async {
+    var queryParameters = {
+      'orderBy': filterController.orderBy,
+      'filter': query,
+    };
     try {
       String path = '/api/top/mogak';
-      var res = await dio.get(path);
+      var res = await dio.get(
+        path,
+        queryParameters: queryParameters,
+      );
       _hotMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
             (mogak) => Mogak.fromMap(mogak),
@@ -40,15 +93,24 @@ class MogakController extends GetxController {
     }
   }
 
-  getAllMogak() async {
+  getAllMogak({String? query}) async {
+    var queryParameters = {
+      'orderBy': filterController.orderBy,
+      'filter': query,
+    };
     try {
       String path = '/api/mogak';
-      var res = await dio.get(path);
+      var res = await dio.get(
+        path,
+        queryParameters: queryParameters,
+      );
       _allMogak.value = List<Map<String, dynamic>>.from(res.data["data"])
           .map(
             (mogak) => Mogak.fromMap(mogak),
           )
           .toList();
+      print(_allMogak[0].title);
+      print(_allMogak[0].content);
     } catch (e) {
       print(e);
     }
@@ -58,7 +120,6 @@ class MogakController extends GetxController {
     try {
       String path = '/api/mogak/$id';
       var res = await dio.get(path);
-      print(res.data["data"]);
       return DetailMogak.fromMap(res.data["data"]);
     } catch (e) {
       print(e);
@@ -73,7 +134,6 @@ class MogakController extends GetxController {
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
           getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
-          print(res.data['data']['appliedProfiles']);
         } else {
           print(res.data['message']);
         }
@@ -93,7 +153,24 @@ class MogakController extends GetxController {
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
           getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
-          print(res.data['data']['appliedProfiles']);
+        } else {
+          print(res.data['message']);
+        }
+      } else {
+        print(res.data['message']);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deleteMogak({required String mogakId}) async {
+    String path = '/api/mogak/$mogakId';
+    try {
+      var res = await dio.delete(path);
+      if (res.statusCode == 200) {
+        if (res.data['status'] == 'success') {
+          Get.toNamed(AppPagesRoutes.allMogak);
         } else {
           print(res.data['message']);
         }
@@ -109,13 +186,21 @@ class MogakController extends GetxController {
   void onInit() async {
     super.onInit();
     dio.options.baseUrl = baseUrl;
-    //@todo 토큰 header에 설정하기
     String? authToken = await getAuth();
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        responseBody: true,
+        requestBody: true,
+        responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
+      ),
+    );
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;
     }
     await getAllMogak();
     await getHotMogak();
+    await getMyUpMogak();
   }
 }

@@ -14,6 +14,7 @@ import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
+import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => MogakController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => LikeController());
+          Get.lazyPut(() => MainTalkController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
           Get.lazyPut(() => MainTalkController());

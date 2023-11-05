@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
-import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
+import 'package:spec/view/widget/button/orderby_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
-import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
@@ -22,79 +21,79 @@ class AllMogakPage extends GetView<AllMogakController> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
               height: 16,
             ),
-            const CustomInput(
+            CustomInput(
               type: InputType.search,
+              controller: controller.searchController.searchTextController,
+              onSubmit: (value) {
+                controller.controller.getAllMogak(query: value);
+              },
             ),
-            //이전페이지 네비게이션
-            const NavMenu(
-              title: '모든 모각코',
-              titleDirection: TitleDirection.center,
-            ),
-            // FilterButton
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+            const SizedBox(height: 6),
+            Expanded(
+              child: ListView(
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/svgs/Filter.svg',
-                    width: 16,
-                    height: 16,
+                  //이전페이지 네비게이션
+                  const NavMenu(
+                    title: '모든 모각코',
+                    titleDirection: TitleDirection.center,
+                  ),
+                  // FilterButton
+                  OrderbyButton(
+                    onTap: () {
+                      controller.filterController.toggleOrderBy();
+                      controller.controller.getAllMogak();
+                    },
                   ),
                   const SizedBox(
-                    width: 8,
+                    height: 16,
                   ),
-                  const Text(
-                    '날짜순',
-                    style: TextStyle(
-                      color: AppColor.primary,
+                  //모각코 카드
+                  Expanded(
+                    child: Obx(
+                      () => ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.allMogak!.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              MogakCard(
+                                mogak: controller.allMogak![index],
+                                mogakState: controller.mogakState(
+                                  controller.allMogak![index].visiblityStatus,
+                                ),
+                                isUped: controller
+                                    .isUped(controller.allMogak![index].id),
+                                controller: controller.toggleLike,
+                              ),
+                              const SizedBox(height: 8),
+                              StackAvatars(
+                                commentLength: controller
+                                    .allMogak![index].appliedProfiles.length,
+                                upLength: controller
+                                    .allMogak![index].upProfiles.length,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            //모각코 카드
-            Expanded(
-              child: Obx(
-                () => ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: controller.allMogak!.length,
-                  itemBuilder: (context, index) {
-                    return MogakCard(mogak: controller.allMogak![index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        const SizedBox(height: 8),
-                        StackAvatars(
-                          commentLength: controller
-                              .allMogak![index].appliedProfiles.length,
-                          upLength: controller.allMogak![index].up ?? 0,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    );
-                  },
-                ),
               ),
             ),
           ],
         ),
       ),
       floatingActionButton: CustomFloatingActionButton(
-        onPressed: () {},
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: 3,
-        onTap: (val) {
-          print(val);
+        onPressed: () {
+          Get.toNamed(AppPagesRoutes.createMogak);
         },
       ),
     );

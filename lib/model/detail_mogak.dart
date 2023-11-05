@@ -1,5 +1,5 @@
 import 'package:spec/model/applied_profile.dart';
-import 'package:spec/model/mogak_talk.dart';
+import 'package:spec/model/talk.dart';
 import 'package:spec/model/up_profile.dart';
 
 class DetailMogak {
@@ -16,8 +16,8 @@ class DetailMogak {
   String visiblityStatus;
   int temperature;
   List<AppliedProfile> appliedProfiles;
-  List<MogakTalk?> talks;
-  List<UpProfiles?> upProfiles;
+  List<Talk>? talks;
+  List<UpProfiles>? upProfiles;
 
   DetailMogak({
     required this.id,
@@ -56,13 +56,12 @@ class DetailMogak {
           (x) => AppliedProfile.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      talks: List<MogakTalk?>.from(
+      talks: List<Talk>.from(
         (map['talks'] as List).map(
-          (x) =>
-              x != null ? MogakTalk.fromMap(x as Map<String, dynamic>) : null,
+          (x) => x != null ? Talk.fromMap(x as Map<String, dynamic>) : null,
         ),
       ),
-      upProfiles: List<UpProfiles?>.from(
+      upProfiles: List<UpProfiles>.from(
         (map['upProfiles'] as List).map(
           (x) =>
               x != null ? UpProfiles.fromMap(x as Map<String, dynamic>) : null,

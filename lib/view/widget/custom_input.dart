@@ -17,6 +17,7 @@ class CustomInput extends StatefulWidget {
     this.label,
     this.type = InputType.basic,
     this.isRequired = false,
+    this.onSubmit,
   });
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -27,6 +28,7 @@ class CustomInput extends StatefulWidget {
   final String? label;
   final InputType? type;
   final bool? isRequired;
+  final void Function(String)? onSubmit;
 
   @override
   State<CustomInput> createState() => _CustomInputState();
@@ -125,6 +127,7 @@ class _CustomInputState extends State<CustomInput> {
                       .copyWith(primary: AppColor.primary80),
                 ),
                 child: TextFormField(
+                  onFieldSubmitted: widget.onSubmit,
                   obscureText: widget.type == InputType.password,
                   obscuringCharacter: '*',
                   focusNode: _focusNode,
@@ -136,13 +139,13 @@ class _CustomInputState extends State<CustomInput> {
                       color: getValidateColor ?? hintTextColor,
                     ),
                     filled: true,
+                    fillColor: widget.type == InputType.search
+                        ? AppColor.white
+                        : AppColor.black05,
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 14,
                     ),
-                    fillColor: widget.type == InputType.search
-                        ? Colors.transparent
-                        : AppColor.back05,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: widget.type == InputType.search

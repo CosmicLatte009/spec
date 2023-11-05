@@ -1,20 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/model/me_up.dart';
 
 enum LikeType { talkId, mogakId, catchUpId }
+
+enum MyLikeType { talk, mogak, catchup }
 
 class LikeController extends GetxController {
   var controller = Get.find<AuthController>();
   Dio dio = Dio();
   String baseUrl = 'https://dev.sniperfactory.com';
+  final RxList<MeUp> _myUpList = RxList([]);
 
-  final RxBool _isLiked = false.obs;
+  List<MeUp> get myUpList => _myUpList;
 
-  bool get isLiked => _isLiked.value;
-
-  handleLike(bool isUp) {
-    _isLiked(isUp);
+  /// id를 매개변수로 전달해 현재 upList와 비교.
+  bool isUped(String itemId, List<dynamic> upList) {
+    // true: heart color: warning
+    for (var item in upList) {
+      if (item.itemId == itemId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /// 좋아요 업
@@ -26,9 +35,31 @@ class LikeController extends GetxController {
       });
       if (res.statusCode == 200) {
         if (res.data["status"] == 'success') {
-          bool isUp = res.data["data"].isUp;
-          handleLike(isUp);
-          print('${key.name}: $id 좋아요');
+          return res.data["data"]["isUp"];
+          // print('${key.name}: $id ${res.data["data"]["isUp"]}');
+        } else {
+          print(res.data["message"]);
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// 내가 누른 좋아요
+  /// talk, mogak, catchup
+  myLikeUp({required MyLikeType key}) async {
+    String path = '/api/me/up?type=${key.name}';
+    try {
+      var res = await dio.get(path);
+      if (res.statusCode == 200) {
+        if (res.data["status"] == 'success') {
+          var myLikeList = List<Map<String, dynamic>>.from(res.data["data"])
+              .map(
+                (up) => MeUp.fromMap(up),
+              )
+              .toList();
+          return myLikeList;
         } else {
           print(res.data["message"]);
         }
@@ -42,7 +73,6 @@ class LikeController extends GetxController {
   void onInit() async {
     super.onInit();
     dio.options.baseUrl = baseUrl;
-    //@todo 토큰 header에 설정하기
     String? authToken = await controller.getToken();
     dio.options.headers['Authorization'] = authToken;
   }

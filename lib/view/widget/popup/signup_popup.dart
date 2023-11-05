@@ -5,6 +5,7 @@ import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/popup/edit_avatar_popup.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 
 class SignupPopup extends StatelessWidget {
@@ -111,10 +112,7 @@ class SignupPopup extends StatelessWidget {
                 backgroundColor: AppColor.primary05,
                 child: Opacity(
                   opacity: 0.2,
-                  child: DefaultAvatar(
-                    width: 82,
-                    hairPosition: -12,
-                  ),
+                  child: DefaultAvatar(),
                 ),
               ),
               Row(
@@ -122,7 +120,14 @@ class SignupPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const EditAvatarPopup();
+                        },
+                      );
+                    },
                     child: Text(
                       '아바타 설정하기',
                       style: AppTextStyles.body12R(

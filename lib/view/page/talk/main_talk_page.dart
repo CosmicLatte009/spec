@@ -13,10 +13,19 @@ import '../../../controller/talk/main_talk_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_page_routes.dart';
+import '../../widget/popup/talk_editing_popup.dart';
 
-class MainTalkPage extends GetView<MainTalkController> {
+class MainTalkPage extends StatefulWidget {
   const MainTalkPage({super.key});
   static const route = '/talk/main';
+
+  @override
+  State<MainTalkPage> createState() => _MainTalkPageState();
+}
+
+class _MainTalkPageState extends State<MainTalkPage> {
+  final MainTalkController controller = Get.find();
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,21 @@ class MainTalkPage extends GetView<MainTalkController> {
         backColor: AppColor.primary80,
         buttonWidth: 50,
         onTap: () {
-          controller.getAllTalks();
+          setState(
+            () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return TalkEditingPopup(
+                      controller: textEditingController, //@todo: 톡 생성하기
+                      onSubmit: () {
+                        print(textEditingController
+                            .text); //@todo: controller로부터 고유id만 갖는(content만 보내는) POST 함수 호출;
+                      },
+                    );
+                  });
+            },
+          );
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(

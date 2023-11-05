@@ -13,6 +13,7 @@ import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
+import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
 import 'package:spec/view/page/splash_page.dart';
 import 'controller/talk/all_talk_controller.dart';
@@ -40,11 +41,12 @@ class MyApp extends StatelessWidget {
           Get.put(HomeController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => LikeController());
+          Get.lazyPut(() => MainTalkController());
           Get.lazyPut(() => AllTalkController());
           Get.lazyPut(() => HotTalkController());
+          Get.lazyPut(() => TalkEditingController());
           Get.lazyPut(() => MogakController());
           Get.lazyPut(() => FilterController());
-          Get.lazyPut(() => MainTalkController());
         },
       ),
       getPages: AppPages.pages,

@@ -39,6 +39,7 @@ class TalkBubbleBuilder extends StatelessWidget {
             TalkBubble(
               talk: talk,
               isLikePressed: true,
+              mytalk: true,
               // mytalk: talk.author.id == currentUser.id,
               // onTapEnabled: true,
             ),

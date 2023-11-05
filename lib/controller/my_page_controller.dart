@@ -1,38 +1,54 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
+import 'package:spec/model/my_profile.dart';
 
 class MyPageController extends GetxController {
-  final AuthController authController = AuthController(); // 의존성 주입을 위한 생성자
+  final AuthController authController = Get.find<AuthController>();
+  var myProfileInfo = <MyProfile>[].obs;
 
-  final BASE_URL = 'https://dev.sniperfactory.com/api/me/rank';
+  final String baseUrl = 'https://dev.sniperfactory.com/api/me/rank';
   final Dio _dio = Dio();
 
-  /// Fetches CatchUp data from the API.
-  fetchMyInfo() async {
-    String? _token = await authController.getToken();
+  @override
+  void onInit() {
+    super.onInit();
+    fetchMyInfo().then((profiles) {
+      myProfileInfo.addAll(profiles);
+    });
+  }
 
-    if (_token == null) {
+  // Fetches MyInfo data from the API and returns a list of MyProfile.
+  Future<List<MyProfile>> fetchMyInfo() async {
+    String? token = await authController.getToken();
+    List<MyProfile> profiles = [];
+
+    if (token == null) {
       print("Token is null");
+      return profiles;
     }
 
     try {
       var response = await _dio.get(
-        BASE_URL,
-        options: Options(headers: {'Authorization': 'Bearer $_token'}),
+        baseUrl,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200) {
-        var resData = response.data;
-        print(resData);
+        var jsonData = response.data;
+        profiles = List<MyProfile>.from(
+            jsonData.map((item) => MyProfile.fromMap(item)));
+        myProfileInfo.value = profiles;
+        return profiles;
       } else {
         print('Server returned an error: ${response.statusCode}');
       }
     } on DioError catch (dioError) {
       print('Dio error: $dioError');
     } catch (e) {
-      print('Error fetching CatchUp data: $e');
+      print('Error fetching MyInfo data: $e');
     }
+
+    return profiles;
   }
 }

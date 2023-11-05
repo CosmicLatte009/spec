@@ -15,6 +15,7 @@ class NavMenu extends StatelessWidget {
     this.emoji,
     this.withIconButton = true,
     this.onButtonPressed,
+    this.color,
   }) : assert(!(withEmoji == true && titleDirection != TitleDirection.left),
             'When withEmoji is true, titleDirection must be TitleDirection.left');
 
@@ -24,12 +25,13 @@ class NavMenu extends StatelessWidget {
   final String? emoji;
   final bool withIconButton;
   final VoidCallback? onButtonPressed;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     Widget textWidget = Text(
       title,
-      style: AppTextStyles.body18B(color: AppColor.black80),
+      style: AppTextStyles.body18B(color: color ?? AppColor.black80),
     );
     if (withEmoji == true) {
       textWidget = Row(
@@ -60,9 +62,12 @@ class NavMenu extends StatelessWidget {
               alignment: iconAlignment,
               child: IconButton(
                 onPressed: onButtonPressed ?? () => Get.back(),
-                icon: SvgPicture.asset(titleDirection == TitleDirection.center
-                    ? 'assets/icons/svgs/Left.svg'
-                    : 'assets/icons/svgs/Right.svg'),
+                icon: SvgPicture.asset(
+                    titleDirection == TitleDirection.center
+                        ? 'assets/icons/svgs/Left.svg'
+                        : 'assets/icons/svgs/Right.svg',
+                    color: color ?? Colors.black // 색상 지정
+                    ),
               ),
             ),
           Padding(

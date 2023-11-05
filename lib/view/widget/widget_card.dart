@@ -6,6 +6,7 @@ import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
+import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'widget_catchup_like.dart';
 
@@ -119,7 +120,13 @@ class CardWidget extends GetView<CatchUpController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildProfileSection(),
+        UserAvatar(
+          shortName: position,
+          nickName: nickname,
+          direction: BadgeDirection.row,
+          role: minibadge,
+          avatarSize: AvatarSize.w40,
+        ),
         SizedBox(width: 0),
         Align(child: LikeButtonWidget(catchUpId: postId ?? 'null')),
       ],

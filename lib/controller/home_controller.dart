@@ -12,18 +12,18 @@ class HomeController extends GetxController {
   var allCourse = <Course>[].obs;
   var allBestSpacer = <BestSpacer>[].obs;
   Rx<List<CatchUp>> hotCatchUpCategory = Rx<List<CatchUp>>([]);
+  Rx<List<CatchUp>> hotCatchUps = Rx<List<CatchUp>>([]);
 
   final Dio _dio = Dio(); // Made final
   static const BASE_URL =
       'https://dev.sniperfactory.com/api/course'; // Naming convention
   AuthController _authController = AuthController(); // Singleton pattern
 
-  final PageController _pageController = PageController();
-
   @override
   void onInit() {
     super.onInit();
     fetchHomeData(); // Fetch data when the controller is initialized
+    fetchBestSpacerData();
   }
 
   Future<List<Course>> fetchHomeData() async {
@@ -122,6 +122,42 @@ class HomeController extends GetxController {
       throw Exception('Dio error: ${e.message}');
     } catch (e) {
       throw Exception('Unexpected error: $e');
+    }
+  }
+
+  Future<List<CatchUp>> HotCatchup() async {
+    String? _token = _authController.dmddo;
+    print(_token);
+    if (_token == null) {
+      print("Token is null");
+      return hotCatchUps.value; // 토큰이 null이면 현재 값을 반환
+    }
+
+    try {
+      var url = 'https://dev.sniperfactory.com/api/top/catchup';
+      var response = await _dio.get(url,
+          options: Options(headers: {'Authorization': 'Bearer $_token'}));
+
+      if (response.statusCode == 200) {
+        var resData = response.data;
+        print(resData);
+        print(resData.runtimeType);
+
+        List<CatchUp> HotCatchUpsList = List<Map<String, dynamic>>.from(resData)
+            .map((item) => CatchUp.fromMap(item))
+            .toList();
+        hotCatchUps.value = HotCatchUpsList;
+        print(HotCatchUpsList);
+        return HotCatchUpsList;
+      } else {
+        return []; // 유효하지 않은 데이터 형식의 경우 빈 리스트 반환
+      }
+    } on DioError catch (dioError) {
+      print('Dio error: $dioError');
+      return []; // Dio 오류의 경우 빈 리스트 반환
+    } catch (e) {
+      print('Error fetching HotCatchup data: $e');
+      return []; // 기타 예외의 경우 빈 리스트 반환
     }
   }
 }

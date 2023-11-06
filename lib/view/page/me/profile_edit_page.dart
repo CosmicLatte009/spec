@@ -192,33 +192,44 @@ class ProfileEditPage extends GetView<ProfileController> {
                         backgroundColor: AppColor.primary05,
                         child: Opacity(
                           opacity: 0.2,
-                          child: DefaultAvatar(),
+                          child: DefaultAvatar(
+                            width: 200,
+                          ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const EditAvatarPopup();
-                                },
-                              );
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const EditAvatarPopup();
                             },
-                            child: Text(
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
                               '아바타 수정하기',
                               style: AppTextStyles.body12R(
                                 color: AppColor.primary80,
                               ),
                             ),
-                          ),
-                          CircleButton(
-                            svg: 'assets/icons/svgs/edit.svg',
-                            onTap: () {},
-                          ),
-                        ],
+                            const SizedBox(width: 8),
+                            CircleButton(
+                              svg: 'assets/icons/svgs/edit.svg',
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const EditAvatarPopup();
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -23,15 +23,18 @@ class DefaultAvatar extends StatelessWidget {
       children: [
         SvgPicture.asset(
           'assets/avatar/Face/on_face_1.svg',
+          width: width ?? 100,
         ),
         Positioned(
           child: SvgPicture.asset(
             'assets/avatar/Emotion/off_emotion_1.svg',
+            width: width ?? 100,
           ),
         ),
         Positioned(
           child: SvgPicture.asset(
             'assets/avatar/Hair/off_hair_1.svg',
+            width: width ?? 100,
           ),
         ),
       ],

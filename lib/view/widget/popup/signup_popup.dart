@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
+import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/popup/edit_avatar_popup.dart';
@@ -112,15 +113,25 @@ class SignupPopup extends StatelessWidget {
                 backgroundColor: AppColor.primary05,
                 child: Opacity(
                   opacity: 0.2,
-                  child: DefaultAvatar(),
+                  child: DefaultAvatar(
+                    width: 200,
+                  ),
                 ),
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextButton(
-                    onPressed: () {
+                  Text(
+                    '아바타 수정하기',
+                    style: AppTextStyles.body12R(
+                      color: AppColor.primary80,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  CircleButton(
+                    svg: 'assets/icons/svgs/edit.svg',
+                    onTap: () {
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -128,29 +139,6 @@ class SignupPopup extends StatelessWidget {
                         },
                       );
                     },
-                    child: Text(
-                      '아바타 설정하기',
-                      style: AppTextStyles.body12R(
-                        color: AppColor.primary80,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.25),
-                          offset: Offset(0.0, 4.0),
-                          blurRadius: 8.0,
-                          spreadRadius: 0.0,
-                        ),
-                      ],
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: SvgPicture.asset(
-                      'assets/icons/svgs/editable.svg',
-                    ),
                   ),
                 ],
               ),

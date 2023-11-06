@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spec/util/app_color.dart';
-import 'package:spec/util/avatar_color.dart';
 import 'package:spec/util/avatar_item_assets.dart';
 import 'package:spec/view/widget/avatar/palette.dart';
 
-enum AvatarAssetType { hair, face, emotion, item }
+enum AvatarAssetType { hair, face, emotion, item, itemForStack }
 
 getRoute(AvatarAssetType type) {
   switch (type) {
@@ -16,6 +15,8 @@ getRoute(AvatarAssetType type) {
     case AvatarAssetType.emotion:
       return 'assets/avatar/Emotion/';
     case AvatarAssetType.item:
+      return 'assets/avatar/Item_Only';
+    case AvatarAssetType.itemForStack:
       return 'assets/avatar/Item';
     default:
       return null;
@@ -63,43 +64,45 @@ class AvatarCard extends StatelessWidget {
                 height: 16,
                 color: Colors.white,
               ),
-        GridView.builder(
-          padding: const EdgeInsets.all(15),
-          physics: const ClampingScrollPhysics(), //스크롤 명시적으로
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 15,
-            crossAxisSpacing: 15,
-          ),
-          itemCount: length,
-          itemBuilder: (context, index) {
-            String imageName = (type == AvatarAssetType.face)
-                ? "on_${type.name}_${index + 1}"
-                : "off_${type.name}_${index + 1}";
-            String imagePath = "$path$imageName.svg";
-            return Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                border: Border.all(
-                  color: AppColor.black10,
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.all(15),
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+            ),
+            itemCount: length,
+            itemBuilder: (context, index) {
+              String imageName = (type == AvatarAssetType.face)
+                  ? "on_${type.name}_${index + 1}"
+                  : "off_${type.name}_${index + 1}";
+              String imagePath = "$path$imageName.svg";
+              return Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  border: Border.all(
+                    color: AppColor.black10,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: (type == AvatarAssetType.item)
-                  ? SvgPicture.asset(
-                      '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
-                    )
-                  : Stack(
-                      children: [
-                        SvgPicture.asset('assets/avatar/Face/on_face_1.svg'),
-                        SvgPicture.asset(imagePath),
-                      ],
-                    ),
-            );
-          },
+                child: (type == AvatarAssetType.item)
+                    ? SvgPicture.asset(
+                        '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
+                      )
+                    : Stack(
+                        children: [
+                          SvgPicture.asset('assets/avatar/Face/on_face_1.svg'),
+                          SvgPicture.asset(imagePath),
+                        ],
+                      ),
+              );
+            },
+          ),
         ),
       ],
     );

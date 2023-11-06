@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/avatar/palette.dart';
 import 'package:spec/view/widget/card/avatar_card.dart';
 
 getTabType(String tabItem) {
@@ -78,9 +77,7 @@ class CustomTabbar extends StatelessWidget {
                   child: TabBarView(
                     children: tabBarViewList
                         .map(
-                          (tabBarView) => SingleChildScrollView(
-                            child: tabBarView,
-                          ),
+                          (tabBarView) => tabBarView,
                         )
                         .toList(),
                   ),

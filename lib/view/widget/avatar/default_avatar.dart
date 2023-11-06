@@ -5,10 +5,16 @@ class DefaultAvatar extends StatelessWidget {
   const DefaultAvatar({
     super.key,
     this.width,
-    this.hairPosition,
+    this.hair,
+    this.face,
+    this.emotion,
+    this.item,
   });
   final double? width;
-  final double? hairPosition;
+  final String? hair;
+  final String? face;
+  final String? emotion;
+  final String? item;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +22,19 @@ class DefaultAvatar extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         SvgPicture.asset(
-          'assets/avatar/face/Face_smile.svg',
-          width: width ?? 40,
+          'assets/avatar/Face/on_face_1.svg',
+          width: width ?? 100,
         ),
         Positioned(
-          top: hairPosition ?? -7,
           child: SvgPicture.asset(
-            'assets/avatar/hair/Hair_short1_test.svg',
-            width: width ?? 40,
+            'assets/avatar/Emotion/off_emotion_1.svg',
+            width: width ?? 100,
+          ),
+        ),
+        Positioned(
+          child: SvgPicture.asset(
+            'assets/avatar/Hair/off_hair_1.svg',
+            width: width ?? 100,
           ),
         ),
       ],

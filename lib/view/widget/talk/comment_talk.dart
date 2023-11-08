@@ -88,13 +88,6 @@ class _CommentTalkState extends State<CommentTalk> {
                           }
                         }
                       : null,
-                  // onLongPress: widget.myComment
-                  //     ? () {
-                  //         setState(() {
-                  //           isPressed = !isPressed;
-                  //         });
-                  //       }
-                  //     : null,
                   child: Container(
                     width: double.infinity,
                     constraints: const BoxConstraints(minHeight: 65),
@@ -127,20 +120,17 @@ class _CommentTalkState extends State<CommentTalk> {
           ),
         if (widget.withLikeButton)
           Positioned(
-            top: 60,
-            right: 5,
-            child: Container(
-              color: Colors.red,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleButton(
-                  svg: isLikePressed
-                      ? 'assets/icons/svgs/Like.svg'
-                      : 'assets/icons/svgs/NotSelect.svg',
-                  iconWidth: 16.0,
-                  buttonWidth: 20,
-                  onTap: _handleLikePressed,
-                ),
+            top: 52,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleButton(
+                svg: isLikePressed
+                    ? 'assets/icons/svgs/Like.svg'
+                    : 'assets/icons/svgs/NotSelect.svg',
+                iconWidth: 16.0,
+                buttonWidth: 20,
+                onTap: _handleLikePressed,
               ),
             ),
           ),
@@ -149,36 +139,33 @@ class _CommentTalkState extends State<CommentTalk> {
   }
 
   Widget _buildEditingActions() {
-    return Container(
-      color: Colors.red,
-      child: Row(
-        children: [
-          CircleButton(
-              svg: 'assets/icons/svgs/editable.svg',
-              onTap: () {
-                print(widget.comment.id);
-                talkEditingController.updateTalkInPopup(
-                    context, textEditingController, widget.comment.id,
-                    afterUpdateSuccess: () {
+    return Row(
+      children: [
+        CircleButton(
+            svg: 'assets/icons/svgs/editable.svg',
+            onTap: () {
+              print(widget.comment.id);
+              talkEditingController.updateTalkInPopup(
+                  context, textEditingController, widget.comment.id,
+                  afterUpdateSuccess: () {
+                widget.onTalkUpdated!();
+              });
+              print('수정팝업');
+            }),
+        const SizedBox(width: 8),
+        CircleButton(
+            svg: 'assets/icons/svgs/Delete_Float.svg',
+            onTap: () {
+              talkEditingController.deleteTalkInPopup(
+                context,
+                widget.comment.id,
+                afterDeleteSuccess: () {
                   widget.onTalkUpdated!();
-                });
-                print('수정팝업');
-              }),
-          const SizedBox(width: 8),
-          CircleButton(
-              svg: 'assets/icons/svgs/Delete_Float.svg',
-              onTap: () {
-                talkEditingController.deleteTalkInPopup(
-                  context,
-                  widget.comment.id,
-                  afterDeleteSuccess: () {
-                    widget.onTalkUpdated!();
-                  },
-                );
-                print('삭제팝업');
-              }),
-        ],
-      ),
+                },
+              );
+              print('삭제팝업');
+            }),
+      ],
     );
   }
 
@@ -209,7 +196,6 @@ class _CommentTalkState extends State<CommentTalk> {
 
   void _handleLikePressed() {
     setState(() {
-      print('하트 눌려야해');
       isLikePressed = !isLikePressed;
       // widget.onTalkUpdated?.call();
     });

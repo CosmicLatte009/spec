@@ -24,14 +24,12 @@ class TalkBubble extends StatefulWidget {
     required this.talk,
     this.mytalk = false,
     this.type = BubbleType.less,
-    // required this.isLikePressed,
     this.onTapEnabled = true,
     this.onTalkUpdated,
   });
   final Talk? talk;
   final bool mytalk;
   final BubbleType type;
-  // final bool isLikePressed;
   final bool onTapEnabled;
   final Function? onTalkUpdated;
 
@@ -43,7 +41,7 @@ class _TalkBubbleState extends State<TalkBubble> {
   var talkEditingController = Get.find<TalkEditingController>();
 
   bool isPressed = false;
-  late bool isLiked = false;
+  bool isLikePressed = false;
   TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -136,7 +134,6 @@ class _TalkBubbleState extends State<TalkBubble> {
                                     style: AppTextStyles.body14M(
                                         color: AppColor.black80),
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
                                   )
                                 else
                                   Container(
@@ -153,9 +150,7 @@ class _TalkBubbleState extends State<TalkBubble> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
-                              print('좋아요좋아');
-                            },
+                            onTap: _handleLikePressed,
                             // onTap: () async {
                             //   bool newLikeStatus = await talkEditingController
                             //       .toggleLike(talkId);
@@ -166,7 +161,7 @@ class _TalkBubbleState extends State<TalkBubble> {
                             //   widget.onTalkUpdated?.call();
                             // },
                             child: SvgPicture.asset(
-                              isLiked
+                              isLikePressed
                                   ? 'assets/icons/svgs/Like.svg'
                                   : 'assets/icons/svgs/NotSelect.svg',
                               width: 20,
@@ -220,5 +215,12 @@ class _TalkBubbleState extends State<TalkBubble> {
         ),
       ),
     );
+  }
+
+  void _handleLikePressed() {
+    setState(() {
+      isLikePressed = !isLikePressed;
+      // widget.onTalkUpdated?.call();
+    });
   }
 }

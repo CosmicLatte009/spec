@@ -9,6 +9,8 @@ import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
 import 'package:spec/controller/mogak/me/me_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/profile_controller.dart';
+import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
@@ -98,6 +100,7 @@ class AppPages {
           Get.lazyPut(() => ContentSearchController());
           Get.lazyPut(() => CreateMogakController());
           Get.lazyPut(() => LikeController());
+          Get.lazyPut(() => SignupController()); // @todo 어디까지 바인딩해야하는가?
         })),
     GetPage(
       name: AppPagesRoutes.allMogak,
@@ -151,6 +154,8 @@ class AppPages {
         Get.lazyPut(() => DetailMogakController(Get.parameters['id']!));
         Get.lazyPut(() => JoinedMogakController());
         Get.lazyPut(() => LikeController());
+        Get.lazyPut(() => ProfileController());
+        Get.lazyPut(() => SignupController()); // @todo 어디까지 바인딩해야하는가?
       }),
     ),
   ];

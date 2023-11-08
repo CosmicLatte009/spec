@@ -31,8 +31,10 @@ class DetailMogakPage extends GetView<DetailMogakController> {
           ),
           const SizedBox(height: 24),
           Obx(
-            () => controller.detailMogak.value != null
+            () => controller.detailMogak.value != null &&
+                    controller.userInfo.value != null
                 ? DetailMogakCard(
+                    userInfo: controller.userInfo.value!,
                     mogak: controller.detailMogak.value!,
                     controller: controller,
                     mogakState: controller.detailMogakState(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:spec/model/detail_mogak.dart';
+import 'package:spec/model/profile.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/alert/300_width/with_two_button.dart';
@@ -19,6 +20,7 @@ class DetailMogakCard extends StatelessWidget {
     this.isLiked = false,
     required this.isUped,
     required this.isJoined,
+    required this.userInfo,
   });
   final DetailMogak mogak;
   final String mogakState;
@@ -26,11 +28,13 @@ class DetailMogakCard extends StatelessWidget {
   final bool isLiked;
   final bool isUped;
   final bool isJoined;
+  final Profile userInfo;
 
   @override
   Widget build(BuildContext context) {
     List<String?> tags =
         mogak.hashtag != null ? mogak.hashtag!.split('#').skip(1).toList() : [];
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -43,23 +47,17 @@ class DetailMogakCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // user
-                Row(
-                  children: [
-                    // @todo authorId로 유저 받아오는것으로 수정 필요
-                    UserAvatar(
-                      avatarUrl: mogak.appliedProfiles[0].avatar,
-                      avatarSize: AvatarSize.w40,
-                      direction: BadgeDirection.row,
-                      shortName: mogak.appliedProfiles[0].badge != null
-                          ? mogak.appliedProfiles[0].badge!.shortName
-                          : null,
-                      nickName: mogak.appliedProfiles[0].nickname,
-                      nickNameSize: AppTextStyles.body12B(),
-                      role: mogak.appliedProfiles[0].role,
-                    )
-                  ],
-                ),
+                if (controller.userInfo != null)
+                  UserAvatar(
+                    avatarUrl: userInfo.avatar,
+                    avatarSize: AvatarSize.w40,
+                    direction: BadgeDirection.row,
+                    nickName: userInfo.nickname,
+                    nickNameSize: AppTextStyles.body12B(),
+                    // @todo badgeId가 들어옴. badge가 없음.
+                    // role: appliedProfiles.role,
+                    // shortName:
+                  ),
                 GestureDetector(
                   onTap: controller.toggleLike,
                   child: SvgPicture.asset(

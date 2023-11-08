@@ -14,6 +14,7 @@ import 'package:spec/view/widget/navigation/top.dart';
 class CreateMogakPage extends GetView<CreateMogakController> {
   const CreateMogakPage({super.key});
   static const route = '/mogak/create';
+  static const visiblityStatus = ['작성중', '모집중', '모집완료'];
 
   @override
   Widget build(BuildContext context) {
@@ -50,31 +51,68 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      ListButton(
-                        text: '모집인원',
-                        listType: ListButtonType.setting,
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const PartyNumberPopup();
-                            },
-                          );
-                        },
+                      Obx(
+                        () => controller.maxMemberAsString.isNotEmpty
+                            ? ListButton(
+                                text: '모집인원',
+                                listType: ListButtonType.recruitCount,
+                                count: controller.maxMember,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const PartyNumberPopup();
+                                    },
+                                  );
+                                },
+                              )
+                            : ListButton(
+                                text: '모집인원',
+                                listType: ListButtonType.setting,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const PartyNumberPopup();
+                                    },
+                                  );
+                                },
+                              ),
                       ),
                       const SizedBox(height: 16),
-                      ListButton(
-                        text: '모집상태',
-                        listType: ListButtonType.setting,
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const PartyStatePopup();
-                            },
-                          );
-                        },
-                      ),
+                      Obx(
+                        () => controller.selectedIndex != -1
+                            ? ListButton(
+                                text: '모집상태',
+                                recruitState:
+                                    visiblityStatus[controller.selectedIndex],
+                                listType: ListButtonType.recruitState,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const PartyStatePopup(
+                                        items: visiblityStatus,
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                            : ListButton(
+                                text: '모집상태',
+                                listType: ListButtonType.setting,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const PartyStatePopup(
+                                        items: visiblityStatus,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                      )
                     ],
                   ),
                 ),
@@ -87,6 +125,20 @@ class CreateMogakPage extends GetView<CreateMogakController> {
               text: '등록하기',
               height: 56,
               onTap: controller.submitAction,
+              //@validation 통과시 submitAction이 이루어지도록
+              // onTap: () {
+              //   controller.stringLengthValidation(
+              //     text: controller.titleController.text,
+              //   );
+              //   controller.stringLengthValidation(
+              //     text: controller.contentsController.text,
+              //     min: 10,
+              //     max: 500,
+              //   );
+              //   controller.minMaxValidation(
+              //     num: controller.maxMember,
+              //   );
+              // },
             ),
           ),
           const SizedBox(height: 37),

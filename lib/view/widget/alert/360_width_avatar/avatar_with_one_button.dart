@@ -3,13 +3,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
-class AvatarhWithOneButton extends StatelessWidget {
-  const AvatarhWithOneButton({
+class AvatarWithOneButton extends StatelessWidget {
+  const AvatarWithOneButton({
     super.key,
-    required this.avatarSvg,
+    required this.mainMessage,
+    this.subMessage,
+    this.buttonTitle,
+    this.avatar,
   });
 
-  final String avatarSvg;
+  final String? avatar;
+  final String mainMessage;
+  final String? subMessage;
+  final String? buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +34,29 @@ class AvatarhWithOneButton extends StatelessWidget {
             SizedBox(
               width: 44,
               height: 40,
-              child: SvgPicture.asset(
-                avatarSvg,
-              ),
+              child: avatar != null
+                  ? Image.network(avatar!)
+                  : Image.asset(
+                      'assets/icons/pngs/man-a.png',
+                    ),
             ),
             const SizedBox(height: 8),
             Text(
-              '아바타가 저장되었습니다.',
+              mainMessage,
               style: AppTextStyles.body16B(color: Colors.black),
             ),
-            const SizedBox(height: 8),
-            Text(
-              '언제든지 수정이 가능합니다.',
-              style: AppTextStyles.body12R(color: const Color(0xFF999999)),
-            ),
-            const SizedBox(height: 25),
+            if (subMessage != null)
+              Column(
+                children: [
+                  const SizedBox(height: 8),
+                  Text(
+                    subMessage!,
+                    style:
+                        AppTextStyles.body12R(color: const Color(0xFF999999)),
+                  ),
+                ],
+              ),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,7 +66,7 @@ class AvatarhWithOneButton extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  text: '닫기',
+                  text: buttonTitle ?? '닫기',
                 )
               ],
             )
@@ -63,13 +77,13 @@ class AvatarhWithOneButton extends StatelessWidget {
   }
 }
 
-void showDialog_9(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return const AvatarhWithOneButton(
-        avatarSvg: 'assets/icons/svgs/SFACE.svg',
-      );
-    },
-  );
-}
+// void showDialog_9(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return const AvatarWithOneButton(
+//         avatarSvg: 'assets/icons/svgs/SFACE.svg',
+//       );
+//     },
+//   );
+// }

@@ -7,7 +7,9 @@ import 'package:spec/view/widget/select/custom_radio_group.dart';
 class PartyStatePopup extends StatefulWidget {
   const PartyStatePopup({
     super.key,
+    required this.items,
   });
+  final List<String> items;
 
   @override
   State<PartyStatePopup> createState() => _PartyStatePopupState();
@@ -15,7 +17,6 @@ class PartyStatePopup extends StatefulWidget {
 
 class _PartyStatePopupState extends State<PartyStatePopup> {
   var controller = Get.find<CreateMogakController>();
-  List visiblityStatus = ['작성중', '모집중', '모집완료'];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
           ),
           Obx(
             () => CustomRadioGroup(
-              items: visiblityStatus,
+              items: widget.items,
               tileColorActive: true,
               selectedIndex: controller.selectedIndex,
               onItemSelect: (index) {

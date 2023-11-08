@@ -19,6 +19,8 @@ class Mogak {
   Author author;
   List<AppliedProfile> appliedProfiles;
   List<UpProfiles?> upProfiles;
+  int? up;
+  int? childrenLength;
 
   Mogak({
     required this.id,
@@ -37,6 +39,8 @@ class Mogak {
     required this.author,
     required this.appliedProfiles,
     required this.upProfiles,
+    this.up,
+    this.childrenLength,
   });
 
   factory Mogak.fromMap(Map<String, dynamic> map) {
@@ -59,6 +63,8 @@ class Mogak {
           map['appliedProfiles'].map((x) => AppliedProfile.fromMap(x))),
       upProfiles: List<UpProfiles>.from(
           map['upProfiles'].map((x) => UpProfiles.fromMap(x))),
+      up: map['up'],
+      childrenLength: map['childrenLength'] ?? 0,
     );
   }
 }

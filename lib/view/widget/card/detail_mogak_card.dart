@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/widget/alert/300_width/with_two_button.dart';
+import 'package:spec/view/widget/alert/300_width_description/description_with_two_button.dart';
 import 'package:spec/view/widget/avatar/join_avatars.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
@@ -13,17 +15,17 @@ class DetailMogakCard extends StatelessWidget {
     super.key,
     required this.mogak,
     this.controller,
-    this.toggleLike,
     required this.mogakState,
     this.isLiked = false,
     required this.isUped,
+    required this.isJoined,
   });
   final DetailMogak mogak;
   final String mogakState;
   final controller;
-  final toggleLike;
   final bool isLiked;
   final bool isUped;
+  final bool isJoined;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class DetailMogakCard extends StatelessWidget {
                 // user
                 Row(
                   children: [
+                    // @todo authorId로 유저 받아오는것으로 수정 필요
                     UserAvatar(
                       avatarUrl: mogak.appliedProfiles[0].avatar,
                       avatarSize: AvatarSize.w40,
@@ -53,14 +56,12 @@ class DetailMogakCard extends StatelessWidget {
                           : null,
                       nickName: mogak.appliedProfiles[0].nickname,
                       nickNameSize: AppTextStyles.body12B(),
-                      role: mogak.appliedProfiles[0].role == 'NEWBIE'
-                          ? '수료생'
-                          : null, //@todo 수료생 뱃지 어디있는지?
+                      role: mogak.appliedProfiles[0].role,
                     )
                   ],
                 ),
                 GestureDetector(
-                  onTap: toggleLike,
+                  onTap: controller.toggleLike,
                   child: SvgPicture.asset(
                     'assets/icons/svgs/Like.svg',
                     width: 20,
@@ -95,15 +96,17 @@ class DetailMogakCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Row(
+                  child: Wrap(
                     children: tags
                         .map(
-                          (tag) => Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: CustomButton(
-                              text: '#$tag',
-                              height: 22,
-                              type: ButtonType.neutral,
+                          (tag) => IntrinsicWidth(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                              child: CustomButton(
+                                text: '#$tag',
+                                height: 22,
+                                type: ButtonType.neutral,
+                              ),
                             ),
                           ),
                         )
@@ -150,14 +153,34 @@ class DetailMogakCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              // @todo 버튼: join중일 때: 탈퇴하기, default: 참여하기
-              child: CustomButton(
-                text: '참여하기',
-                height: 56,
-                onTap: controller,
-              ),
+            CustomButton(
+              text: isJoined == true ? '탈퇴하기' : '참여하기',
+              height: 56,
+              onTap: () {
+                isJoined == true
+                    ? showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DescriptionWithTwoButton(
+                            mainMessage: '참여중인 그룹에서 탈퇴하시겠습니까?',
+                            subMessage: '탈퇴한 그룹에서 다시 참여가 가능합니다.',
+                            buttonTitle1: '취소하기',
+                            buttonTitle2: '탈퇴하기',
+                            callback2: controller.cancelJoin,
+                          );
+                        })
+                    : showDialog(
+                        context: context,
+                        builder: (context) {
+                          return WithTwoButton(
+                            button1: '취소하기',
+                            button2: '참여하기',
+                            message: '그룹에 참여하시겠습니까?',
+                            callback2: controller.joinMogak,
+                          );
+                        },
+                      );
+              },
             ),
           ],
         ),

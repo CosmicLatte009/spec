@@ -6,6 +6,7 @@ import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
@@ -98,6 +99,9 @@ class AppPages {
     GetPage(
       name: AppPagesRoutes.mainTalk,
       page: () => const MainTalkPage(),
+      binding: BindingsBuilder(() {
+        Get.put(MainTalkController());
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.allTalk,
@@ -108,11 +112,11 @@ class AppPages {
       page: () => const DetailTalkPage(),
       binding: BindingsBuilder(() {
         String? id = Get.parameters['id'];
-        print('Binding for DetailTalkController with id: $id');
+        print('지금 DetailTalkController의 id는: $id');
         if (id != null) {
           Get.put(DetailTalkController(id));
         } else {
-          print('Error: Talk ID is null');
+          print('Error: DetialTalkController의 id가 없다.');
         }
       }),
     ),

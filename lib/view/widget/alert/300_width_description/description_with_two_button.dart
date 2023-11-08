@@ -8,12 +8,14 @@ class DescriptionWithTwoButton extends StatelessWidget {
       required this.mainMessage,
       required this.subMessage,
       required this.buttonTitle1,
-      required this.buttonTitle2});
+      required this.buttonTitle2,
+      this.onSubmit});
 
   final String mainMessage;
   final String subMessage;
   final String buttonTitle1;
   final String buttonTitle2;
+  final Function()? onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +58,7 @@ class DescriptionWithTwoButton extends StatelessWidget {
                 CustomButton(
                   width: 100,
                   height: 32,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
+                  onTap: onSubmit,
                   text: '${buttonTitle2}',
                 ),
               ],

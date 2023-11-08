@@ -1,42 +1,29 @@
-import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/util/api_routes.dart';
 import '../../model/talk.dart';
+import 'talk_controller.dart';
+import 'talk_editing_controller.dart';
 
 class HotTalkController extends GetxController {
-  final RxList<Talk> _hotTalks = <Talk>[].obs;
-  RxList<Talk> get hotTalks => _hotTalks;
-  RxBool isLoading = true.obs;
+  final TalkController _talkController = Get.find<TalkController>();
+  final TalkEditingController talkEditingController =
+      Get.find<TalkEditingController>();
 
-  Dio dio = Dio();
-  String baseUrl = 'https://dev.sniperfactory.com';
+  RxList<Talk> get hotTalks => _talkController.hotTalks;
+  RxBool get hotTalksLoading => _talkController.isHotTalksLoading;
 
-  getHotTalks() async {
-    try {
-      isLoading.value = true;
-      var res = await dio.get(
-        ApiRoutes.hotTalk,
-      );
-      if (res.statusCode == 200 && res.data["status"] == "success") {
-        var resData = List<Map<String, dynamic>>.from(res.data["data"]);
-        var talkList = resData.map(Talk.fromMap).toList();
-        _hotTalks.assignAll(talkList);
-        // print(hotTalks);
-        isLoading.value = false;
-      } else {
-        isLoading.value = true;
-        print(res.data["message"]);
-      }
-    } on DioException catch (e) {
-      isLoading.value = true;
-      print(e.toString());
-    }
+  getHotTalks() => _talkController.getHotTalks();
+
+  TextEditingController textEditingController = TextEditingController();
+  void postNewTalkInPopup() {
+    talkEditingController.postNewTalkInPopup(
+        Get.context!, textEditingController,
+        afterPostSuccess: getHotTalks);
   }
 
   @override
   void onInit() async {
     super.onInit();
-    dio.options.baseUrl = baseUrl;
     await getHotTalks();
   }
 }

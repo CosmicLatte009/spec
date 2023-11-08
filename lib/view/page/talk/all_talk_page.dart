@@ -23,7 +23,7 @@ class AllTalkPage extends GetView<AllTalkController> {
         buttonWidth: 50,
         backColor: AppColor.primary80,
         onTap: () {
-          print('호잇');
+          controller.postNewTalkInPopup();
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -52,11 +52,14 @@ class AllTalkPage extends GetView<AllTalkController> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Obx(() {
-                      if (controller.isLoading.value) {
+                      if (controller.allTalksLoading.value) {
                         return const CircularProgressIndicator();
                       } else {
                         return TalkBubbleBuilder(
                           data: controller.allTalks,
+                          onTalkUpdated: () async {
+                            await controller.getAllTalks();
+                          },
                         );
                       }
                     }),

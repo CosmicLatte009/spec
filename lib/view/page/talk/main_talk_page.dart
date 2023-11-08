@@ -15,17 +15,9 @@ import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_page_routes.dart';
 
-class MainTalkPage extends StatefulWidget {
+class MainTalkPage extends GetView<MainTalkController> {
   const MainTalkPage({super.key});
   static const route = '/talk/main';
-
-  @override
-  State<MainTalkPage> createState() => _MainTalkPageState();
-}
-
-class _MainTalkPageState extends State<MainTalkPage> {
-  final MainTalkController controller = Get.find();
-  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +29,7 @@ class _MainTalkPageState extends State<MainTalkPage> {
         backColor: AppColor.primary80,
         buttonWidth: 50,
         onTap: () {
-          setState(
-            () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return TalkEditingPopup(
-                      controller: textEditingController, //@todo: 톡 생성하기
-                      onSubmit: () {
-                        print(textEditingController
-                            .text); //@todo: controller로부터 고유id만 갖는(content만 보내는) POST 함수 호출;
-                      },
-                    );
-                  });
-            },
-          );
+          controller.postNewTalkInPopup();
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -110,7 +88,9 @@ class _MainTalkPageState extends State<MainTalkPage> {
       var hotTalk = controller.hotTalks.sublist(0, 1);
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: TalkBubbleBuilder(data: RxList<Talk>.from(hotTalk)),
+        child: TalkBubbleBuilder(
+          data: RxList<Talk>.from(hotTalk),
+        ),
       );
     } else {
       return Padding(
@@ -123,7 +103,12 @@ class _MainTalkPageState extends State<MainTalkPage> {
   Widget _buildAllTalkSection() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: TalkBubbleBuilder(data: controller.allTalks),
+      child: TalkBubbleBuilder(
+        data: controller.allTalks,
+        onTalkUpdated: () {
+          controller.getMainTalks();
+        },
+      ),
     );
   }
 }

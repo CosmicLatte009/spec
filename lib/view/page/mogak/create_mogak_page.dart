@@ -19,7 +19,7 @@ class CreateMogakPage extends GetView<CreateMogakController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(height: 24),
           const NavMenu(

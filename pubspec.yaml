@@ -70,6 +70,7 @@ flutter:
     - assets/avatar/Face/
     - assets/avatar/Hair/
     - assets/avatar/Item/
+    - assets/avatar/Item_Only/
     - assets/icons/pngs/
     - assets/logo/Logo.png
     - assets/logo/splash.svg

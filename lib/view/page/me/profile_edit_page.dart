@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
-import 'package:spec/view/widget/avatar/default_circle_avatar.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/popup/signup_popup.dart';
+import 'package:spec/view/widget/popup/edit_avatar_popup.dart';
 import 'package:spec/view/widget/select/custom_radio_group.dart';
-import 'package:spec/view/widget/tab/custom_tabbar.dart';
 
 class ProfileEditPage extends GetView<ProfileController> {
   const ProfileEditPage({super.key});
@@ -196,28 +193,43 @@ class ProfileEditPage extends GetView<ProfileController> {
                         child: Opacity(
                           opacity: 0.2,
                           child: DefaultAvatar(
-                            width: 82,
-                            hairPosition: -15,
+                            width: 200,
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              '아바타 설정하기',
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const EditAvatarPopup();
+                            },
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '아바타 수정하기',
                               style: AppTextStyles.body12R(
                                 color: AppColor.primary80,
                               ),
                             ),
-                          ),
-                          CircleButton(
-                            svg: 'assets/icons/svgs/edit.svg',
-                            onTap: () {},
-                          ),
-                        ],
+                            const SizedBox(width: 8),
+                            CircleButton(
+                              svg: 'assets/icons/svgs/edit.svg',
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const EditAvatarPopup();
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -4,8 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/time_utils.dart';
+import 'package:spec/view/widget/alert/300_width_description/description_with_one_button.dart';
+import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/popup/talk_editing_popup.dart';
+import '../../../controller/talk/talk_controller.dart';
+import '../../../controller/talk/talk_editing_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
@@ -20,39 +24,74 @@ class TalkBubble extends StatefulWidget {
     required this.talk,
     this.mytalk = false,
     this.type = BubbleType.less,
-    required this.isLikePressed,
     this.onTapEnabled = true,
+    this.onTalkUpdated,
   });
   final Talk? talk;
   final bool mytalk;
   final BubbleType type;
-  final bool isLikePressed;
   final bool onTapEnabled;
+  final Function? onTalkUpdated;
+
   @override
   State<TalkBubble> createState() => _TalkBubbleState();
 }
 
 class _TalkBubbleState extends State<TalkBubble> {
+  var talkEditingController = Get.find<TalkEditingController>();
+
   bool isPressed = false;
+  bool isLikePressed = false;
   TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String talkId = widget.talk!.id;
     return Expanded(
       child: GestureDetector(
-        onLongPress: widget.mytalk
-            ? () {
-                setState(() {
-                  isPressed = !isPressed;
-                });
-              }
-            : null,
-        onTap: widget.onTapEnabled && widget.talk != null
-            ? () {
-                Get.toNamed(AppPagesRoutes.detailTalk,
-                    parameters: {'id': widget.talk!.id});
-              }
-            : null,
+        onLongPress: () {
+          if (widget.talk!.isDeleted) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return IconTextWithOneButton(
+                  svgPath: 'assets/icons/sgvs/Warning.svg',
+                  mainMessage: '이미 삭제된 톡입니다!',
+                  subMessage: '클릭하신 톡을 찾을 수 없습니다.',
+                  buttonTitle: '닫기',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
+          } else if (widget.mytalk) {
+            setState(() {
+              isPressed = !isPressed;
+            });
+          }
+        },
+        onTap: () {
+          if (widget.talk!.isDeleted) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return IconTextWithOneButton(
+                  svgPath: 'assets/icons/sgvs/Warning.svg',
+                  mainMessage: '이미 삭제된 톡입니다!',
+                  subMessage: '클릭하신 톡을 찾을 수 없습니다.',
+                  buttonTitle: '닫기',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
+          } else if (widget.onTapEnabled && widget.talk != null) {
+            Get.toNamed(AppPagesRoutes.detailTalk,
+                parameters: {'id': widget.talk!.id});
+          }
+        },
         child: Stack(
           children: [
             Column(
@@ -83,10 +122,8 @@ class _TalkBubbleState extends State<TalkBubble> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.talk?.createdAt != null
-                                      ? TimeUtils.relativeTime(
-                                          widget.talk!.createdAt)
-                                      : '날짜 정보 없음',
+                                  TimeUtils.relativeTime(
+                                      widget.talk!.updatedAt),
                                   style: AppTextStyles.body12R(
                                       color: AppColor.black40),
                                 ),
@@ -112,11 +149,23 @@ class _TalkBubbleState extends State<TalkBubble> {
                               ],
                             ),
                           ),
-                          SvgPicture.asset(
-                            widget.isLikePressed
-                                ? 'assets/icons/svgs/Like.svg'
-                                : 'assets/icons/svgs/NotSelect.svg',
-                            width: 20,
+                          InkWell(
+                            onTap: _handleLikePressed,
+                            // onTap: () async {
+                            //   bool newLikeStatus = await talkEditingController
+                            //       .toggleLike(talkId);
+                            //   setState(() {
+                            //     isLiked = newLikeStatus;
+                            //   });
+                            //   // 부모 위젯에 업데이트를 알립니다.
+                            //   widget.onTalkUpdated?.call();
+                            // },
+                            child: SvgPicture.asset(
+                              isLikePressed
+                                  ? 'assets/icons/svgs/Like.svg'
+                                  : 'assets/icons/svgs/NotSelect.svg',
+                              width: 20,
+                            ),
                           ),
                         ],
                       ),
@@ -130,43 +179,26 @@ class _TalkBubbleState extends State<TalkBubble> {
                             CircleButton(
                               svg: 'assets/icons/svgs/editable.svg',
                               onTap: () {
-                                setState(
-                                  () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return TalkEditingPopup(
-                                            controller:
-                                                textEditingController, //@todo: 톡 수정하기 위해서 글자 나타나도록 하기
-                                            onSubmit: () {
-                                              print(textEditingController
-                                                  .text); //@todo: controller로부터 고유 톡id로 put 수정하는 함수 호출;
-                                            },
-                                          );
-                                        });
-                                  },
-                                );
+                                talkEditingController.updateTalkInPopup(
+                                    context, textEditingController, talkId,
+                                    afterUpdateSuccess: () {
+                                  widget.onTalkUpdated!();
+                                });
                               },
                             ),
                             const SizedBox(width: 8),
                             CircleButton(
-                                svg: 'assets/icons/svgs/Delete_float.svg',
-                                onTap: () {
-                                  setState(
-                                    () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return const DescriptionWithTwoButton(
-                                              mainMessage: '내 톡을 삭제하시겠습니까?',
-                                              subMessage: '한번 삭제하면 복구가 불가능합니다.',
-                                              buttonTitle1: '취소하기',
-                                              buttonTitle2: '삭제하기',
-                                            );
-                                          });
-                                    },
-                                  );
-                                }),
+                              svg: 'assets/icons/svgs/Delete_Float.svg',
+                              onTap: () {
+                                talkEditingController.deleteTalkInPopup(
+                                  context,
+                                  talkId,
+                                  afterDeleteSuccess: () {
+                                    widget.onTalkUpdated!();
+                                  },
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -183,5 +215,12 @@ class _TalkBubbleState extends State<TalkBubble> {
         ),
       ),
     );
+  }
+
+  void _handleLikePressed() {
+    setState(() {
+      isLikePressed = !isLikePressed;
+      // widget.onTalkUpdated?.call();
+    });
   }
 }

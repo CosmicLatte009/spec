@@ -13,7 +13,7 @@ class CircleButton extends StatelessWidget {
   });
 
   final String svg;
-  final Function() onTap;
+  final Function()? onTap;
   final Color? backColor;
   final double? buttonWidth;
   final double? iconWidth;

@@ -54,6 +54,24 @@ class UserAvatar extends StatelessWidget {
     return 22;
   }
 
+  String switchRoleText(String? role) {
+    if (role == null) return 'role';
+    switch (role) {
+      case 'NEWBIE':
+        return '신규';
+      case 'TRAINEE':
+        return '수강생';
+      case 'GRADUATED':
+        return '수료생';
+      case 'MENTOR':
+        return '멘토';
+      case 'ADMIN':
+        return '관리자';
+      default:
+        return 'role';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget avatarContainer() {
@@ -128,14 +146,14 @@ class UserAvatar extends StatelessWidget {
             CircleAvatar(
               radius: finalRadius,
               backgroundColor: AppColor.primary05,
-              child: (avatarUrl != null && avatarUrl != "")
-                  ? Image.network(
-                      avatarUrl!,
+              child: (avatarUrl == null || avatarUrl!.isEmpty)
+                  ? SvgPicture.asset(
+                      'assets/icons/svgs/man-a.svg',
                       width: finalSvgSize,
                       height: finalSvgSize,
                     )
-                  : SvgPicture.asset(
-                      'assets/icons/svgs/man-a.svg',
+                  : Image.network(
+                      avatarUrl!,
                       width: finalSvgSize,
                       height: finalSvgSize,
                     ),
@@ -189,11 +207,7 @@ class UserAvatar extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               CustomButton(
-                  text: role != null
-                      ? role == "NEWBIE"
-                          ? '수료생'
-                          : (role == 'Admin' ? '관리자' : '멘토')
-                      : 'role',
+                  text: switchRoleText(role),
                   height: roleHeight ?? getFinalRoleHeightSize(),
                   type: ButtonType.neutral),
             ],
@@ -228,11 +242,7 @@ class UserAvatar extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             CustomButton(
-                text: role != null
-                    ? role == "NEWBIE"
-                        ? '수료생'
-                        : (role == 'Admin' ? '관리자' : '멘토')
-                    : 'role',
+                text: switchRoleText(role),
                 height: roleHeight ?? getFinalRoleHeightSize(),
                 type: ButtonType.neutral),
           ],

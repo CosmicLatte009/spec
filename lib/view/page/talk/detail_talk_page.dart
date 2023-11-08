@@ -31,7 +31,7 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 24.0),
                   child: NavMenu(
-                    title: '핫한 톡',
+                    title: '톡 상세보기',
                     titleDirection: TitleDirection.center,
                   ),
                 ),
@@ -41,7 +41,7 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       UserAvatar(
-                        avatarSvg: talk.author.avatar,
+                        avatarUrl: talk.author.avatar,
                         direction: BadgeDirection.column,
                         shortName: talk.author.badge?.shortName,
                         nickName: talk.author.nickname,
@@ -50,9 +50,13 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                       TalkBubble(
                         talk: talk,
                         type: BubbleType.detail,
-                        isLikePressed: true,
                         mytalk: true,
                         onTapEnabled: false,
+                        onTalkUpdated: () async {
+                          await controller.getTalkById();
+                          await controller.getAllTalks();
+                          await controller.getHotTalks();
+                        },
                       ),
                     ],
                   ),
@@ -72,7 +76,14 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: CommentTalkBuilder(data: controller.commentTalk),
+                        child: CommentTalkBuilder(
+                          data: controller.commentTalk,
+                          onTalkUpdated: () async {
+                            await controller.getTalkById();
+                            await controller.getAllTalks();
+                            await controller.getHotTalks();
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -95,8 +106,12 @@ class DetailTalkPage extends GetView<DetailTalkController> {
             ),
           ),
         ),
-        child: const CustomInput(
+        child: CustomInput(
+          controller: controller.textEditingController,
           type: InputType.comment,
+          onSubmit: (String content) {
+            controller.postNewTalkComment();
+          },
         ),
       ),
     );

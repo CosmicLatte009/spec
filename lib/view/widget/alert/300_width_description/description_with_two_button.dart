@@ -10,7 +10,8 @@ class DescriptionWithTwoButton extends StatelessWidget {
       required this.buttonTitle1,
       required this.buttonTitle2,
       this.callback1,
-      this.callback2});
+      this.callback2,
+      this.onSubmit});
 
   final String mainMessage;
   final String subMessage;
@@ -18,6 +19,7 @@ class DescriptionWithTwoButton extends StatelessWidget {
   final String buttonTitle2;
   final callback1;
   final callback2;
+  final Function()? onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,9 @@ class DescriptionWithTwoButton extends StatelessWidget {
                     onTap: () {
                       if (callback2 != null) {
                         callback2();
+                      }
+                      if (onSubmit != null) {
+                        onSubmit();
                       }
                       Navigator.of(context).pop();
                     },

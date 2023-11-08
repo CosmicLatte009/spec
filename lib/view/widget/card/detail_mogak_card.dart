@@ -21,6 +21,7 @@ class DetailMogakCard extends StatelessWidget {
     required this.isUped,
     required this.isJoined,
     required this.userInfo,
+    this.inVisibleButton,
   });
   final DetailMogak mogak;
   final String mogakState;
@@ -29,6 +30,7 @@ class DetailMogakCard extends StatelessWidget {
   final bool isUped;
   final bool isJoined;
   final Profile userInfo;
+  final bool? inVisibleButton;
 
   @override
   Widget build(BuildContext context) {
@@ -151,35 +153,37 @@ class DetailMogakCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            CustomButton(
-              text: isJoined == true ? '탈퇴하기' : '참여하기',
-              height: 56,
-              onTap: () {
-                isJoined == true
-                    ? showDialog(
-                        context: context,
-                        builder: (context) {
-                          return DescriptionWithTwoButton(
-                            mainMessage: '참여중인 그룹에서 탈퇴하시겠습니까?',
-                            subMessage: '탈퇴한 그룹에서 다시 참여가 가능합니다.',
-                            buttonTitle1: '취소하기',
-                            buttonTitle2: '탈퇴하기',
-                            callback2: controller.cancelJoin,
-                          );
-                        })
-                    : showDialog(
-                        context: context,
-                        builder: (context) {
-                          return WithTwoButton(
-                            button1: '취소하기',
-                            button2: '참여하기',
-                            message: '그룹에 참여하시겠습니까?',
-                            callback2: controller.joinMogak,
-                          );
-                        },
-                      );
-              },
-            ),
+            inVisibleButton == true
+                ? Container()
+                : CustomButton(
+                    text: isJoined == true ? '탈퇴하기' : '참여하기',
+                    height: 56,
+                    onTap: () {
+                      isJoined == true
+                          ? showDialog(
+                              context: context,
+                              builder: (context) {
+                                return DescriptionWithTwoButton(
+                                  mainMessage: '참여중인 그룹에서 탈퇴하시겠습니까?',
+                                  subMessage: '탈퇴한 그룹에서 다시 참여가 가능합니다.',
+                                  buttonTitle1: '취소하기',
+                                  buttonTitle2: '탈퇴하기',
+                                  callback2: controller.cancelJoin,
+                                );
+                              })
+                          : showDialog(
+                              context: context,
+                              builder: (context) {
+                                return WithTwoButton(
+                                  button1: '취소하기',
+                                  button2: '참여하기',
+                                  message: '그룹에 참여하시겠습니까?',
+                                  callback2: controller.joinMogak,
+                                );
+                              },
+                            );
+                    },
+                  ),
           ],
         ),
       ),

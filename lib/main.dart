@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/best_spacer_controller.dart';
+import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/forgot_pw_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => HotTalkController());
           Get.lazyPut(() => MyPageController());
           Get.lazyPut(() => BestSpacerController());
+          Get.lazyPut(() => FilterController());
+          Get.lazyPut(() => ContentSearchController());
         },
       ),
       getPages: AppPages.pages,

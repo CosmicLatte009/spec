@@ -13,9 +13,7 @@ class MyPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchMyInfo().then((profiles) {
-      myProfileInfo.addAll(profiles);
-    });
+    fetchMyInfo();
   }
 
   // Fetches MyInfo data from the API and returns a list of MyProfile.
@@ -36,6 +34,7 @@ class MyPageController extends GetxController {
 
       if (response.statusCode == 200) {
         var jsonData = response.data;
+        print(jsonData);
         profiles = List<MyProfile>.from(
             jsonData.map((item) => MyProfile.fromMap(item)));
         myProfileInfo.value = profiles;

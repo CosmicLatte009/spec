@@ -83,7 +83,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
     AppPagesRoutes.mainTalk,
     AppPagesRoutes.catchUp,
     AppPagesRoutes.mogak,
-    AppPagesRoutes.home, //@todo 추후 마이페이지로 수정
+    AppPagesRoutes.myPage, //@todo 추후 마이페이지로 수정
   ];
 
   final int currentIndex;

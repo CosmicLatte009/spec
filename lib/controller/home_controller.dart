@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   var allCourse = <Course>[].obs;
   var allBestSpacer = <BestSpacer>[].obs;
   Rx<List<CatchUp>> hotCatchUpCategory = Rx<List<CatchUp>>([]);
-  Rx<List<CatchUp>> hotCatchUps = Rx<List<CatchUp>>([]);
+  Rx<List<CatchUp>> HomeHotCatchUps = Rx<List<CatchUp>>([]);
 
   final Dio _dio = Dio(); // Made final
   static const BASE_URL =
@@ -24,6 +24,7 @@ class HomeController extends GetxController {
     super.onInit();
     fetchHomeData(); // Fetch data when the controller is initialized
     fetchBestSpacerData();
+    HomeHotCatchup();
   }
 
   Future<List<Course>> fetchHomeData() async {
@@ -125,12 +126,12 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<List<CatchUp>> HotCatchup() async {
+  Future<List<CatchUp>> HomeHotCatchup() async {
     String? _token = _authController.dmddo;
     print(_token);
     if (_token == null) {
       print("Token is null");
-      return hotCatchUps.value; // 토큰이 null이면 현재 값을 반환
+      return HomeHotCatchUps.value; // 토큰이 null이면 현재 값을 반환
     }
 
     try {
@@ -140,15 +141,13 @@ class HomeController extends GetxController {
 
       if (response.statusCode == 200) {
         var resData = response.data;
-        print(resData);
-        print(resData.runtimeType);
 
-        List<CatchUp> HotCatchUpsList = List<Map<String, dynamic>>.from(resData)
+        List<CatchUp> HomeHotCatchUpsList = List<Map<String, dynamic>>.from(resData)
             .map((item) => CatchUp.fromMap(item))
             .toList();
-        hotCatchUps.value = HotCatchUpsList;
-        print(HotCatchUpsList);
-        return HotCatchUpsList;
+        HomeHotCatchUps.value = HomeHotCatchUpsList;
+        print('이거 맞나 ${HomeHotCatchUps.value.length}');
+        return HomeHotCatchUpsList;
       } else {
         return []; // 유효하지 않은 데이터 형식의 경우 빈 리스트 반환
       }

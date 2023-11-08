@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
+import 'package:spec/view/widget/popup/talk_editing_popup.dart';
 import 'package:spec/view/widget/talk/talk_bubble_builder.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -13,7 +14,6 @@ import '../../../controller/talk/main_talk_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_page_routes.dart';
-import '../../widget/popup/talk_editing_popup.dart';
 
 class MainTalkPage extends StatefulWidget {
   const MainTalkPage({super.key});

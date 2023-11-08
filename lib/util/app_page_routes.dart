@@ -1,9 +1,9 @@
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
+import 'package:spec/view/page/me/my_page.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/detail_mogak_page.dart';
@@ -33,4 +33,5 @@ class AppPagesRoutes {
   static const String allTalk = AllTalkPage.route;
   static const String detailTalk = DetailTalkPage.route;
   static const String hotTalk = HotTalkPage.route;
+  static const String myPage = MyPage.route;
 }

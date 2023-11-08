@@ -41,13 +41,6 @@ class CatchUpPage extends GetView<CatchUpController> {
               print(val);
             },
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              controller.fetchCatchUp();
-              controller.HotCatchup();
-            },
-            child: Icon(Icons.refresh),
-          ),
           backgroundColor: Colors.grey[200],
           appBar: CustomAppBar(),
           body: Column(
@@ -61,11 +54,11 @@ class CatchUpPage extends GetView<CatchUpController> {
                   onButtonPressed: () => Get.to(HotCatchUp())),
               _buildHotCatchUpsSection(),
               NavMenu(
-                title: '캐치업!',
-                titleDirection: TitleDirection.left,
-                withEmoji: true,
-                emoji: 'assets/icons/pngs/dart.png',
-              ),
+                  title: '핫한 캐치업!',
+                  titleDirection: TitleDirection.left,
+                  withEmoji: true,
+                  emoji: 'assets/icons/pngs/dart.png',
+                  onButtonPressed: () => Get.to(HotCatchUp())),
               Expanded(child: _buildFlexibleCatchUpsListView()),
             ],
           ),
@@ -140,23 +133,23 @@ class CatchUpPage extends GetView<CatchUpController> {
   }
 
   // 주요 캐치업 ListView를 구성하는 Flexible 위젯
-  Flexible _buildFlexibleCatchUpsListView() {
-    return Flexible(
-      flex: 4,
-      child: Obx(() {
-        var catchUpsList = controller.isSearching.isTrue
-            ? controller.searchCatchUps.value
-            : controller.catchUps.value;
-        return _buildListView(catchUpsList);
-      }),
-    );
+  Widget _buildFlexibleCatchUpsListView() {
+    return Obx(() {
+      var catchUpsList = controller.isSearching.isTrue
+          ? controller.searchCatchUps.value
+          : controller.catchUps.value;
+      return Column(
+        children: [
+          Expanded(child: _buildListView(catchUpsList)),
+        ],
+      );
+    });
   }
 
   // 주요 캐치업 리스트뷰 빌더
   // 주요 캐치업 리스트뷰 빌더
   ListView _buildListView(List<CatchUp> catchUpsList) {
     return ListView.builder(
-      controller: _scrollController,
       itemCount: catchUpsList.length,
       itemBuilder: (context, index) {
         final catchUp = catchUpsList[index];

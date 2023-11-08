@@ -146,14 +146,14 @@ class UserAvatar extends StatelessWidget {
             CircleAvatar(
               radius: finalRadius,
               backgroundColor: AppColor.primary05,
-              child: avatarUrl != null
-                  ? Image.network(
-                      avatarUrl!,
+              child: (avatarUrl == null || avatarUrl!.isEmpty)
+                  ? SvgPicture.asset(
+                      'assets/icons/svgs/man-a.svg',
                       width: finalSvgSize,
                       height: finalSvgSize,
                     )
-                  : SvgPicture.asset(
-                      'assets/icons/svgs/man-a.svg',
+                  : Image.network(
+                      avatarUrl!,
                       width: finalSvgSize,
                       height: finalSvgSize,
                     ),

@@ -9,9 +9,11 @@ class TalkBubbleBuilder extends StatelessWidget {
   const TalkBubbleBuilder({
     super.key,
     required this.data,
+    this.onTalkUpdated,
   });
 
   final RxList<Talk> data;
+  final VoidCallback? onTalkUpdated;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,10 @@ class TalkBubbleBuilder extends StatelessWidget {
             SizedBox(width: 17.02),
             TalkBubble(
               talk: talk,
-              isLikePressed: true,
               mytalk: true,
               // mytalk: talk.author.id == currentUser.id,
               // onTapEnabled: true,
+              onTalkUpdated: onTalkUpdated,
             ),
           ],
         );

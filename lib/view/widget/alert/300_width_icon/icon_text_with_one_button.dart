@@ -9,12 +9,14 @@ class IconTextWithOneButton extends StatelessWidget {
       required this.svgPath,
       required this.mainMessage,
       required this.subMessage,
-      required this.buttonTitle});
+      required this.buttonTitle,
+      this.onTap});
 
   final String svgPath;
   final String mainMessage;
   final String subMessage;
   final String buttonTitle;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -53,9 +55,10 @@ class IconTextWithOneButton extends StatelessWidget {
                 CustomButton(
                   width: 100,
                   height: 32,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
+                  onTap: onTap ??
+                      () {
+                        Navigator.pop(context);
+                      },
                   text: '${buttonTitle}',
                 ),
               ],

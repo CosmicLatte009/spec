@@ -23,7 +23,7 @@ class HotTalkPage extends GetView<HotTalkController> {
         backColor: AppColor.primary80,
         buttonWidth: 50,
         onTap: () {
-          print('호잇');
+          controller.postNewTalkInPopup();
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -52,11 +52,14 @@ class HotTalkPage extends GetView<HotTalkController> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Obx(() {
-                      if (controller.isLoading.value) {
+                      if (controller.hotTalksLoading.value) {
                         return const CircularProgressIndicator();
                       } else {
                         return TalkBubbleBuilder(
                           data: controller.hotTalks,
+                          onTalkUpdated: () async {
+                            await controller.getHotTalks();
+                          },
                         );
                       }
                     }),

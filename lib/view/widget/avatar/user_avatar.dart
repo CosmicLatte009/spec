@@ -128,7 +128,7 @@ class UserAvatar extends StatelessWidget {
             CircleAvatar(
               radius: finalRadius,
               backgroundColor: AppColor.primary05,
-              child: avatarUrl != null
+              child: (avatarUrl != null && avatarUrl != "")
                   ? Image.network(
                       avatarUrl!,
                       width: finalSvgSize,

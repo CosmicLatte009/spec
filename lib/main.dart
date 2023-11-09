@@ -56,13 +56,17 @@ class MyApp extends StatelessWidget {
           Get.put(FilterController());
           Get.put(ContentSearchController());
           Get.lazyPut(() => MyPageController());
+          Get.lazyPut(() => MainTalkController());
+
           Get.lazyPut(() => BestSpacerController());
+          Get.lazyPut(() => FilterController());
+          Get.lazyPut(() => ContentSearchController());
         },
       ),
       getPages: AppPages.pages,
       //  initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: LoginScreen(),
+      home: SplashPage(),
     );
   }
 }

@@ -134,8 +134,8 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             Obx(() {
-              var hotCatchUpsList = controller.hotCatchUps.value;
-              return _buildHotListView(hotCatchUpsList);
+              var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
+              return _buildHotListView(homeHotCatchUpsList);
             }),
             NavMenu(
               title: '핫한 모각코',

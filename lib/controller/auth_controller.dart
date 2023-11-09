@@ -110,9 +110,12 @@ class AuthController extends GetxController {
   Future<bool> attemptChangePassword(
       String currentPassword, String newPassword) async {
     // 필요에 따라 비밀번호 인코딩
+
     currentPassword = base64Encode(utf8.encode(currentPassword));
     newPassword = base64Encode(utf8.encode(newPassword));
 
+    print(currentPassword);
+    print(newPassword);
     final token = await getToken(); // JWT 토큰 가져오기
     if (token == null) {
       throw Exception('Token not found');
@@ -120,25 +123,29 @@ class AuthController extends GetxController {
 
     try {
       final response = await _dio.post(
-        'https://dev.sniperfactory.com/api/auth/change-password',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        }),
-        data: jsonEncode(
-            {'currentPassword': currentPassword, 'newPassword': newPassword}),
-      );
+          'https://dev.sniperfactory.com/api/auth/change-password',
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          }),
+          data: {
+            'currentPassword': currentPassword,
+            'newPassword': newPassword
+          });
 
       if (response.statusCode == 200) {
+        print(currentPassword);
+        print(newPassword);
+
         // 요청이 성공했다면, 처리 결과에 따라 반환
         if (response.data['data'] == null) {
           void showLoginFailDialog() {
             Get.dialog(
               IconTextWithOneButton(
-                svgPath: 'dsd',
-                mainMessage: 'sdsd',
-                buttonTitle: 'sdsd',
-                subMessage: 'sdsds',
+                svgPath: 'assets/icons/svgs/Warning.svg',
+                mainMessage: '로그인에 실패하였습니다.',
+                buttonTitle: '다시하기',
+                subMessage: '다시 시도해주세요.',
               ),
             ); // 실패 시 표시할 다이얼로그
           }

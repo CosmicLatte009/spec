@@ -142,10 +142,10 @@ class AuthController extends GetxController {
           void showLoginFailDialog() {
             Get.dialog(
               IconTextWithOneButton(
-                svgPath: 'dsd',
-                mainMessage: 'sdsd',
-                buttonTitle: 'sdsd',
-                subMessage: 'sdsds',
+                svgPath: 'assets/icons/svgs/Warning.svg',
+                mainMessage: '로그인에 실패하였습니다.',
+                buttonTitle: '다시하기',
+                subMessage: '다시 시도해주세요.',
               ),
             ); // 실패 시 표시할 다이얼로그
           }

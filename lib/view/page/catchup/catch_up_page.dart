@@ -54,7 +54,7 @@ class CatchUpPage extends GetView<CatchUpController> {
                   onButtonPressed: () => Get.to(HotCatchUp())),
               _buildHotCatchUpsSection(),
               NavMenu(
-                  title: '핫한 캐치업!',
+                  title: '캐치업!',
                   titleDirection: TitleDirection.left,
                   withEmoji: true,
                   emoji: 'assets/icons/pngs/dart.png',

@@ -37,30 +37,140 @@ class MyPage extends GetView<MyPageController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // 리스트가 비어있지 않은지 확인하고 첫 번째 요소에 접근합니다.
                     UserAvatar(
                       avatarSize: AvatarSize.w60,
-                      role: '프론트엔드',
-                      nickName: '기여운냥이',
-                      shortName: 'ㄴㅇㄴ',
+                      shortName: '디자이너/1기',
+                      nickName: '캐서린',
+                      direction: BadgeDirection.column,
+                      role: 'newbie',
                     ),
+                    SizedBox(height: 20),
                     SvgPicture.asset(
                       'assets/icons/svgs/Bottom_dot.svg',
                     ),
-                    Row(
+                    SizedBox(height: 20),
+                    Column(
                       children: [
-                        Image.asset(
-                          'assets/icons/pngs/laptop.png',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/icons/pngs/laptop.png',
+                            ),
+                            Text(
+                              '스페이서 달성',
+                              style: AppTextStyles.body18B(
+                                  color: AppColor.black80),
+                            ),
+                          ],
                         ),
-                        Text(
-                          '스페이서 달성',
-                          style: AppTextStyles.body18B(color: AppColor.black80),
+                        SizedBox(
+                          height: 20,
                         ),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon:
+                                      Icon(Icons.arrow_back_ios_new_outlined)),
+                              SizedBox(width: 20),
+                              Column(
+                                children: [
+                                  Container(
+                                      width: 34,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF3F3F3),
+                                      ),
+                                      child: Center(
+                                        child: Text('1월',
+                                            style: AppTextStyles.body12R(
+                                                color: AppColor.black60)),
+                                      )),
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/icons/pngs/No.png'),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.favorite,
+                                          color: Color(0xFFE6E6E6)),
+                                      Text('',
+                                          style: AppTextStyles.body12R(
+                                              color: AppColor.primary80)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                children: [
+                                  Container(
+                                      width: 34,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF3F3F3),
+                                      ),
+                                      child: Center(
+                                        child: Text('1월',
+                                            style: AppTextStyles.body12R(
+                                                color: AppColor.black60)),
+                                      )),
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/icons/pngs/1st.png'),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.favorite, color: Colors.red),
+                                      Text('400',
+                                          style: AppTextStyles.body12R(
+                                              color: AppColor.primary80)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                children: [
+                                  Container(
+                                      width: 34,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF3F3F3),
+                                      ),
+                                      child: Center(
+                                        child: Text('1월',
+                                            style: AppTextStyles.body12R(
+                                                color: AppColor.black60)),
+                                      )),
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/icons/pngs/1st.png'),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.favorite, color: Colors.red),
+                                      Text('400',
+                                          style: AppTextStyles.body12R(
+                                              color: AppColor.primary80)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: 20),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.arrow_forward_ios_outlined)),
+                            ],
+                          ),
+                        )
                       ],
                     )
                   ],
                 ),
               ),
             ),
+
             ///////////////////////////////////////////////////////
             Padding(
                 padding: const EdgeInsets.all(10.0),

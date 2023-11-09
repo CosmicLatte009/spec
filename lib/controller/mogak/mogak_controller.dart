@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
@@ -189,8 +188,21 @@ class MogakController extends GetxController {
       var res = await dio.delete(path);
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
-          Get.toNamed(AppPagesRoutes.allMogak);
+          Get.dialog(
+            const AvatarWithOneButton(
+              mainMessage: '그룹에 삭제가 완료되었습니다.',
+              buttonTitle: '확인하기',
+            ),
+          );
+          Get.toNamed(AppPagesRoutes.meMogak);
         } else {
+          Get.dialog(
+            AvatarWithOneButton(
+              mainMessage: '그룹을 삭제하지 못했습니다.',
+              subMessage: res.data['message'],
+              buttonTitle: '확인하기',
+            ),
+          );
           print(res.data['message']);
         }
       } else {

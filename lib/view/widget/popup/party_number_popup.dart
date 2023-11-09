@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
@@ -31,6 +32,9 @@ class PartyNumberPopup extends StatelessWidget {
                     child: TextField(
                       controller: controller.maxNumberController,
                       keyboardType: TextInputType.number,
+                      // inputFormatters: <TextInputFormatter>[
+                      //   FilteringTextInputFormatter.digitsOnly
+                      // ],
                       style: AppTextStyles.header32(),
                       decoration: InputDecoration(
                         hintText: '0',

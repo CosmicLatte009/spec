@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/widget/alert/300_width/with_one_button.dart';
+import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
 
 class CreateMogakController extends GetxController {
   var controller = Get.find<MogakController>();
@@ -19,7 +21,7 @@ class CreateMogakController extends GetxController {
   TextEditingController maxNumberController = TextEditingController();
   TextEditingController tagController = TextEditingController();
 
-  get selectedIndex => _selectedIndex.value;
+  RxInt get selectedIndex => _selectedIndex;
   get _visiblityState {
     return visiblityStatus[_selectedIndex.value];
   }
@@ -88,8 +90,8 @@ class CreateMogakController extends GetxController {
   updateMogak({required String mogakId}) async {
     String path = "/api/mogak/$mogakId";
 
-    String content = titleController.text; //5자 이상, 50자 이하
-    String title = contentsController.text; // 10자 이상, 500자 이하
+    String title = titleController.text; //5자 이상, 50자 이하
+    String content = contentsController.text; // 10자 이상, 500자 이하
     int maxMember = int.parse(maxNumberController.text); // 1명 이상 100명 이하
     String hashtag = tagController.text; // 디폴트: 빈 문자열
     String visiblityState = _visiblityState; // 값 입력하지 않았을 경우 OPEN으로 default
@@ -106,6 +108,9 @@ class CreateMogakController extends GetxController {
       print(res.data);
       if (res.statusCode == 200) {
         if (res.data["status"] == 'success') {
+          Get.dialog(
+            const AvatarWithOneButton(mainMessage: '모각코 모집 글이 성공적으로 수정되었습니다.'),
+          );
           controller.getAllMogak();
           Get.toNamed(AppPagesRoutes.allMogak);
           print(res.data["data"]);

@@ -9,9 +9,9 @@ import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
 import 'package:spec/controller/mogak/me/me_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/mogak/update_mogak_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
-import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
@@ -27,6 +27,7 @@ import 'package:spec/view/page/mogak/me/me_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
+import 'package:spec/view/page/mogak/update_mogak_page.dart';
 import '../controller/talk/detail_talk_controller.dart';
 import '../view/page/home_page.dart';
 import '../view/page/talk/all_talk_page.dart';
@@ -126,6 +127,7 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => MeMogakController());
         Get.lazyPut(() => LikeController());
+        Get.lazyPut(() => CreateMogakController());
       }),
     ),
     GetPage(
@@ -134,6 +136,17 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => JoinedMogakController());
         Get.lazyPut(() => LikeController());
+      }),
+    ),
+    GetPage(
+      name: '/mogak/update/:id',
+      page: () => const UpdateMogakPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => UpdateMogakController(Get.parameters['id']!));
+        Get.lazyPut(() => CreateMogakController());
+        Get.lazyPut(() => DetailMogakController(Get.parameters['id']!));
+        Get.lazyPut(() => JoinedMogakController());
+        Get.lazyPut(() => ProfileController());
       }),
     ),
     GetPage(

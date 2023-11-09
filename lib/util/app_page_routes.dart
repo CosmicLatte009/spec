@@ -13,6 +13,7 @@ import 'package:spec/view/page/mogak/me/me_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
+import 'package:spec/view/page/mogak/update_mogak_page.dart';
 import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';
 import '../view/page/talk/hot_talk_page.dart';
@@ -33,6 +34,7 @@ class AppPagesRoutes {
   static const String meMogak = MeMogakPage.route;
   static const String joinedMogak = JoinedMogakPage.route;
   static const String detailMogak = DetailMogakPage.route;
+  static const String updateMogak = UpdateMogakPage.route;
 
   /// 캐치업
   static const String catchUp = CatchUpPage.route;

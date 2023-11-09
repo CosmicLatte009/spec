@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/mogak/create_mogak_controller.dart';
+import 'package:spec/controller/mogak/update_mogak_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/button/list_button.dart';
@@ -11,9 +11,9 @@ import 'package:spec/view/widget/textEditor/custom_multiple_text_editor.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
-class CreateMogakPage extends GetView<CreateMogakController> {
-  const CreateMogakPage({super.key});
-  static const route = '/mogak/create';
+class UpdateMogakPage extends GetView<UpdateMogakController> {
+  const UpdateMogakPage({super.key});
+  static const route = '/mogak/update/:id';
   static const visiblityStatus = ['작성중', '모집중', '모집완료'];
 
   @override
@@ -24,7 +24,7 @@ class CreateMogakPage extends GetView<CreateMogakController> {
         children: [
           const SizedBox(height: 24),
           const NavMenu(
-            title: '그룹 만들기',
+            title: '그룹 수정하기',
             titleDirection: TitleDirection.center,
           ),
           Expanded(
@@ -33,7 +33,7 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                 CustomMultipleTextEditor(
                   titleController: controller.titleController,
                   contentsController: controller.contentsController,
-                  tagsController: controller.tagController,
+                  tagsController: controller.tagsController,
                 ),
                 Container(
                   margin: const EdgeInsets.all(8),
@@ -81,7 +81,7 @@ class CreateMogakPage extends GetView<CreateMogakController> {
                       ),
                       const SizedBox(height: 16),
                       Obx(
-                        () => controller.selectedIndex != -1
+                        () => controller.selectedIndex.value != -1
                             ? ListButton(
                                 text: '모집상태',
                                 recruitState: visiblityStatus[
@@ -122,23 +122,14 @@ class CreateMogakPage extends GetView<CreateMogakController> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: CustomButton(
-              text: '등록하기',
+              text: '수정하기',
               height: 56,
-              onTap: controller.submitAction,
-              //@validation 통과시 submitAction이 이루어지도록
-              // onTap: () {
-              //   controller.stringLengthValidation(
-              //     text: controller.titleController.text,
-              //   );
-              //   controller.stringLengthValidation(
-              //     text: controller.contentsController.text,
-              //     min: 10,
-              //     max: 500,
-              //   );
-              //   controller.minMaxValidation(
-              //     num: controller.maxMember,
-              //   );
-              // },
+              onTap: () async {
+                await controller.updateMogak();
+                // if (validateInputs()) {
+                //   await controller.updateMogak();
+                // }
+              },
             ),
           ),
           const SizedBox(height: 37),

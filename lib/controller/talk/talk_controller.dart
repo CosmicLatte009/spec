@@ -51,10 +51,6 @@ class TalkController extends GetxController {
   RxList<Talk> get allTalks => _allTalks;
   RxBool isAllTalksLoading = true.obs;
 
-  final RxList<Talk> _hotTalks = <Talk>[].obs;
-  RxList<Talk> get hotTalks => _hotTalks;
-  RxBool isHotTalksLoading = true.obs;
-
   getAllTalks() async {
     try {
       isAllTalksLoading.value = true;
@@ -75,6 +71,10 @@ class TalkController extends GetxController {
     }
   }
 
+  final RxList<Talk> _hotTalks = <Talk>[].obs;
+  RxList<Talk> get hotTalks => _hotTalks;
+  RxBool isHotTalksLoading = true.obs;
+
   getHotTalks() async {
     try {
       isHotTalksLoading.value = true;
@@ -92,6 +92,42 @@ class TalkController extends GetxController {
       print(e.toString());
     } finally {
       isHotTalksLoading.value = false;
+    }
+  }
+
+  //Get: detailTalk
+  final Rxn<Talk> _detailTalk = Rxn();
+  final RxList<Talk> _commentTalks = <Talk>[].obs;
+
+  Rxn<Talk> get detailTalk => _detailTalk;
+  RxList<Talk> get commentTalks => _commentTalks;
+
+  RxBool isDetailTalkLoading = true.obs;
+
+  Future<void> getTalkById(String talkId) async {
+    isDetailTalkLoading(true);
+    try {
+      String path = '${ApiRoutes.talk}/$talkId';
+      var response = await dio.get(path);
+
+      if (response.statusCode == 200 && response.data["status"] == "success") {
+        var talkData = response.data["data"]["talk"];
+        var commentsData = response.data["data"]["children"] as List;
+
+        // 상세 토크 저장
+        _detailTalk.value = Talk.fromMap(talkData);
+
+        // 댓글 저장
+        var newComments = commentsData.map((c) => Talk.fromMap(c)).toList();
+        _commentTalks.assignAll(newComments);
+
+        print('get TalkByID 잘되긴 해 $_detailTalk.value');
+      }
+    } on DioException catch (e) {
+      print('단일 톡 불러오기 실패야');
+      print(e.toString());
+    } finally {
+      isDetailTalkLoading(false);
     }
   }
 
@@ -128,6 +164,7 @@ class TalkController extends GetxController {
       );
       if (res.statusCode == 200 && res.data["status"] == "success") {
         print(res);
+
         return true;
       }
       return false;
@@ -154,6 +191,7 @@ class TalkController extends GetxController {
       });
       if (res.statusCode == 200 && res.data["status"] == "success") {
         print(res);
+        await getTalkById(talkId);
         return true;
       } else {
         return false;

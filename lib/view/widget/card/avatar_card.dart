@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/avatar_color.dart';
 import 'package:spec/util/avatar_item_assets.dart';
 import 'package:spec/view/widget/avatar/palette.dart';
 
@@ -47,6 +50,7 @@ class AvatarCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<AvatarController>();
     final path = getRoute(type);
     final length = assetLength(type);
 
@@ -58,7 +62,9 @@ class AvatarCard extends StatelessWidget {
         type == AvatarAssetType.hair
             ? Container(
                 color: Colors.white,
-                child: const Palette(),
+                child: Palette(
+                  colorPicker: controller.selectColor,
+                ),
               )
             : Container(
                 height: 16,
@@ -80,26 +86,41 @@ class AvatarCard extends StatelessWidget {
                   ? "on_${type.name}_${index + 1}"
                   : "off_${type.name}_${index + 1}";
               String imagePath = "$path$imageName.svg";
-              return Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  border: Border.all(
-                    color: AppColor.black10,
+              return GestureDetector(
+                onTap: () {
+                  controller.selectItems(type, imagePath);
+                },
+                child: Container(
+                  //@todo 선택된 아이템 컨테이더 디자인 다르게하기
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: AppColor.white,
+                    border: Border.all(
+                      color: AppColor.black10,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  child: (type == AvatarAssetType.item)
+                      ? SvgPicture.asset(
+                          '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
+                        )
+                      : Stack(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/avatar/Face/on_face_1.svg',
+                            ),
+                            type == AvatarAssetType.hair
+                                ? Obx(
+                                    () => SvgPicture.asset(imagePath,
+                                        color: controller.hairColor?.value),
+                                  )
+                                : SvgPicture.asset(
+                                    imagePath,
+                                  ),
+                          ],
+                        ),
                 ),
-                child: (type == AvatarAssetType.item)
-                    ? SvgPicture.asset(
-                        '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
-                      )
-                    : Stack(
-                        children: [
-                          SvgPicture.asset('assets/avatar/Face/on_face_1.svg'),
-                          SvgPicture.asset(imagePath),
-                        ],
-                      ),
               );
             },
           ),

@@ -19,12 +19,12 @@ class DetailTalkPage extends GetView<DetailTalkController> {
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Obx(() {
-        if (controller.isLoading.value) {
+        if (controller.isDetailLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (controller.detailTalk.value == null) {
+        } else if (controller.detailTalk == null) {
           return const Center(child: Text('톡 내용을 불러올 수 없습니다.'));
         } else {
-          Talk talk = controller.detailTalk.value!;
+          Talk talk = controller.detailTalk!;
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -77,7 +77,7 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: CommentTalkBuilder(
-                          data: controller.commentTalk,
+                          data: controller.commentTalks,
                           onTalkUpdated: () async {
                             await controller.getTalkById();
                             await controller.getAllTalks();

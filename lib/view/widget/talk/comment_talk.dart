@@ -107,7 +107,7 @@ class _CommentTalkState extends State<CommentTalk> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                _buildCommentInfo(),
+                _buildCommentInfo(widget.comment),
               ],
             ),
           ],
@@ -116,7 +116,7 @@ class _CommentTalkState extends State<CommentTalk> {
           Positioned(
             top: 17,
             left: 213,
-            child: _buildEditingActions(),
+            child: _buildEditingActions(widget.comment.id),
           ),
         if (widget.withLikeButton)
           Positioned(
@@ -138,15 +138,15 @@ class _CommentTalkState extends State<CommentTalk> {
     );
   }
 
-  Widget _buildEditingActions() {
+  Widget _buildEditingActions(String commendTalkId) {
     return Row(
       children: [
         CircleButton(
             svg: 'assets/icons/svgs/editable.svg',
             onTap: () {
-              print(widget.comment.id);
+              print(commendTalkId);
               talkEditingController.updateTalkInPopup(
-                  context, textEditingController, widget.comment.id,
+                  context, textEditingController, commendTalkId,
                   afterUpdateSuccess: () {
                 widget.onTalkUpdated!();
               });
@@ -158,7 +158,7 @@ class _CommentTalkState extends State<CommentTalk> {
             onTap: () {
               talkEditingController.deleteTalkInPopup(
                 context,
-                widget.comment.id,
+                commendTalkId,
                 afterDeleteSuccess: () {
                   widget.onTalkUpdated!();
                 },
@@ -169,12 +169,12 @@ class _CommentTalkState extends State<CommentTalk> {
     );
   }
 
-  Widget _buildCommentInfo() {
+  Widget _buildCommentInfo(Talk comment) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          TimeUtils.relativeTime(widget.comment.updatedAt),
+          TimeUtils.relativeTime(comment.updatedAt),
           style: AppTextStyles.body12R(color: AppColor.black40),
         ),
         const SizedBox(width: 16),
@@ -185,7 +185,7 @@ class _CommentTalkState extends State<CommentTalk> {
               width: 12.8,
             ),
             Text(
-              '${widget.comment.upProfiles?.length ?? 0}',
+              '${comment.upProfiles?.length ?? 0}',
               style: AppTextStyles.body12R(color: AppColor.primary80),
             )
           ],

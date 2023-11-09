@@ -61,6 +61,9 @@ class AppPages {
     GetPage(
       name: AppPagesRoutes.mainTalk,
       page: () => const MainTalkPage(),
+      binding: BindingsBuilder(() {
+        Get.put(MainTalkController());
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.allTalk,

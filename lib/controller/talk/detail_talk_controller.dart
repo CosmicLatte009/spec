@@ -17,52 +17,67 @@ class DetailTalkController extends GetxController {
   final String talkId;
   DetailTalkController(this.talkId);
 
-  final Rxn<Talk> _detailTalk = Rxn();
-  final RxList<Talk> _commentTalk = <Talk>[].obs;
+  Talk? get detailTalk => _talkController.detailTalk.value;
+  List<Talk> get commentTalks => _talkController.commentTalks;
 
-  Rxn<Talk> get detailTalk => _detailTalk;
-  RxList<Talk> get commentTalk => _commentTalk;
+  bool get isDetailLoading => _talkController.isDetailTalkLoading.value;
+  // final Rxn<Talk> _detailTalk = Rxn();
+  // final RxList<Talk> _commentTalk = <Talk>[].obs;
 
-  RxBool isLoading = true.obs;
+  // Rxn<Talk> get detailTalk => _detailTalk;
+  // RxList<Talk> get commentTalk => _commentTalk;
 
-  getTalkById() async {
-    try {
-      isLoading.value = true;
-      String path = '${ApiRoutes.talk}/$talkId';
-      var res = await dio.get(path);
-      var resData = res.data["data"];
-      _detailTalk.value = Talk.fromMap(resData["talk"]);
+  // RxBool isLoading = true.obs;
 
-      var commentData = List<Map<String, dynamic>>.from(resData["children"]);
-      var commentList = commentData.map((map) => Talk.fromMap(map)).toList();
-      _commentTalk.assignAll(commentList);
+  // getTalkById() async {
+  //   try {
+  //     isLoading.value = true;
+  //     String path = '${ApiRoutes.talk}/$talkId';
+  //     var res = await dio.get(path);
+  //     var resData = res.data["data"];
+  //     _detailTalk.value = Talk.fromMap(resData["talk"]);
 
-      isLoading.value = false;
-      print(detailTalk);
-      // print(commentTalk);
-    } on DioException catch (e) {
-      isLoading.value = true;
-      print('단일 톡 불러오기 실패야');
-      print(e.toString());
-    }
-  }
+  //     var commentData = List<Map<String, dynamic>>.from(resData["children"]);
+  //     var commentList = commentData.map((map) => Talk.fromMap(map)).toList();
+  //     _commentTalk.assignAll(commentList);
+
+  //     isLoading.value = false;
+  //     print(detailTalk);
+  //     // print(commentTalk);
+  //   } on DioException catch (e) {
+  //     isLoading.value = true;
+  //     print('단일 톡 불러오기 실패야');
+  //     print(e.toString());
+  //   }
+  // }
 
   getAllTalks() => _talkController.getAllTalks();
   getHotTalks() => _talkController.getHotTalks();
 
   final TextEditingController textEditingController = TextEditingController();
 
+  getTalkById() async {
+    try {
+      _talkController.isDetailTalkLoading.value = true;
+      await _talkController.getTalkById(talkId);
+
+      _talkController.isDetailTalkLoading.value = false;
+
+      update();
+    } catch (e) {
+      _talkController.isDetailTalkLoading.value = false;
+    }
+  }
+
   void postNewTalkComment() {
     talkEditingController.postNewTalkComment(
       textEditingController.text,
       null, // mogakId
       null, // catchUpId
-      talkId,
+      talkId, // parentId
       textEditingController,
-      afterPostSuccess: () {
-        getTalkById();
-        getAllTalks();
-        getHotTalks();
+      afterPostSuccess: () async {
+        await getTalkById(); // 댓글 추가 후 최신 상태 로드
       },
     );
   }
@@ -73,7 +88,7 @@ class DetailTalkController extends GetxController {
     dio.options.baseUrl = baseUrl;
 
     if (talkId.isNotEmpty) {
-      getTalkById();
+      _talkController.getTalkById(talkId);
     }
 
     print('단일톡 onInit은 되니');

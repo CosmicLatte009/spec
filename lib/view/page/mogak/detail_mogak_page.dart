@@ -42,6 +42,7 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                     isUped: controller.isUped(controller.detailMogak.value!.id),
                     isLiked: controller.isLiked,
                     isJoined: controller.isJoined,
+                    inVisibleButton: title == '내가 만든 그룹',
                   )
                 : Container(),
           ),

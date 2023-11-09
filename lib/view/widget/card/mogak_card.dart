@@ -16,12 +16,14 @@ class MogakCard extends StatefulWidget {
     required this.isUped,
     this.controller,
     required this.title,
+    this.isSelected,
   });
   final Mogak mogak;
   final String mogakState;
   final bool isUped;
   final controller;
   final String title;
+  final bool? isSelected;
 
   @override
   State<MogakCard> createState() => _MogakCardState();
@@ -52,9 +54,10 @@ class _MogakCardState extends State<MogakCard> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.isSelected == true ? AppColor.primary05 : Colors.white,
           border: Border.all(
-            color: AppColor.black10,
+            color:
+                widget.isSelected == true ? AppColor.primary : AppColor.black10,
           ),
           borderRadius: BorderRadius.circular(10),
         ),

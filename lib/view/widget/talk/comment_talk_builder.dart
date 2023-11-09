@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/view/widget/talk/comment_talk.dart';
 import '../../../controller/talk/talk_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
-import '../../../util/time_utils.dart';
-import '../alert/300_width_description/description_with_two_button.dart';
-import '../avatar/user_avatar.dart';
-import '../button/button_circle.dart';
-import '../popup/talk_editing_popup.dart';
 
 class CommentTalkBuilder extends StatefulWidget {
   const CommentTalkBuilder({

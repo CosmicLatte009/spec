@@ -15,11 +15,13 @@ class MogakCard extends StatefulWidget {
     required this.mogakState,
     required this.isUped,
     this.controller,
+    required this.title,
   });
   final Mogak mogak;
   final String mogakState;
   final bool isUped;
   final controller;
+  final String title;
 
   @override
   State<MogakCard> createState() => _MogakCardState();
@@ -41,7 +43,12 @@ class _MogakCardState extends State<MogakCard> {
         : [];
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/mogak/${widget.mogak.id}');
+        Get.toNamed(
+          '/mogak/${widget.mogak.id}',
+          arguments: {
+            "title": widget.title,
+          },
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -52,14 +59,13 @@ class _MogakCardState extends State<MogakCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 13, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // user
                   UserAvatar(
                     avatarUrl: widget.mogak.author.avatar,
                     avatarSize: AvatarSize.w40,
@@ -69,9 +75,7 @@ class _MogakCardState extends State<MogakCard> {
                         : null,
                     nickName: widget.mogak.author.nickname,
                     nickNameSize: AppTextStyles.body12B(),
-                    role: widget.mogak.appliedProfiles[0].role == 'NEWBIE'
-                        ? '수료생'
-                        : null, //@todo 수료생 뱃지 어디있는지?
+                    role: widget.mogak.appliedProfiles[0].role,
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -153,15 +157,17 @@ class _MogakCardState extends State<MogakCard> {
                 ],
               ),
               const SizedBox(height: 10),
-              Row(
+              Wrap(
                 children: tags
                     .map(
-                      (tag) => Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: CustomButton(
-                          text: '#$tag',
-                          height: 22,
-                          type: ButtonType.neutral,
+                      (tag) => IntrinsicWidth(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                          child: CustomButton(
+                            text: '#$tag',
+                            height: 22,
+                            type: ButtonType.neutral,
+                          ),
                         ),
                       ),
                     )

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
@@ -8,6 +9,7 @@ import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/model/me_up.dart';
 import 'package:spec/model/mogak.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
 
 enum VisibilityStatus { hidden, open, close }
 
@@ -109,8 +111,6 @@ class MogakController extends GetxController {
             (mogak) => Mogak.fromMap(mogak),
           )
           .toList();
-      print(_allMogak[0].title);
-      print(_allMogak[0].content);
     } catch (e) {
       print(e);
     }
@@ -133,8 +133,21 @@ class MogakController extends GetxController {
       var res = await dio.post(path);
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
-          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          Get.dialog(
+            const AvatarWithOneButton(
+              mainMessage: '그룹에 참여가 완료되었습니다.',
+              buttonTitle: '확인하기',
+            ),
+          );
+          getMogakById(id: mogakId);
         } else {
+          Get.dialog(
+            AvatarWithOneButton(
+              mainMessage: '그룹에 참여하지 못했습니다.',
+              subMessage: res.data['message'],
+              buttonTitle: '확인하기',
+            ),
+          );
           print(res.data['message']);
         }
       } else {
@@ -152,7 +165,13 @@ class MogakController extends GetxController {
       var res = await dio.delete(path);
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
-          getMogakById(id: mogakId); //새로고침? 내가 리스트에 나와야함.
+          Get.dialog(
+            const AvatarWithOneButton(
+              mainMessage: '그룹에 참여가 취소되었습니다.',
+              buttonTitle: '확인하기',
+            ),
+          );
+          getMogakById(id: mogakId);
         } else {
           print(res.data['message']);
         }
@@ -187,14 +206,14 @@ class MogakController extends GetxController {
     super.onInit();
     dio.options.baseUrl = baseUrl;
     String? authToken = await getAuth();
-    dio.interceptors.add(
-      LogInterceptor(
-        request: true,
-        responseBody: true,
-        requestBody: true,
-        responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
-      ),
-    );
+    // dio.interceptors.add(
+    //   LogInterceptor(
+    //     request: true,
+    //     responseBody: true,
+    //     requestBody: true,
+    //     responseHeader: false, // 필요한 경우 이것도 true로 설정할 수 있습니다.
+    //   ),
+    // );
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;

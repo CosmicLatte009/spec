@@ -8,6 +8,8 @@ import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/detail_mogak_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
+import 'package:spec/view/page/mogak/me/joined_mogak_page.dart';
+import 'package:spec/view/page/mogak/me/me_mogak_page.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
@@ -22,13 +24,21 @@ class AppPagesRoutes {
   static const String signup = SignupPage.route;
   static const String signupSuccess = SignupSuccessPage.route;
   static const String forgotPw = ForgotPasswordPage.route;
+
+  /// 모각
   static const String mogak = MogakPage.route;
   static const String hotMogak = HotMogakPage.route;
   static const String allMogak = AllMogakPage.route;
   static const String createMogak = CreateMogakPage.route;
+  static const String meMogak = MeMogakPage.route;
+  static const String joinedMogak = JoinedMogakPage.route;
   static const String detailMogak = DetailMogakPage.route;
+
+  /// 캐치업
   static const String catchUp = CatchUpPage.route;
   static const String hotCatchUp = HotCatchUp.route;
+
+  /// 톡
   static const String mainTalk = MainTalkPage.route;
   static const String allTalk = AllTalkPage.route;
   static const String detailTalk = DetailTalkPage.route;

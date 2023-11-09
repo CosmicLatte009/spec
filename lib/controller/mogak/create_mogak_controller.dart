@@ -2,13 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/mogak/mogak_controller.dart';
+import 'package:spec/util/app_page_routes.dart';
 
 class CreateMogakController extends GetxController {
+  var controller = Get.find<MogakController>();
   var authController = Get.find<AuthController>();
 
   Dio dio = Dio();
   List<String> visiblityStatus = ["HIDDEN", "OPEN", "CLOSE"];
-  final RxInt _selectedIndex = RxInt(0);
+  final RxInt _selectedIndex = RxInt(-1);
+  var maxMemberAsString = ''.obs;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController contentsController = TextEditingController();
@@ -20,15 +24,38 @@ class CreateMogakController extends GetxController {
     return visiblityStatus[_selectedIndex.value];
   }
 
+  int get maxMember => int.tryParse(maxMemberAsString.value) ?? 0;
+
   void updateIndex(int index) {
     _selectedIndex.value = index;
   }
 
+  /// validation - title, content
+  stringLengthValidation({required String text, int? min, int? max}) {
+    min = min ?? 5;
+    max = max ?? 50;
+
+    if (text.length < min || text.length > 50) {
+      return "글자 수는 $min 이상, $max 이상이어야 합니다.";
+    }
+    return;
+  }
+
+  /// validation - maxMember
+  minMaxValidation({required int num, int? min, int? max}) {
+    min = min ?? 1;
+    max = max ?? 100;
+
+    if (num < min || num > max) {
+      return "모임은 $min명이상 $max명 이하여야 합니다.";
+    }
+    return;
+  }
+
   submitAction() async {
     String path = '/api/mogak';
-
-    String content = titleController.text; //5자 이상, 50자 이하
-    String title = contentsController.text; // 10자 이상, 500자 이하
+    String title = titleController.text; //5자 이상, 50자 이하
+    String content = contentsController.text; // 10자 이상, 500자 이하
     int maxMember = int.parse(maxNumberController.text); // 1명 이상 100명 이하
     String hashtag = tagController.text; // 디폴트: 빈 문자열
     String visiblityState =
@@ -36,8 +63,8 @@ class CreateMogakController extends GetxController {
 
     try {
       var res = await dio.post(path, data: {
-        'content': content,
         'title': title,
+        'content': content,
         'maxMember': maxMember,
         'hashtag': hashtag,
         'visiblityStatus': visiblityState,
@@ -45,8 +72,9 @@ class CreateMogakController extends GetxController {
 
       print(res.data);
       if (res.statusCode == 200) {
-        if (res.data["status"]) {
-          //@todo submitAction이 발생하면 어디로 리다이렉트 할 것인가?
+        if (res.data["status"] == 'success') {
+          controller.getAllMogak();
+          Get.toNamed(AppPagesRoutes.allMogak);
           print(res.data["data"]);
         } else {
           print(res.data["message"]);
@@ -77,8 +105,9 @@ class CreateMogakController extends GetxController {
 
       print(res.data);
       if (res.statusCode == 200) {
-        if (res.data["status"]) {
-          //@todo submitAction이 발생하면 어디로 리다이렉트 할 것인가?
+        if (res.data["status"] == 'success') {
+          controller.getAllMogak();
+          Get.toNamed(AppPagesRoutes.allMogak);
           print(res.data["data"]);
         } else {
           print(res.data["message"]);
@@ -97,7 +126,10 @@ class CreateMogakController extends GetxController {
 
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;
-      print(authToken);
     }
+
+    maxNumberController.addListener(() {
+      maxMemberAsString.value = maxNumberController.text;
+    });
   }
 }

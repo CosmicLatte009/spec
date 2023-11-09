@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
+import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
@@ -36,10 +38,9 @@ class MogakPage extends GetView<MogakController> {
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              padding: const EdgeInsets.all(10.0),
               children: [
                 NavMenu(
-                  title: '핫한 모각코',
+                  title: HotMogakPage.title,
                   titleDirection: TitleDirection.left,
                   withEmoji: true,
                   emoji: 'assets/icons/pngs/letter.png',
@@ -52,21 +53,27 @@ class MogakPage extends GetView<MogakController> {
                           controller.hotMogak!.isNotEmpty
                       ? Column(
                           children: [
-                            MogakCard(
-                              mogak: controller.hotMogak!.first,
-                              mogakState: controller.getMogakState(
-                                controller.hotMogak!.first.visiblityStatus,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: MogakCard(
+                                mogak: controller.hotMogak!.first,
+                                mogakState: controller.getMogakState(
+                                  controller.hotMogak!.first.visiblityStatus,
+                                ),
+                                isUped: controller
+                                    .isUped(controller.hotMogak!.first.id),
+                                controller: controller.toggleLike,
+                                title: HotMogakPage.title,
                               ),
-                              isUped: controller
-                                  .isUped(controller.hotMogak!.first.id),
-                              controller: controller.toggleLike,
                             ),
                             Column(
                               children: [
                                 const SizedBox(height: 8),
                                 StackAvatars(
-                                  commentLength: controller
-                                      .hotMogak![0].appliedProfiles.length,
+                                  commentLength:
+                                      controller.hotMogak![0].childrenLength ??
+                                          0,
                                   upLength:
                                       controller.hotMogak![0].upProfiles.length,
                                 ),
@@ -78,7 +85,7 @@ class MogakPage extends GetView<MogakController> {
                       : Container(),
                 ),
                 NavMenu(
-                  title: '모든 모각코',
+                  title: AllMogakPage.title,
                   titleDirection: TitleDirection.left,
                   withEmoji: true,
                   emoji: 'assets/icons/pngs/letter.png',
@@ -91,21 +98,27 @@ class MogakPage extends GetView<MogakController> {
                           controller.allMogak!.isNotEmpty
                       ? Column(
                           children: [
-                            MogakCard(
-                              mogak: controller.allMogak!.first,
-                              mogakState: controller.getMogakState(
-                                controller.allMogak!.first.visiblityStatus,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: MogakCard(
+                                mogak: controller.allMogak!.first,
+                                mogakState: controller.getMogakState(
+                                  controller.allMogak!.first.visiblityStatus,
+                                ),
+                                isUped: controller
+                                    .isUped(controller.allMogak!.first.id),
+                                controller: controller.toggleLike,
+                                title: AllMogakPage.title,
                               ),
-                              isUped: controller
-                                  .isUped(controller.allMogak!.first.id),
-                              controller: controller.toggleLike,
                             ),
                             Column(
                               children: [
                                 const SizedBox(height: 8),
                                 StackAvatars(
-                                  commentLength: controller
-                                      .allMogak![0].appliedProfiles.length,
+                                  commentLength:
+                                      controller.allMogak![0].childrenLength ??
+                                          0,
                                   upLength:
                                       controller.allMogak![0].upProfiles.length,
                                 ),

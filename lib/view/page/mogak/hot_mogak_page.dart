@@ -13,79 +13,86 @@ import 'package:spec/view/widget/navigation/top.dart';
 class HotMogakPage extends GetView<HotMogakController> {
   const HotMogakPage({super.key});
   static const route = '/mogak/hot';
+  static const title = '핫한 모각코';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            CustomInput(
+      body: Column(
+        children: [
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomInput(
               type: InputType.search,
               controller: controller.searchController.searchTextController,
               onSubmit: (value) {
                 controller.controller.getHotMogak(query: value);
               },
             ),
-            const SizedBox(height: 6),
-            Expanded(
-              child: ListView(
-                children: [
-                  //이전페이지 네비게이션
-                  const NavMenu(
-                    title: '핫한 모각코',
-                    titleDirection: TitleDirection.center,
-                  ),
-                  // FilterButton
-                  OrderbyButton(
-                    onTap: () {
-                      controller.filterController.toggleOrderBy();
-                      controller.controller.getAllMogak();
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  //모각코 카드
-                  Expanded(
-                    child: Obx(
-                      () => ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.hotMogak!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              MogakCard(
-                                mogak: controller.hotMogak![index],
-                                mogakState: controller.mogakState(controller
-                                    .hotMogak![index].visiblityStatus),
-                                isUped: controller
-                                    .isUped(controller.hotMogak![index].id),
-                                controller: controller.toggleLike,
-                              ),
-                              const SizedBox(height: 8),
-                              StackAvatars(
-                                commentLength: controller
-                                    .hotMogak![index].appliedProfiles.length,
-                                upLength: controller
-                                    .hotMogak![index].upProfiles.length,
-                              ),
-                              const SizedBox(height: 16),
-                            ],
-                          );
+          ),
+          const SizedBox(height: 6),
+          Expanded(
+            child: ListView(
+              children: [
+                const NavMenu(
+                  title: title,
+                  titleDirection: TitleDirection.center,
+                ),
+                // FilterButton
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: [
+                      OrderbyButton(
+                        onTap: () {
+                          controller.filterController.toggleOrderBy();
+                          controller.controller.getAllMogak();
                         },
                       ),
-                    ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      //모각코 카드
+                      Obx(
+                        () => ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: controller.hotMogak!.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                MogakCard(
+                                  mogak: controller.hotMogak![index],
+                                  mogakState: controller.mogakState(controller
+                                      .hotMogak![index].visiblityStatus),
+                                  isUped: controller
+                                      .isUped(controller.hotMogak![index].id),
+                                  controller: controller.toggleLike,
+                                  title: title,
+                                ),
+                                const SizedBox(height: 8),
+                                StackAvatars(
+                                  commentLength: controller
+                                          .hotMogak![index].childrenLength ??
+                                      0,
+                                  upLength: controller
+                                      .hotMogak![index].upProfiles.length,
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: CustomFloatingActionButton(
         onPressed: () {

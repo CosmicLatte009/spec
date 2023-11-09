@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/model/profile.dart';
 import 'package:spec/view/page/mogak/mogak_page.dart';
 
 class ProfileController extends GetxController {
@@ -12,7 +11,6 @@ class ProfileController extends GetxController {
   var authController = Get.find<AuthController>();
 
   Dio dio = Dio();
-  String baseUrl = 'https://dev.sniperfactory.com';
   final List<String> _positions = ["DEVELOPER", "DESIGNER", "HEADHUNTER"];
   final RxInt _selectedIndex = RxInt(0);
 
@@ -39,11 +37,11 @@ class ProfileController extends GetxController {
     String path = '/api/me/profile';
     String nickname = nicknameController.text;
     // String bio = bioController.text;
-    String bio = '뭐람';
+    String bio = '자기소개란 입니다.';
     String position = _selectedPosition;
-    // String? urlGithub = githubController.text;
-    // String? urlPortfolio = portfolio1Controller.text;
-    // String? urlEtc = portfolio2Controller.text;
+    String? urlGithub = githubController.text;
+    String? urlPortfolio = portfolio1Controller.text;
+    String? urlEtc = portfolio2Controller.text;
 
     try {
       var res = await dio.post(path, data: {
@@ -51,11 +49,10 @@ class ProfileController extends GetxController {
         'bio': bio,
         'position': position,
         'avatar': avatar,
-        // urlGithub,
-        // urlPortfolio,
-        // urlEtc,
+        'urlGithub': urlGithub,
+        'urlPortfolio': urlPortfolio,
+        'urlEtc': urlEtc,
       });
-      print(res.data);
       if (res.statusCode == 200) {
         if (res.data['status'] == 'success') {
           String newToken = res.data["data"];
@@ -70,12 +67,17 @@ class ProfileController extends GetxController {
     }
   }
 
-  //@todo 추후 정리
-  getAuth() async {
+  getUserById(String userId) async {
+    String path = '/api/profile/$userId';
+
     try {
-      var res = await authController.getToken();
-      print(res);
-      return res;
+      var res = await dio.get(path);
+      if (res.data['data'] != null) {
+        print(res.data["data"]);
+        return Profile.fromMap(res.data["data"]);
+      } else {
+        print(res.data["message"]);
+      }
     } catch (e) {
       print(e);
     }
@@ -84,8 +86,9 @@ class ProfileController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    String baseUrl = 'https://dev.sniperfactory.com';
     dio.options.baseUrl = baseUrl;
-    RxString? authToken = RxString(await getAuth() ?? "");
+    RxString? authToken = RxString(await authController.getToken() ?? "");
     dio.options.headers['Authorization'] = authToken;
   }
 }

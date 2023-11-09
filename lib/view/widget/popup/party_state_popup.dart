@@ -32,7 +32,7 @@ class _PartyStatePopupState extends State<PartyStatePopup> {
             () => CustomRadioGroup(
               items: widget.items,
               tileColorActive: true,
-              selectedIndex: controller.selectedIndex,
+              selectedIndex: controller.selectedIndex.value,
               onItemSelect: (index) {
                 controller.updateIndex(index);
               },

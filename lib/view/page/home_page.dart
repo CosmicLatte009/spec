@@ -4,9 +4,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spec/controller/Home_controller.dart';
+import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
+import 'package:spec/view/page/mogak/hot_mogak_page.dart';
+import 'package:spec/view/widget/avatar/stack_avatars.dart';
+import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
@@ -16,6 +20,8 @@ import 'package:spec/view/widget/widget_card.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/home';
+
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -39,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _startAutoScroll() {
-    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (_pageController.hasClients) {
         int nextPage = _pageController.page!.toInt() + 1;
         if (nextPage == controller.allCourse.length) {
@@ -47,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         }
         _pageController.animateToPage(
           nextPage,
-          duration: Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 800),
           curve: Curves.easeInOut,
         );
       }
@@ -55,11 +61,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   HomeController get controller => Get.find<HomeController>();
+  MogakController get mogakController => Get.find<MogakController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: 0,
         onTap: (val) {
@@ -71,18 +78,18 @@ class _HomePageState extends State<HomePage> {
           controller.fetchHomeData();
           controller.fetchBestSpacerData();
         },
-        child: Icon(Icons.refresh),
+        child: const Icon(Icons.refresh),
       ),
       body: Container(
         child: ListView(
           children: [
             Obx(() {
               if (controller.allCourse.isEmpty) {
-                return Center(child: Text('No courses available.'));
+                return const Center(child: Text('No courses available.'));
               }
               return Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 150,
                     child: PageView.builder(
                       controller: _pageController,
@@ -96,13 +103,13 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   SmoothPageIndicator(
                     controller: _pageController,
                     count: controller.allCourse.length,
-                    effect: WormEffect(
+                    effect: const WormEffect(
                       dotHeight: 5,
                       dotWidth: 5,
                       spacing: 4,
@@ -112,11 +119,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: CustomInput(type: InputType.search),
             ),
             NavMenu(
@@ -133,16 +140,51 @@ class _HomePageState extends State<HomePage> {
                 Get.toNamed(AppPagesRoutes.catchUp);
               },
             ),
-            Obx(() {
-              var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
-              return _buildHotListView(homeHotCatchUpsList);
-            }),
+            // Obx(() {
+            //   var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
+            //   return _buildHotListView(homeHotCatchUpsList);
+            // }),
             NavMenu(
               title: '핫한 모각코',
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
                 Get.toNamed(AppPagesRoutes.hotMogak);
               },
+            ),
+            Obx(
+              () => mogakController.hotMogak != null &&
+                      mogakController.hotMogak!.isNotEmpty
+                  ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: MogakCard(
+                            mogak: mogakController.hotMogak!.first,
+                            mogakState: mogakController.getMogakState(
+                              mogakController.hotMogak!.first.visiblityStatus,
+                            ),
+                            isUped: mogakController
+                                .isUped(mogakController.hotMogak!.first.id),
+                            controller: mogakController.toggleLike,
+                            title: HotMogakPage.title,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            const SizedBox(height: 8),
+                            StackAvatars(
+                              commentLength:
+                                  mogakController.hotMogak![0].childrenLength ??
+                                      0,
+                              upLength: mogakController
+                                  .hotMogak![0].upProfiles.length,
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Container(),
             ),
             NavMenu(
                 title: '이달의 스페이서',
@@ -161,7 +203,7 @@ ListView _buildHotListView(List<CatchUp> hotCatchUpsList) {
     // 리스트가 비어있을 경우
     return ListView(
       shrinkWrap: true,
-      children: [
+      children: const [
         Center(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0),

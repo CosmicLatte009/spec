@@ -4,6 +4,7 @@ import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/me/my_page.dart';
+import 'package:spec/view/page/me/profile_edit_page.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/detail_mogak_page.dart';
@@ -25,6 +26,7 @@ class AppPagesRoutes {
   static const String signup = SignupPage.route;
   static const String signupSuccess = SignupSuccessPage.route;
   static const String forgotPw = ForgotPasswordPage.route;
+  static const String profileEdit = ProfileEditPage.route;
 
   /// 모각
   static const String mogak = MogakPage.route;

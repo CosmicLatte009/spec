@@ -13,7 +13,7 @@ import 'package:spec/view/widget/select/custom_radio_group.dart';
 
 class ProfileEditPage extends GetView<ProfileController> {
   const ProfileEditPage({super.key});
-  static const route = '/profile.edit';
+  static const route = '/profile/edit';
 
   @override
   Widget build(BuildContext context) {

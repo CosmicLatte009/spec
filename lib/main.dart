@@ -10,7 +10,6 @@ import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
 import 'package:spec/controller/login_controller.dart';
-import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/my_page_controller.dart';
@@ -51,6 +50,7 @@ class MyApp extends StatelessWidget {
           Get.lazyPut(() => LikeController());
           Get.put(TalkController());
           Get.put(TalkEditingController());
+          Get.put(MainTalkController());
           Get.put(AllTalkController());
           Get.put(HotTalkController());
           Get.put(FilterController());

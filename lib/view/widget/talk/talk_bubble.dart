@@ -4,16 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/time_utils.dart';
-import 'package:spec/view/widget/alert/300_width_description/description_with_one_button.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 import 'package:spec/view/widget/avatar/stack_avatars.dart';
-import 'package:spec/view/widget/popup/talk_editing_popup.dart';
-import '../../../controller/talk/talk_controller.dart';
 import '../../../controller/talk/talk_editing_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import '../alert/300_width_description/description_with_two_button.dart';
 import '../button/button_circle.dart';
 
 enum BubbleType { less, detail }

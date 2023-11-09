@@ -29,6 +29,7 @@ import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
 import 'package:spec/view/page/mogak/update_mogak_page.dart';
 import '../controller/talk/detail_talk_controller.dart';
+import '../controller/talk/main_talk_controller.dart';
 import '../view/page/home_page.dart';
 import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';

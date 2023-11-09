@@ -55,7 +55,7 @@ class AvatarCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        type == AvatarAssetType.hair || type == AvatarAssetType.face
+        type == AvatarAssetType.hair
             ? Container(
                 color: Colors.white,
                 child: const Palette(),

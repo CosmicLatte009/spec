@@ -31,11 +31,11 @@ class EditAvatarPopup extends GetView<AvatarController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 4),
+            //아바타
             CircleAvatar(
               backgroundColor: AppColor.primary05,
               radius: 60,
-              child: //@todo 선택시 바로 수정되어야함
-                  CreatedAvatar(
+              child: CreatedAvatar(
                 capturedImg: controller.capturedImg,
                 screenshotController: controller.screenshotController,
               ),

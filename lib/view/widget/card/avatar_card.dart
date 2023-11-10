@@ -119,7 +119,6 @@ class AvatarCard extends StatelessWidget {
                       ),
                       child: (type == AvatarAssetType.item)
                           ? SvgPicture.asset(
-                              //@todo showcase item, stack item 다름.
                               '${path}off_${type.name}_${avatarItemAssets[index]}.svg',
                             )
                           : Stack(

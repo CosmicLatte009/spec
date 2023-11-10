@@ -6,8 +6,8 @@ import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
 
-class CommentTalkBuilder extends StatefulWidget {
-  const CommentTalkBuilder({
+class MyCommentTalkBuilder extends StatefulWidget {
+  const MyCommentTalkBuilder({
     super.key,
     required this.data,
     this.onTalkUpdated,
@@ -17,10 +17,10 @@ class CommentTalkBuilder extends StatefulWidget {
   final VoidCallback? onTalkUpdated;
 
   @override
-  State<CommentTalkBuilder> createState() => _CommentTalkBuilderState();
+  State<MyCommentTalkBuilder> createState() => _MyCommentTalkBuilderState();
 }
 
-class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
+class _MyCommentTalkBuilderState extends State<MyCommentTalkBuilder> {
   var talkController = Get.find<TalkController>();
 
   bool isPressed = false;
@@ -49,13 +49,17 @@ class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
       shrinkWrap: true,
       itemCount: activeComments.length,
       separatorBuilder: (BuildContext context, int index) =>
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 16.0),
       itemBuilder: (BuildContext context, int index) {
         var comment = activeComments[index];
-        return CommentTalk(
-          comment: comment,
-          // myComment: true,
-          onTalkUpdated: widget.onTalkUpdated,
+        return Container(
+          padding: const EdgeInsets.fromLTRB(11, 16, 11, 24),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: AppColor.white),
+          child: CommentTalk(
+            comment: comment,
+            onTalkUpdated: widget.onTalkUpdated,
+          ),
         );
       },
     );

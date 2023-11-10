@@ -17,6 +17,10 @@ import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/widget_card.dart';
+import '../../controller/talk/talk_controller.dart';
+import '../../model/talk.dart';
+import '../../util/app_text_style.dart';
+import '../widget/talk/talk_bubble_builder.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/home';
@@ -121,13 +125,16 @@ class _HomePageState extends State<HomePage> {
             ),
             NavMenu(
               title: '핫한 톡',
+              withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
                 Get.toNamed(AppPagesRoutes.hotTalk);
               },
             ),
+           _buildHotTalkSection(),
             NavMenu(
               title: '핫한 캐치업',
+              withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
                 Get.toNamed(AppPagesRoutes.catchUp);
@@ -139,6 +146,7 @@ class _HomePageState extends State<HomePage> {
             }),
             NavMenu(
               title: '핫한 모각코',
+              withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
                 Get.toNamed(AppPagesRoutes.hotMogak);

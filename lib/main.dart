@@ -16,10 +16,14 @@ import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
+import 'package:spec/controller/talk/me/my_talk_controller.dart';
 import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
+import 'package:spec/view/page/talk/me/my_talk_page.dart';
 import 'controller/talk/all_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';
+import 'controller/talk/me/my_comment_talk_controller.dart';
+import 'controller/talk/me/my_up_talk_controller.dart';
 import 'controller/talk/talk_controller.dart';
 import 'view/page/auth/login_page.dart';
 import 'view/page/splash_page.dart';
@@ -53,6 +57,9 @@ class MyApp extends StatelessWidget {
           Get.put(MainTalkController());
           Get.put(AllTalkController());
           Get.put(HotTalkController());
+          Get.put(MyTalkController());
+          Get.put(MyUpTalkController());
+          Get.put(MyCommentTalkController());
           Get.put(FilterController());
           Get.put(ContentSearchController());
           Get.lazyPut(() => MyPageController());
@@ -65,7 +72,9 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       //  initialRoute: LoginPage.route,
       // home: const SplashPage(),
-      home: SplashPage(),
+      // home: SplashPage(),
+      // home: MyTalkPage(),
+      home: LoginScreen(),
     );
   }
 }

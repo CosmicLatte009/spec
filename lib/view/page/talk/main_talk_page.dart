@@ -90,6 +90,9 @@ class MainTalkPage extends GetView<MainTalkController> {
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: TalkBubbleBuilder(
           data: RxList<Talk>.from(hotTalk),
+          onTalkUpdated: () {
+            controller.getHotTalks();
+          },
         ),
       );
     } else {
@@ -106,7 +109,7 @@ class MainTalkPage extends GetView<MainTalkController> {
       child: TalkBubbleBuilder(
         data: controller.allTalks,
         onTalkUpdated: () {
-          controller.getMainTalks();
+          controller.getAllTalks();
         },
       ),
     );

@@ -6,6 +6,8 @@ import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
+import '../model/my_profile.dart';
+
 class AuthController extends GetxController {
   final RxInt isLoggedIn = RxInt(-1);
   String? dmddo;
@@ -42,6 +44,7 @@ class AuthController extends GetxController {
           if (dmddo != null) {
             print(dmddo);
             print('프린트 성공');
+            getMyInfo();
 
             Get.to(() => HomePage());
           }
@@ -70,6 +73,38 @@ class AuthController extends GetxController {
     } catch (e) {
       print('에러: $e');
     }
+  }
+
+  final Rxn<MyProfile> _myProfile = Rxn();
+  Rxn<MyProfile> get myProfile => _myProfile;
+
+  getMyInfo() async {
+    final token = await getToken();
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    try {
+      var res = await _dio.get(
+        'https://dev.sniperfactory.com/api/me/profile',
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        }),
+      );
+      if (res.statusCode == 200 && res.data["status"] == "success") {
+        var resData = res.data["data"];
+        _myProfile.value = MyProfile.fromMap(resData);
+        print(_myProfile);
+      } else {
+        print(res.data["message"]);
+      }
+    } on DioException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  String? getUserId() {
+    return _myProfile.value?.id;
   }
 
   Future<String?> getToken() {

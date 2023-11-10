@@ -50,7 +50,7 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                       TalkBubble(
                         talk: talk,
                         type: BubbleType.detail,
-                        mytalk: true,
+                        // mytalk: true,
                         onTapEnabled: false,
                         onTalkUpdated: () async {
                           await controller.getTalkById();

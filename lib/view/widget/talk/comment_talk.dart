@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../controller/talk/talk_controller.dart';
 import '../../../controller/talk/talk_editing_controller.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
@@ -12,15 +13,11 @@ import '../button/button_circle.dart';
 
 class CommentTalk extends StatefulWidget {
   final Talk comment;
-  final bool myComment;
-  final bool withLikeButton;
   final Function? onTalkUpdated;
 
   const CommentTalk({
     Key? key,
     required this.comment,
-    this.myComment = false,
-    this.withLikeButton = true,
     this.onTalkUpdated,
   }) : super(key: key);
 
@@ -29,16 +26,29 @@ class CommentTalk extends StatefulWidget {
 }
 
 class _CommentTalkState extends State<CommentTalk> {
-  bool isPressed = false;
-  bool isLikePressed = false;
-  TextEditingController textEditingController = TextEditingController();
+  var talkController = Get.find<TalkController>();
   TalkEditingController talkEditingController =
       Get.find<TalkEditingController>();
 
+  bool isMyTalk = false;
+  bool isPressed = false;
+  bool isLikePressed = false;
+  TextEditingController textEditingController = TextEditingController();
+
   @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    checkLikeStatus();
+    isMyTalk = talkController.isMyTalk(widget.comment.authorId);
+  }
+
+  void checkLikeStatus() async {
+    bool liked = await talkController.checkIfUserLikedTalk(widget.comment.id);
+    if (mounted) {
+      setState(() {
+        isLikePressed = liked;
+      });
+    }
   }
 
   @override
@@ -61,33 +71,31 @@ class _CommentTalkState extends State<CommentTalk> {
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onLongPress: widget.myComment
-                      ? () {
-                          if (widget.comment.isDeleted) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return IconTextWithOneButton(
-                                  svgPath: 'assets/icons/svgs/Warning.svg',
-                                  mainMessage: '이미 삭제된 톡입니다!',
-                                  subMessage: '클릭하신 톡을 찾을 수 없습니다.',
-                                  buttonTitle: '닫기',
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      isPressed = false;
-                                    });
-                                  },
-                                );
-                              },
-                            );
-                          } else {
-                            setState(() {
-                              isPressed = !isPressed;
-                            });
-                          }
-                        }
-                      : null,
+                  onLongPress: () {
+                    if (widget.comment.isDeleted) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return IconTextWithOneButton(
+                            svgPath: 'assets/icons/svgs/Warning.svg',
+                            mainMessage: '이미 삭제된 톡입니다!',
+                            subMessage: '클릭하신 톡을 찾을 수 없습니다.',
+                            buttonTitle: '닫기',
+                            onTap: () {
+                              Navigator.pop(context);
+                              setState(() {
+                                isPressed = false;
+                              });
+                            },
+                          );
+                        },
+                      );
+                    } else if (isMyTalk) {
+                      setState(() {
+                        isPressed = !isPressed;
+                      });
+                    }
+                  },
                   child: Container(
                     width: double.infinity,
                     constraints: const BoxConstraints(minHeight: 65),
@@ -118,7 +126,7 @@ class _CommentTalkState extends State<CommentTalk> {
             left: 213,
             child: _buildEditingActions(widget.comment.id),
           ),
-        if (widget.withLikeButton)
+        if (!isMyTalk)
           Positioned(
             top: 52,
             right: 0,
@@ -138,29 +146,33 @@ class _CommentTalkState extends State<CommentTalk> {
     );
   }
 
-  Widget _buildEditingActions(String commendTalkId) {
+  Widget _buildEditingActions(String commentTalkId) {
     return Row(
       children: [
         CircleButton(
             svg: 'assets/icons/svgs/editable.svg',
             onTap: () {
-              print(commendTalkId);
+              print(commentTalkId);
               talkEditingController.updateTalkInPopup(
-                  context, textEditingController, commendTalkId,
-                  afterUpdateSuccess: () {
-                widget.onTalkUpdated!();
-              });
+                context,
+                textEditingController,
+                commentTalkId,
+                afterUpdateSuccess: () {
+                  widget.onTalkUpdated?.call();
+                },
+              );
               print('수정팝업');
             }),
         const SizedBox(width: 8),
         CircleButton(
             svg: 'assets/icons/svgs/Delete_Float.svg',
             onTap: () {
+              print(commentTalkId);
               talkEditingController.deleteTalkInPopup(
                 context,
-                commendTalkId,
+                commentTalkId,
                 afterDeleteSuccess: () {
-                  widget.onTalkUpdated!();
+                  widget.onTalkUpdated?.call();
                 },
               );
               print('삭제팝업');
@@ -194,10 +206,12 @@ class _CommentTalkState extends State<CommentTalk> {
     );
   }
 
-  void _handleLikePressed() {
-    setState(() {
-      isLikePressed = !isLikePressed;
-      // widget.onTalkUpdated?.call();
-    });
+  void _handleLikePressed() async {
+    bool newLikeStatus = await talkController.toggleLike(widget.comment.id);
+    if (newLikeStatus != isLikePressed) {
+      setState(() {
+        isLikePressed = newLikeStatus;
+      });
+    }
   }
 }

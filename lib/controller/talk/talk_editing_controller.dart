@@ -8,18 +8,22 @@ import 'talk_controller.dart';
 class TalkEditingController extends GetxController {
   final _talkController = Get.find<TalkController>();
 
-  // RxString talkId = ''.obs;
-  // void setTalkId(String newTalkId) {
-  //   talkId.value = newTalkId;
-  // }
+  RxList<Talk> get allTalks => _talkController.allTalks;
+  RxList<Talk> get hotTalks => _talkController.hotTalks;
+  RxList<Talk> get commentTalks => _talkController.commentTalks;
 
-  getCurrentTalk(String id) {
-    final talk =
-        _talkController.allTalks.firstWhereOrNull((talk) => talk.id == id);
-    final hotTalk =
-        _talkController.hotTalks.firstWhereOrNull((talk) => talk.id == id);
+  Talk? getCurrentTalk(String talkId) {
+    final talk = allTalks.firstWhereOrNull((talk) => talk.id == talkId);
+    if (talk != null) return talk;
 
-    return talk ?? hotTalk;
+    final hotTalk = hotTalks.firstWhereOrNull((talk) => talk.id == talkId);
+    if (hotTalk != null) return hotTalk;
+
+    final commentTalk = commentTalks.firstWhereOrNull(
+        (comment) => comment.id == talkId || comment.parentId == talkId);
+    if (commentTalk != null) return commentTalk;
+
+    return null;
   }
 
   //팝업창에서 POST
@@ -82,6 +86,8 @@ class TalkEditingController extends GetxController {
       {required VoidCallback afterUpdateSuccess}) async {
     Talk? currentTalk = getCurrentTalk(talkId);
 
+    print(currentTalk);
+
     if (currentTalk == null) {
       Get.snackbar('Error', '해당 톡을 찾을 수 없습니다.');
       return;
@@ -99,9 +105,9 @@ class TalkEditingController extends GetxController {
             bool success =
                 await _talkController.updateTalk(talkId, updatedContent);
             if (success) {
+              afterUpdateSuccess();
               Get.snackbar('Success', '톡을 성공적으로 업데이트했습니다.');
               Navigator.of(context).pop();
-              afterUpdateSuccess();
             } else {
               Get.snackbar('Error', '톡 업데이트에 실패했습니다.');
             }
@@ -125,9 +131,9 @@ class TalkEditingController extends GetxController {
           onSubmit: () async {
             bool success = await _talkController.deleteTalk(talkId);
             if (success) {
+              afterDeleteSuccess();
               Get.snackbar('Success', '톡 삭제에 성공했습니다.');
               Navigator.pop(dialogContext);
-              afterDeleteSuccess();
             } else {
               Get.snackbar('Error', '톡 삭제에 실패했습니다.');
             }

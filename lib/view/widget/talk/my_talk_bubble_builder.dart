@@ -2,11 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../model/talk.dart';
-import '../avatar/user_avatar.dart';
 import 'talk_bubble.dart';
 
-class TalkBubbleBuilder extends StatelessWidget {
-  const TalkBubbleBuilder({
+class MyTalkBubbleBuilder extends StatelessWidget {
+  const MyTalkBubbleBuilder({
     super.key,
     required this.data,
     this.onTalkUpdated,
@@ -28,22 +27,14 @@ class TalkBubbleBuilder extends StatelessWidget {
       },
       itemBuilder: (BuildContext context, int index) {
         var talk = data[index];
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            UserAvatar(
-              avatarUrl: talk.author.avatar,
-              direction: BadgeDirection.column,
-              shortName: talk.author.badge?.shortName,
-              nickName: talk.author.nickname,
-            ),
-            SizedBox(width: 17.02),
-            TalkBubble(
-              talk: talk,
-              onTapEnabled: true,
-              onTalkUpdated: onTalkUpdated,
-            ),
-          ],
+        return Container(
+          constraints: BoxConstraints(minHeight: 87),
+          child: TalkBubble(
+            talk: talk,
+            type: BubbleType.myTalkEdit,
+            onTapEnabled: true,
+            onTalkUpdated: onTalkUpdated,
+          ),
         );
       },
     );

@@ -18,8 +18,6 @@ class CatchUpPage extends GetView<CatchUpController> {
     _scrollController.addListener(_scrollListener);
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -170,13 +168,13 @@ class CatchUpPage extends GetView<CatchUpController> {
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
             position: catchUp.author?.badge!.shortName ??
                 'Unknown Position', // 기본값 예시
-            nickname: catchUp.author?.nickname ?? 'null',
+            nickname: catchUp!.author?.nickname ?? 'null',
             url: catchUp.url,
-            hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
-            thumbnail: catchUp.thumbnail,
-            description: catchUp.title,
-            createdTime: formattedDate,
-            postId: catchUp.id,
+            hashTags: catchUp!.hashtag ?? '태그가 없어요 ㅠㅠ',
+            thumbnail: catchUp!.thumbnail ?? 'null',
+            description: catchUp!.title ?? 'null',
+            createdTime: formattedDate ?? 'null',
+            postId: catchUp!.id ?? 'null',
           ),
         );
       },

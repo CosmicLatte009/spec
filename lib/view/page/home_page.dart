@@ -133,10 +133,10 @@ class _HomePageState extends State<HomePage> {
                 Get.toNamed(AppPagesRoutes.catchUp);
               },
             ),
-            // Obx(() {
-            //   var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
-            //   return _buildHotListView(homeHotCatchUpsList);
-            // }),
+            Obx(() {
+              var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
+              return _buildHotListView(homeHotCatchUpsList);
+            }),
             NavMenu(
               title: '핫한 모각코',
               titleDirection: TitleDirection.left,
@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
         shrinkWrap: true, // ListView가 자신의 컨텐츠 크기에 맞게 크기를 조정하도록 함
         itemCount: hotCatchUpsList.length,
         itemBuilder: (context, index) {
-          final catchUp = hotCatchUpsList[index];
+          final catchUp = hotCatchUpsList[0];
           final createdAtDate = DateTime.parse(catchUp.createdAt);
           final dateOnly = DateTime(
               createdAtDate.year, createdAtDate.month, createdAtDate.day);

@@ -40,9 +40,7 @@ class TalkBubbleBuilder extends StatelessWidget {
             SizedBox(width: 17.02),
             TalkBubble(
               talk: talk,
-              mytalk: true,
-              // mytalk: talk.author.id == currentUser.id,
-              // onTapEnabled: true,
+              onTapEnabled: true,
               onTalkUpdated: onTalkUpdated,
             ),
           ],

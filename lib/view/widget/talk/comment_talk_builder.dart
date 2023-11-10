@@ -10,16 +10,10 @@ class CommentTalkBuilder extends StatefulWidget {
   const CommentTalkBuilder({
     super.key,
     required this.data,
-    // this.myComment = false,
-    // this.isLikePressed = false,
-    // this.withLikebutton = true,
     this.onTalkUpdated,
   });
 
   final List<Talk> data;
-  // final bool myComment;
-  // final bool isLikePressed;
-  // final bool withLikebutton;
   final VoidCallback? onTalkUpdated;
 
   @override
@@ -60,7 +54,7 @@ class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
         var comment = activeComments[index];
         return CommentTalk(
           comment: comment,
-          myComment: true,
+          // myComment: true,
           onTalkUpdated: widget.onTalkUpdated,
         );
       },

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/like_controller.dart';
+import '../../model/me_up.dart';
 import '../../model/talk.dart';
 import '../auth_controller.dart';
 import 'package:spec/util/api_routes.dart';
@@ -20,26 +21,44 @@ class TalkController extends GetxController {
     }
   }
 
-  //좋아요
-  Future<bool> toggleLike(String talkId) async {
-    try {
-      bool isUped =
-          await _likeController.likeUp(key: LikeType.talkId, id: talkId);
-      update();
-      return isUped;
-    } catch (e) {
-      print('Error toggling like status: $e');
+  bool isMyTalk(String? authorId) {
+    String? userId = _authController.getUserId();
+    if (userId == authorId) {
+      return true;
+    } else {
       return false;
     }
   }
 
-  checkItemUped(String itemId, List<dynamic> upList) {
-    bool uped = _likeController.isUped(itemId, upList);
-    // 여기에서 'uped' 값을 기반으로 추가 로직 처리
-    if (uped) {
-      // 아이템이 upList에 있을 경우의 처리
-    } else {
-      // 아이템이 upList에 없을 경우의 처리
+  List<MeUp> get myUpList => _likeController.myUpList;
+
+  //좋아요 상태 초기화
+  Future<bool> checkIfUserLikedTalk(String talkId) async {
+    await fetchMyLikes();
+    var like = _likeController.isUped(talkId, _likeController.myUpList);
+    return like;
+  }
+
+  //내 톡 좋아요 리스트 갱신
+  Future<void> fetchMyLikes() async {
+    var myLikes = await _likeController.myLikeUp(key: MyLikeType.talk);
+    if (myLikes != null && myLikes is List<MeUp>) {
+      myUpList.assignAll(myLikes);
+      update();
+    }
+  }
+
+  //좋아요 상태 변경
+  Future<bool> toggleLike(String talkId) async {
+    try {
+      bool isUped =
+          await _likeController.likeUp(key: LikeType.talkId, id: talkId);
+
+      return isUped;
+    } catch (e) {
+      Get.snackbar('Error', '좋아요 상태 변경에 실패했습니다.');
+
+      return false;
     }
   }
 
@@ -131,11 +150,19 @@ class TalkController extends GetxController {
     }
   }
 
-  getCurrentTalk(String talkId) {
-    final talk = _allTalks.firstWhereOrNull((talk) => talk.id == talkId);
-    final hotTalk = _hotTalks.firstWhereOrNull((talk) => talk.id == talkId);
-
-    return talk ?? hotTalk;
+  getCurrentTalk(String id) {
+    final talk = allTalks.firstWhereOrNull((t) => t.id == id);
+    final hotTalk = hotTalks.firstWhereOrNull((t) => t.id == id);
+    if (talk != null) {
+      print("Found in allTalks: $talk");
+      return talk;
+    } else if (hotTalk != null) {
+      print("Found in hotTalks: $hotTalk");
+      return hotTalk;
+    } else {
+      print("Talk with ID $id not found in allTalks or hotTalks.");
+      return null; // This line is crucial as it ensures a null is returned if not found.
+    }
   }
 
   //POST
@@ -230,6 +257,7 @@ class TalkController extends GetxController {
     if (authToken != null) {
       dio.options.headers['Authorization'] = authToken;
     }
+
     print('TalkController onInit은 되니');
   }
 }

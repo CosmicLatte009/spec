@@ -6,6 +6,7 @@ import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/auth/change_password_page.dart';
+import 'package:spec/view/page/me/profile_edit_page.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/list_button.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -17,6 +18,8 @@ import '../talk/me/my_talk_page.dart';
 class MyPage extends GetView<MyPageController> {
   static const route = '/mypage';
 
+  const MyPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +27,7 @@ class MyPage extends GetView<MyPageController> {
           currentIndex: 4,
           onTap: (values) => print(values),
         ),
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: ListView(
           children: [
             Padding(
@@ -35,24 +38,25 @@ class MyPage extends GetView<MyPageController> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
+                    border:
+                        Border.all(width: 1, color: const Color(0xFFE6E6E6))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // 리스트가 비어있지 않은지 확인하고 첫 번째 요소에 접근합니다.
-                    UserAvatar(
+                    const UserAvatar(
                       avatarSize: AvatarSize.w60,
                       shortName: '디자이너/1기',
                       nickName: '캐서린',
                       direction: BadgeDirection.column,
                       role: 'newbie',
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SvgPicture.asset(
                       'assets/icons/svgs/Bottom_dot.svg',
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Column(
                       children: [
                         Row(
@@ -69,7 +73,7 @@ class MyPage extends GetView<MyPageController> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Center(
@@ -79,15 +83,15 @@ class MyPage extends GetView<MyPageController> {
                             children: [
                               IconButton(
                                   onPressed: () {},
-                                  icon:
-                                      Icon(Icons.arrow_back_ios_new_outlined)),
-                              SizedBox(width: 20),
+                                  icon: const Icon(
+                                      Icons.arrow_back_ios_new_outlined)),
+                              const SizedBox(width: 20),
                               Column(
                                 children: [
                                   Container(
                                       width: 34,
                                       height: 22,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Color(0xFFF3F3F3),
                                       ),
                                       child: Center(
@@ -95,11 +99,11 @@ class MyPage extends GetView<MyPageController> {
                                             style: AppTextStyles.body12R(
                                                 color: AppColor.black60)),
                                       )),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Image.asset('assets/icons/pngs/No.png'),
                                   Row(
                                     children: [
-                                      Icon(Icons.favorite,
+                                      const Icon(Icons.favorite,
                                           color: Color(0xFFE6E6E6)),
                                       Text('',
                                           style: AppTextStyles.body12R(
@@ -108,13 +112,13 @@ class MyPage extends GetView<MyPageController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Column(
                                 children: [
                                   Container(
                                       width: 34,
                                       height: 22,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Color(0xFFF3F3F3),
                                       ),
                                       child: Center(
@@ -122,11 +126,12 @@ class MyPage extends GetView<MyPageController> {
                                             style: AppTextStyles.body12R(
                                                 color: AppColor.black60)),
                                       )),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Image.asset('assets/icons/pngs/1st.png'),
                                   Row(
                                     children: [
-                                      Icon(Icons.favorite, color: Colors.red),
+                                      const Icon(Icons.favorite,
+                                          color: Colors.red),
                                       Text('400',
                                           style: AppTextStyles.body12R(
                                               color: AppColor.primary80)),
@@ -134,13 +139,13 @@ class MyPage extends GetView<MyPageController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Column(
                                 children: [
                                   Container(
                                       width: 34,
                                       height: 22,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Color(0xFFF3F3F3),
                                       ),
                                       child: Center(
@@ -148,11 +153,12 @@ class MyPage extends GetView<MyPageController> {
                                             style: AppTextStyles.body12R(
                                                 color: AppColor.black60)),
                                       )),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Image.asset('assets/icons/pngs/1st.png'),
                                   Row(
                                     children: [
-                                      Icon(Icons.favorite, color: Colors.red),
+                                      const Icon(Icons.favorite,
+                                          color: Colors.red),
                                       Text('400',
                                           style: AppTextStyles.body12R(
                                               color: AppColor.primary80)),
@@ -160,10 +166,11 @@ class MyPage extends GetView<MyPageController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.arrow_forward_ios_outlined)),
+                                  icon: const Icon(
+                                      Icons.arrow_forward_ios_outlined)),
                             ],
                           ),
                         )
@@ -183,11 +190,12 @@ class MyPage extends GetView<MyPageController> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
                       SizedBox(height: 21),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -195,12 +203,12 @@ class MyPage extends GetView<MyPageController> {
                           titleDirection: TitleDirection.left,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 324,
                         height: 150,
                         child: Column(
                           children: [
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: ListButton(
@@ -218,6 +226,7 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myUpTalk);
+
                                 },
                               ),
                             ),
@@ -228,6 +237,7 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myCommentTalk);
+
                                 },
                               ),
                             ),
@@ -243,11 +253,13 @@ class MyPage extends GetView<MyPageController> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
                       SizedBox(height: 21),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -256,19 +268,19 @@ class MyPage extends GetView<MyPageController> {
                           titleDirection: TitleDirection.left,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 324,
                         height: 101,
                         child: Column(
                           children: [
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: ListButton(
                                 text: '내 캐치업',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.to(const ChangePasswordPage());
                                 },
                               ),
                             ),
@@ -278,7 +290,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '좋아요 한 캐치업',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.to(const ChangePasswordPage());
                                 },
                               ),
                             ),
@@ -294,11 +306,13 @@ class MyPage extends GetView<MyPageController> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
                       SizedBox(height: 21),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -307,19 +321,19 @@ class MyPage extends GetView<MyPageController> {
                           titleDirection: TitleDirection.left,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 324,
                         height: 101,
                         child: Column(
                           children: [
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: ListButton(
                                 text: '내가 만든 그룹',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.toNamed(AppPagesRoutes.meMogak);
                                 },
                               ),
                             ),
@@ -329,7 +343,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '참여중인 그룹',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.toNamed(AppPagesRoutes.joinedMogak);
                                 },
                               ),
                             ),
@@ -345,11 +359,12 @@ class MyPage extends GetView<MyPageController> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
                       SizedBox(height: 21),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -358,19 +373,20 @@ class MyPage extends GetView<MyPageController> {
                           titleDirection: TitleDirection.left,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 324,
                         height: 229,
                         child: Column(
                           children: [
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: ListButton(
                                 text: '내 정보 수정하기',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  //@todo 기존 정보 초기화
+                                  Get.to(const ProfileEditPage());
                                 },
                               ),
                             ),
@@ -380,7 +396,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '비밀번호 변경',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.to(const ChangePasswordPage());
                                 },
                               ),
                             ),
@@ -390,7 +406,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '로그아웃',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.to(const ChangePasswordPage());
                                 },
                               ),
                             ),
@@ -400,7 +416,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '회원 탈퇴',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.to(const ChangePasswordPage());
                                 },
                               ),
                             ),

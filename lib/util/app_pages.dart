@@ -35,6 +35,9 @@ import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';
 import '../view/page/talk/hot_talk_page.dart';
 import '../view/page/talk/main_talk_page.dart';
+import '../view/page/talk/me/my_comment_talk_page.dart';
+import '../view/page/talk/me/my_talk_page.dart';
+import '../view/page/talk/me/my_up_talk_page.dart';
 
 class AppPages {
   static final pages = [
@@ -169,17 +172,26 @@ class AppPages {
       page: () => const DetailTalkPage(),
       binding: BindingsBuilder(() {
         String? id = Get.parameters['id'];
-        print('지금 DetailTalkController의 id는: $id');
         if (id != null) {
           Get.put(DetailTalkController(id));
-        } else {
-          print('Error: DetialTalkController의 id가 없다.');
         }
       }),
     ),
     GetPage(
       name: AppPagesRoutes.hotTalk,
       page: () => const HotTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.myTalk,
+      page: () => const MyTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.myUpTalk,
+      page: () => const MyUpTalkPage(),
+    ),
+    GetPage(
+      name: AppPagesRoutes.myCommentTalk,
+      page: () => const MyCommentTalkPage(),
     ),
     GetPage(
       name: AppPagesRoutes.myPage,

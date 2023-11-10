@@ -18,6 +18,9 @@ import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';
 import '../view/page/talk/hot_talk_page.dart';
 import '../view/page/talk/main_talk_page.dart';
+import '../view/page/talk/me/my_comment_talk_page.dart';
+import '../view/page/talk/me/my_talk_page.dart';
+import '../view/page/talk/me/my_up_talk_page.dart';
 
 class AppPagesRoutes {
   static const String home = HomePage.route;
@@ -45,5 +48,9 @@ class AppPagesRoutes {
   static const String allTalk = AllTalkPage.route;
   static const String detailTalk = DetailTalkPage.route;
   static const String hotTalk = HotTalkPage.route;
+  static const String myTalk = MyTalkPage.route;
+  static const String myUpTalk = MyUpTalkPage.route;
+  static const String myCommentTalk = MyCommentTalkPage.route;
+
   static const String myPage = MyPage.route;
 }

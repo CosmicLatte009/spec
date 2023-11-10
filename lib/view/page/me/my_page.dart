@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/util/app_color.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/auth/change_password_page.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
@@ -10,6 +11,8 @@ import 'package:spec/view/widget/button/list_button.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+
+import '../talk/me/my_talk_page.dart';
 
 class MyPage extends GetView<MyPageController> {
   static const route = '/mypage';
@@ -182,10 +185,12 @@ class MyPage extends GetView<MyPageController> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
                     child: Column(children: [
+                      SizedBox(height: 21),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
+                          withIconButton: false,
                           title: '나의 톡!',
                           titleDirection: TitleDirection.left,
                         ),
@@ -202,7 +207,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '내가 쓴 톡',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.toNamed(AppPagesRoutes.myTalk);
                                 },
                               ),
                             ),
@@ -212,7 +217,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '좋아요 한 톡',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.toNamed(AppPagesRoutes.myUpTalk);
                                 },
                               ),
                             ),
@@ -222,7 +227,7 @@ class MyPage extends GetView<MyPageController> {
                                 text: '내가 쓴 이어달린 톡',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(ChangePasswordPage());
+                                  Get.toNamed(AppPagesRoutes.myCommentTalk);
                                 },
                               ),
                             ),
@@ -240,10 +245,12 @@ class MyPage extends GetView<MyPageController> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
                     child: Column(children: [
+                      SizedBox(height: 21),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
+                          withIconButton: false,
                           title: '나의 캐치업!',
                           emoji: 'assets/icons/pngs/dart.png',
                           titleDirection: TitleDirection.left,
@@ -289,10 +296,12 @@ class MyPage extends GetView<MyPageController> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
                     child: Column(children: [
+                      SizedBox(height: 21),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
+                          withIconButton: false,
                           title: '나의 모각코!',
                           emoji: 'assets/icons/pngs/dart.png',
                           titleDirection: TitleDirection.left,
@@ -338,10 +347,12 @@ class MyPage extends GetView<MyPageController> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 1, color: Color(0xFFE6E6E6))),
                     child: Column(children: [
+                      SizedBox(height: 21),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: NavMenu(
                           withEmoji: true,
+                          withIconButton: false,
                           title: '설정',
                           emoji: 'assets/icons/pngs/_Setting.png',
                           titleDirection: TitleDirection.left,

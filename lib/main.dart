@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
           Get.put(ContentSearchController());
           Get.lazyPut(() => MyPageController());
           Get.lazyPut(() => MainTalkController());
-
           Get.lazyPut(() => BestSpacerController());
           Get.lazyPut(() => FilterController());
           Get.lazyPut(() => ContentSearchController());

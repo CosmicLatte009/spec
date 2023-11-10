@@ -18,6 +18,8 @@ class CatchUpPage extends GetView<CatchUpController> {
     _scrollController.addListener(_scrollListener);
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {

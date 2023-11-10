@@ -240,7 +240,7 @@ class _TalkBubbleState extends State<TalkBubble> {
           if (isPressed || widget.type == BubbleType.myTalkEdit)
             Positioned(
               top: widget.type != BubbleType.myTalkEdit ? -15 : 17,
-              right: widget.type != BubbleType.myTalkEdit ? -15 : 10,
+              right: widget.type != BubbleType.myTalkEdit ? -5 : 10,
               child: buildButtons(talkId),
             ),
         ],

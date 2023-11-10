@@ -53,6 +53,7 @@ class AvatarCard extends StatelessWidget {
     var controller = Get.find<AvatarController>();
     final path = getRoute(type);
     final length = assetLength(type);
+    RxBool isSelected = false.obs;
 
     if (path == null || length == null) return Container();
 
@@ -90,36 +91,48 @@ class AvatarCard extends StatelessWidget {
                 onTap: () {
                   controller.selectItems(type, imagePath);
                 },
-                child: Container(
-                  //@todo 선택된 아이템 컨테이더 디자인 다르게하기
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppColor.white,
-                    border: Border.all(
-                      color: AppColor.black10,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: (type == AvatarAssetType.item)
-                      ? SvgPicture.asset(
-                          '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
-                        )
-                      : Stack(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/avatar/Face/on_face_1.svg',
-                            ),
-                            type == AvatarAssetType.hair
-                                ? Obx(
-                                    () => SvgPicture.asset(imagePath,
-                                        color: controller.hairColor?.value),
-                                  )
-                                : SvgPicture.asset(
-                                    imagePath,
-                                  ),
-                          ],
+                child: Obx(
+                  () {
+                    bool isSelected =
+                        controller.selectedItems[type.name] == imagePath;
+                    return Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: isSelected == true
+                            ? AppColor.primary05
+                            : AppColor.white,
+                        border: Border.all(
+                          color: isSelected == true
+                              ? AppColor.primary
+                              : AppColor.black10,
                         ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: (type == AvatarAssetType.item)
+                          ? SvgPicture.asset(
+                              //@todo showcase item, stack item 다름.
+                              '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
+                            )
+                          : Stack(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/avatar/Face/on_face_1.svg',
+                                ),
+                                type == AvatarAssetType.hair
+                                    ? Obx(
+                                        () => SvgPicture.asset(
+                                          imagePath,
+                                          color: controller.hairColor.value,
+                                        ),
+                                      )
+                                    : SvgPicture.asset(
+                                        imagePath,
+                                      )
+                              ],
+                            ),
+                    );
+                  },
                 ),
               );
             },

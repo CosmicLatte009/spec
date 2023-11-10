@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/etc/upload_controller.dart';
+import 'package:spec/util/avatar_color.dart';
 import 'package:spec/view/widget/card/avatar_card.dart';
 
 class AvatarController extends GetxController {
@@ -23,19 +23,20 @@ class AvatarController extends GetxController {
     'hair': 'assets/avatar/Hair/off_hair_1.svg',
     'item': null,
   }.obs;
-  Rx<Color>? hairColor;
+  Rx<Color> hairColor = AvatarColor.color1.obs;
 
   void selectColor(Color color) {
-    if (hairColor == null) {
-      hairColor = Rx<Color>(color);
-    } else {
-      hairColor!.value = color;
-    }
+    hairColor.value = color;
+    hairColor.refresh();
   }
 
   void selectItems(AvatarAssetType type, String? imagePath) {
     selectedItems[type.name] = imagePath;
     selectedItems.refresh();
+  }
+
+  bool getIsSelected(String? imagePath) {
+    return selectedItems.containsValue(imagePath);
   }
 
   // create

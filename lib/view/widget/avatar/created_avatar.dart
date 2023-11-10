@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/me/avatar_controller.dart';
 
 class CreatedAvatar extends StatelessWidget {
   const CreatedAvatar({
     super.key,
-    required this.selectedItems,
     this.screenshotController,
     this.capturedImg,
-    this.hairColor,
   });
-  final Map<String, dynamic> selectedItems;
   final screenshotController;
   final capturedImg;
-  final hairColor;
 
   @override
   Widget build(BuildContext context) {
+    AvatarController controller = Get.find<AvatarController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       screenshotController
           .captureFromWidget(
         InheritedTheme.captureAll(
           context,
-          Stack(
-            children: selectedItems.entries
-                .where((entry) => entry.value != null)
-                .map((entry) => SvgPicture.asset(
-                      entry.value!,
-                      color: entry.key == 'hair' ? hairColor.value : null,
-                    ))
-                .toList(),
+          Obx(
+            () => Stack(
+              children: controller.selectedItems.entries
+                  .where((entry) => entry.value != null)
+                  .map((entry) => SvgPicture.asset(
+                        entry.value!,
+                        color: entry.key == 'hair'
+                            ? controller.hairColor.value
+                            : null,
+                      ))
+                  .toList(),
+            ),
           ),
         ),
         delay: const Duration(milliseconds: 100),
@@ -40,14 +43,17 @@ class CreatedAvatar extends StatelessWidget {
       });
     });
 
-    return Stack(
-      children: selectedItems.entries
-          .where((entry) => entry.value != null)
-          .map((entry) => SvgPicture.asset(
-                entry.value!,
-                color: entry.key == 'hair' ? hairColor.value : null,
-              ))
-          .toList(),
+    return Obx(
+      () => Stack(
+        children: controller.selectedItems.entries
+            .where((entry) => entry.value != null)
+            .map((entry) => SvgPicture.asset(
+                  entry.value!,
+                  color:
+                      entry.key == 'hair' ? controller.hairColor.value : null,
+                ))
+            .toList(),
+      ),
     );
   }
 }

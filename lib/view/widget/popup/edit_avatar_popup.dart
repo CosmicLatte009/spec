@@ -34,14 +34,10 @@ class EditAvatarPopup extends GetView<AvatarController> {
             CircleAvatar(
               backgroundColor: AppColor.primary05,
               radius: 60,
-              child: //
-                  Obx(
-                () => CreatedAvatar(
-                  selectedItems: controller.selectedItems,
-                  hairColor: controller.hairColor,
-                  capturedImg: controller.capturedImg,
-                  screenshotController: controller.screenshotController,
-                ),
+              child: //@todo 선택시 바로 수정되어야함
+                  CreatedAvatar(
+                capturedImg: controller.capturedImg,
+                screenshotController: controller.screenshotController,
               ),
             ),
             const SizedBox(height: 10),

@@ -18,9 +18,9 @@ getRoute(AvatarAssetType type) {
     case AvatarAssetType.emotion:
       return 'assets/avatar/Emotion/';
     case AvatarAssetType.item:
-      return 'assets/avatar/Item_Only';
+      return 'assets/avatar/Item_Only/';
     case AvatarAssetType.itemForStack:
-      return 'assets/avatar/Item';
+      return 'assets/avatar/Item/';
     default:
       return null;
   }
@@ -35,6 +35,8 @@ assetLength(AvatarAssetType type) {
     case AvatarAssetType.emotion:
       return 24;
     case AvatarAssetType.item:
+      return 18;
+    case AvatarAssetType.itemForStack:
       return 18;
     default:
       return null;
@@ -53,7 +55,6 @@ class AvatarCard extends StatelessWidget {
     var controller = Get.find<AvatarController>();
     final path = getRoute(type);
     final length = assetLength(type);
-    RxBool isSelected = false.obs;
 
     if (path == null || length == null) return Container();
 
@@ -89,6 +90,13 @@ class AvatarCard extends StatelessWidget {
               String imagePath = "$path$imageName.svg";
               return GestureDetector(
                 onTap: () {
+                  if (type == AvatarAssetType.item) {
+                    String itemRoute = getRoute(AvatarAssetType.itemForStack);
+                    imagePath =
+                        '${itemRoute}off_${type.name}_${avatarItemAssets[index]}.svg';
+                    controller.selectItems(type, imagePath);
+                    return;
+                  }
                   controller.selectItems(type, imagePath);
                 },
                 child: Obx(
@@ -112,7 +120,7 @@ class AvatarCard extends StatelessWidget {
                       child: (type == AvatarAssetType.item)
                           ? SvgPicture.asset(
                               //@todo showcase item, stack item 다름.
-                              '$path/off_${type.name}_${avatarItemAssets[index]}.svg',
+                              '${path}off_${type.name}_${avatarItemAssets[index]}.svg',
                             )
                           : Stack(
                               children: [

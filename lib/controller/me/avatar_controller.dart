@@ -33,6 +33,7 @@ class AvatarController extends GetxController {
   void selectItems(AvatarAssetType type, String? imagePath) {
     selectedItems[type.name] = imagePath;
     selectedItems.refresh();
+    print(selectedItems);
   }
 
   bool getIsSelected(String? imagePath) {

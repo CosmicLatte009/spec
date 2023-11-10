@@ -12,6 +12,7 @@ import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/controller/mogak/update_mogak_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
+import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
@@ -39,7 +40,7 @@ class AppPages {
   static final pages = [
     GetPage(
       name: AppPagesRoutes.home,
-      page: () => HomePage(),
+      page: () => const HomePage(),
     ),
     //auth
     GetPage(

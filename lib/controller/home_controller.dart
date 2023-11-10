@@ -24,7 +24,7 @@ class HomeController extends GetxController {
     super.onInit();
     fetchHomeData(); // Fetch data when the controller is initialized
     fetchBestSpacerData();
-    HomeHotCatchup();
+    fetchHomeHotCatchup();
   }
 
   Future<List<Course>> fetchHomeData() async {
@@ -126,7 +126,7 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<List<CatchUp>> HomeHotCatchup() async {
+  Future<List<CatchUp>> fetchHomeHotCatchup() async {
     String? _token = _authController.dmddo;
     print(_token);
     if (_token == null) {
@@ -142,9 +142,10 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         var resData = response.data;
 
-        List<CatchUp> HomeHotCatchUpsList = List<Map<String, dynamic>>.from(resData)
-            .map((item) => CatchUp.fromMap(item))
-            .toList();
+        List<CatchUp> HomeHotCatchUpsList =
+            List<Map<String, dynamic>>.from(resData)
+                .map((item) => CatchUp.fromMap(item))
+                .toList();
         HomeHotCatchUps.value = HomeHotCatchUpsList;
         print('이거 맞나 ${HomeHotCatchUps.value.length}');
         return HomeHotCatchUpsList;

@@ -50,13 +50,13 @@ class AvatarController extends GetxController {
       if (image != null) {
         final directory = await getApplicationDocumentsDirectory();
         final imagePath =
-            await File('${directory.path}/screenshot.png').create();
+            await File('${directory.path}/${DateTime.now()}.png').create();
         await imagePath.writeAsBytes(image);
 
         if (await imagePath.exists()) {
           final dioPackage.MultipartFile multipartFile =
               await dioPackage.MultipartFile.fromFile(imagePath.path,
-                  filename: 'screenshot.png');
+                  filename: '${DateTime.now()}.png');
 
           dioPackage.FormData formData = dioPackage.FormData.fromMap({
             'file': multipartFile,
@@ -114,9 +114,9 @@ class AvatarController extends GetxController {
       'face': 'assets/avatar/Face/on_face_1.svg',
       'emotion': 'assets/avatar/Emotion/off_emotion_1.svg',
       'hair': 'assets/avatar/Hair/off_hair_1.svg',
-      'hairColor': null,
       'item': null,
     };
+    hairColor.value = AvatarColor.color1;
   }
 
   @override

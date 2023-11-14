@@ -36,7 +36,7 @@ class EditAvatarPopup extends GetView<AvatarController> {
               backgroundColor: AppColor.primary05,
               radius: 60,
               child: CreatedAvatar(
-                capturedImg: controller.capturedImg,
+                capturedImg: controller.imageUrl,
                 screenshotController: controller.screenshotController,
               ),
             ),
@@ -71,9 +71,7 @@ class EditAvatarPopup extends GetView<AvatarController> {
                     ),
                     Expanded(
                       child: CustomButton(
-                        // 1. capture, upload
-                        // onTap: controller.createAvatar,
-                        onTap: controller.uploadAvatar,
+                        onTap: controller.captureAndUpload,
                         text: '저장하기',
                         height: 40,
                       ),

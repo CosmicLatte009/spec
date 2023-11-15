@@ -9,16 +9,17 @@ import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 import 'package:spec/view/widget/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/widget_card.dart';
 import '../../controller/talk/talk_controller.dart';
 import '../../model/talk.dart';
+import '../../util/app_color.dart';
 import '../../util/app_text_style.dart';
 import '../widget/talk/talk_bubble_builder.dart';
 
@@ -138,7 +139,9 @@ class _HomePageState extends State<HomePage> {
                 Get.toNamed(AppPagesRoutes.hotTalk);
               },
             ),
-            _buildHotTalkSection(),
+            Obx(() {
+              return _buildHotTalkSection();
+            }),
             NavMenu(
               title: '핫한 캐치업',
               withEmoji: true,
@@ -180,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                           children: [
                             const SizedBox(height: 8),
-                            StackAvatars(
+                            UpAndCommentLength(
                               commentLength:
                                   mogakController.hotMogak![0].childrenLength ??
                                       0,
@@ -220,7 +223,10 @@ Widget _buildHotTalkSection() {
   } else {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Text('현재 핫한 톡이 없습니다.', style: AppTextStyles.body14M()),
+      child: Align(
+          alignment: Alignment.center,
+          child: Text('현재 핫한 톡이 없습니다.',
+              style: AppTextStyles.body14M(color: AppColor.black80))),
     );
   }
 }

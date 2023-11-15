@@ -4,12 +4,14 @@ import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/best_spacer_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/etc/upload_controller.dart';
 import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/forgot_pw_controller.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/controller/changes_pw_controller.dart';
 import 'package:spec/controller/login_controller.dart';
+import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/my_page_controller.dart';
@@ -41,13 +43,15 @@ class MyApp extends StatelessWidget {
           Get.put(LoginController());
           Get.lazyPut(() => SignupController());
           Get.lazyPut(() => ForgotPasswordController());
+          Get.lazyPut(() => ProfileController());
+          Get.lazyPut(() => AvatarController());
+          Get.lazyPut(() => UploadController());
           Get.put(CatchUpController());
           Get.put(ChangePWController());
           Get.put(MyPageController());
           Get.put(HomeController());
           Get.lazyPut(() => HotMogakController());
           Get.lazyPut(() => MogakController());
-          Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => LikeController());
           Get.put(TalkController());
           Get.put(TalkEditingController());
@@ -63,7 +67,7 @@ class MyApp extends StatelessWidget {
       //  initialRoute: LoginPage.route,
       // home: const SplashPage(),
       // home: SplashPage(),
-      home: HomePage(),
+      home: const HomePage(),
       // home: LoginScreen(),
     );
   }

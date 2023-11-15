@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:spec/model/profile.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/page/splash_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
-
-import '../model/my_profile.dart';
 
 class AuthController extends GetxController {
   final RxInt isLoggedIn = RxInt(-1);
@@ -75,8 +74,8 @@ class AuthController extends GetxController {
     }
   }
 
-  final Rxn<MyProfile> _myProfile = Rxn();
-  Rxn<MyProfile> get myProfile => _myProfile;
+  final Rxn<Profile> _myProfile = Rxn();
+  Rxn<Profile> get myProfile => _myProfile;
 
   getMyInfo() async {
     final token = await getToken();
@@ -93,7 +92,7 @@ class AuthController extends GetxController {
       );
       if (res.statusCode == 200 && res.data["status"] == "success") {
         var resData = res.data["data"];
-        _myProfile.value = MyProfile.fromMap(resData);
+        _myProfile.value = Profile.fromMap(resData);
       } else {
         print(res.data["message"]);
       }

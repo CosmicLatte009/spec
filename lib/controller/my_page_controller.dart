@@ -11,24 +11,7 @@ class MyPageController extends GetxController {
 
   Rx<List<MyInfo>> myRankInfo = Rx<List<MyInfo>>([]);
 
-  final Rxn<Profile> _userInfo = Rxn();
-  Profile? get userInfo => _userInfo.value;
-
-  getUserInfo() async {
-    String path = '/api/me/profile';
-    try {
-      var res = await dio.get(path);
-      if (res.data['data'] != null) {
-        // print('res.data: ${res.data}');
-        // print('res.data: ${Profile.fromMap(res.data["data"]).avatar}');
-        _userInfo.value = Profile.fromMap(res.data["data"]);
-      } else {
-        print(res.data["message"]);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  Profile? get userInfo => authController.myProfile.value;
 
   final Dio dio = Dio();
 
@@ -41,7 +24,6 @@ class MyPageController extends GetxController {
     dio.options.headers['Authorization'] = authToken.value;
 
     if (authToken.value != "") {
-      await getUserInfo();
       await fetchMyRank();
     }
   }

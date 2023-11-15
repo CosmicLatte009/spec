@@ -76,6 +76,9 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                   Obx(
                     () => CommentTalkBuilder(
                       data: controller.detailMogak.value?.talks ?? [],
+                      onTalkUpdated: () async {
+                        await controller.getDetailMogak();
+                      },
                     ),
                   ),
                 ],
@@ -94,10 +97,14 @@ class DetailMogakPage extends GetView<DetailMogakController> {
                 color: AppColor.black10,
               ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: CustomInput(
+                controller: controller.textEditingController,
                 type: InputType.comment,
+                onSubmit: (String content) {
+                  controller.postNewTalkComment();
+                },
               ),
             ),
           ),

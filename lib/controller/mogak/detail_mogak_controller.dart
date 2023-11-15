@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/like_controller.dart';
 import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
@@ -6,11 +7,16 @@ import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/model/detail_mogak.dart';
 import 'package:spec/model/profile.dart';
 
+import '../talk/talk_controller.dart';
+import '../talk/talk_editing_controller.dart';
+
 class DetailMogakController extends GetxController {
   var controller = Get.find<MogakController>();
   var profileController = Get.find<ProfileController>();
   var likeController = Get.find<LikeController>();
   var joinedController = Get.find<JoinedMogakController>();
+  var talkController = Get.find<TalkController>();
+  var talkEditingController = Get.find<TalkEditingController>();
 
   bool isUped(id) => controller.isUped(id);
 
@@ -56,6 +62,21 @@ class DetailMogakController extends GetxController {
       id: mogakId.value,
     );
     _isLiked.toggle();
+  }
+
+  final TextEditingController textEditingController = TextEditingController();
+  postNewTalkComment() {
+    talkEditingController.postNewTalkComment(
+      textEditingController.text,
+      mogakId.value, // mogakId
+      null, // catchUpId
+      null, // parentId
+      textEditingController,
+      afterPostSuccess: () async {
+        await getDetailMogak();
+        talkController.update();
+      },
+    );
   }
 
   @override

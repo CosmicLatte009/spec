@@ -1,18 +1,56 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class ChangePWController extends GetxController {
-  final AuthController _authController = AuthController(); // 의존성 주입을 위한 생성자
+  final AuthController _authController = AuthController();
 
-  var currentPassword = TextEditingController();
-  var newPassword = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
-  void attemptChangePassword() async {
-    _authController.attemptChangePassword(
+  TextEditingController currentPassword = TextEditingController();
+  TextEditingController newPassword = TextEditingController();
+
+  final RxBool _currentPasswordHasValue = false.obs;
+  RxBool get currentPasswordHasValue => _currentPasswordHasValue;
+
+  final RxBool _newPasswordHasValue = false.obs;
+  RxBool get newPasswordHasValue => _newPasswordHasValue;
+
+  final RxBool _buttonEnabled = false.obs;
+  RxBool get buttonEnabled => _buttonEnabled;
+
+  RxBool _isSuccess = false.obs;
+  RxBool get isSuccess => _isSuccess;
+
+  checkButtonEnabled() {
+    _buttonEnabled.value =
+        currentPassword.text.isNotEmpty && newPassword.text.isNotEmpty;
+  }
+
+  bool validateForm() {
+    return formKey.currentState?.validate() ?? false;
+  }
+
+  changePassword() async {
+    _isSuccess.value = await _authController.changePassword(
         currentPassword.text, newPassword.text);
+    if (isSuccess.isTrue) {
+      currentPassword.clear();
+      newPassword.clear();
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    currentPassword.addListener(checkButtonEnabled);
+    newPassword.addListener(checkButtonEnabled);
+  }
+
+  @override
+  void onClose() {
+    currentPassword.dispose();
+    newPassword.dispose();
+    super.onClose();
   }
 }

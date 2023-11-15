@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/orderby_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 
 class JoinedMogakPage extends GetView<JoinedMogakController> {
   const JoinedMogakPage({super.key});
@@ -53,7 +53,7 @@ class JoinedMogakPage extends GetView<JoinedMogakController> {
                             title: title,
                           ),
                           const SizedBox(height: 8),
-                          StackAvatars(
+                          UpAndCommentLength(
                             commentLength:
                                 controller.joinedMogaks[index].childrenLength ??
                                     0,

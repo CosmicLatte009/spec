@@ -32,10 +32,10 @@ class TalkBubbleBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UserAvatar(
-              avatarUrl: talk.author.avatar,
+              avatarUrl: talk.author?.avatar,
               direction: BadgeDirection.column,
-              shortName: talk.author.badge?.shortName,
-              nickName: talk.author.nickname,
+              shortName: talk.author?.badge?.shortName,
+              nickName: talk.author?.nickname,
             ),
             SizedBox(width: 17.02),
             TalkBubble(

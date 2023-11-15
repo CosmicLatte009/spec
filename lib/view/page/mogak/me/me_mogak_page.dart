@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/mogak/me/me_mogak_controller.dart';
 import 'package:spec/view/widget/alert/300_width_description/description_with_two_button.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/button/orderby_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 
 class MeMogakPage extends GetView<MeMogakController> {
   const MeMogakPage({super.key});
@@ -126,7 +126,7 @@ class MeMogakPage extends GetView<MeMogakController> {
                                 ],
                               ),
                               const SizedBox(height: 8),
-                              StackAvatars(
+                              UpAndCommentLength(
                                 commentLength:
                                     controller.meMogaks[index].childrenLength ??
                                         0,

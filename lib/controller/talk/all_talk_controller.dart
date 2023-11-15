@@ -19,7 +19,6 @@ class AllTalkController extends GetxController {
     talkEditingController.postNewTalkInPopup(
       Get.context!,
       textEditingController,
-      afterPostSuccess: getAllTalks,
     );
   }
 

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:spec/controller/catchup_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'widget_catchup_like.dart';
 
@@ -86,7 +86,7 @@ class CardWidget extends GetView<CatchUpController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  StackAvatars(
+                  UpAndCommentLength(
                     upLength: int.parse(temperature),
                     commentLength: 0,
                   ),

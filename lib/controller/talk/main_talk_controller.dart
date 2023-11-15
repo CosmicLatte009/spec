@@ -29,9 +29,8 @@ class MainTalkController extends GetxController {
     await Future.wait([
       _talkController.getAllTalks(),
       _talkController.getHotTalks(),
-    ] as Iterable<Future>)
-        .catchError((error) {
-      print('Error loading talks: $error');
+    ]).catchError((error) {
+      return [];
     }).whenComplete(() {
       _updateLoadingState();
     });
@@ -44,7 +43,6 @@ class MainTalkController extends GetxController {
     talkEditingController.postNewTalkInPopup(
       Get.context!,
       textEditingController,
-      afterPostSuccess: getMainTalks,
     );
   }
 

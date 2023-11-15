@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'author.dart';
 
 class Talk {
@@ -11,7 +10,7 @@ class Talk {
   DateTime createdAt;
   DateTime updatedAt;
   bool isDeleted;
-  Author author;
+  Author? author;
   List<Author>? upProfiles;
   int temperature;
   int? childrenLength;
@@ -26,7 +25,7 @@ class Talk {
     required this.createdAt,
     required this.updatedAt,
     required this.isDeleted,
-    required this.author,
+    this.author,
     this.upProfiles,
     required this.temperature,
     this.childrenLength,
@@ -34,6 +33,9 @@ class Talk {
   });
 
   factory Talk.fromMap(Map<String, dynamic> map) {
+    Author? author = map['author'] != null
+        ? Author.fromMap(map['author'] as Map<String, dynamic>)
+        : null;
     return Talk(
       id: map['id'] ?? '',
       authorId: map['authorId'],
@@ -45,7 +47,7 @@ class Talk {
       updatedAt: DateTime.parse(map['updatedAt']),
       isDeleted: map['deletedAt'] !=
           null, // JSON에는 deletedAt이 존재하므로 이를 바탕으로 isDeleted 상태를 결정합니다.
-      author: Author.fromMap(map['author'] as Map<String, dynamic>),
+      author: author,
 
       upProfiles: map['upProfiles'] != null
           ? List<Author>.from(

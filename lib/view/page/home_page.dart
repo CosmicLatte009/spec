@@ -9,12 +9,12 @@ import 'package:spec/model/catchup.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
 import 'package:spec/view/widget/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 import 'package:spec/view/widget/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/widget_card.dart';
 
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                           children: [
                             const SizedBox(height: 8),
-                            StackAvatars(
+                            UpAndCommentLength(
                               commentLength:
                                   mogakController.hotMogak![0].childrenLength ??
                                       0,

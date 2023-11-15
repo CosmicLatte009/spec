@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:spec/model/mogak.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
+import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
@@ -45,12 +46,26 @@ class _MogakCardState extends State<MogakCard> {
         : [];
     return GestureDetector(
       onTap: () {
-        Get.toNamed(
-          '/mogak/${widget.mogak.id}',
-          arguments: {
-            "title": widget.title,
-          },
-        );
+        widget.mogak.isDeleted != false
+            ? Get.toNamed(
+                '/mogak/${widget.mogak.id}',
+                arguments: {
+                  "title": widget.title,
+                },
+              )
+            : showDialog(
+                context: context,
+                builder: (context) {
+                  return IconTextWithOneButton(
+                    svgPath: 'assets/icons/sgvs/Warning.svg',
+                    mainMessage: '이미 삭제된 모각코입니다!',
+                    subMessage: '클릭하신 모각코를 찾을 수 없습니다.',
+                    buttonTitle: '닫기',
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                });
       },
       child: Container(
         decoration: BoxDecoration(

@@ -13,7 +13,6 @@ class OrderbyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('OrderbyButton tapped');
         if (onTap != null) {
           onTap!();
         }

@@ -52,14 +52,24 @@ class MyUpTalkPage extends GetView<MyUpTalkController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Obx(() {
-                      if (controller.isLoading.value) {
+                      if (controller.isLoading.isTrue) {
                         return const CircularProgressIndicator();
+                      }
+                      if (controller.myUpTalkList.isEmpty) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(50.0),
+                            child: Text(
+                              '아직 내가 좋아요한 톡이 없습니다.',
+                              style: AppTextStyles.body14M(
+                                  color: AppColor.black60),
+                            ),
+                          ),
+                        );
                       } else {
                         return TalkBubbleBuilder(
                           data: controller.myUpTalkList,
                           onTalkUpdated: () async {
-                            await controller.getAllTalks();
-                            await controller.getHotTalks();
                             await controller.getMyUpTalkList();
                           },
                         );

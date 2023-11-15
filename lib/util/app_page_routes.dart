@@ -1,3 +1,4 @@
+import 'package:spec/view/page/auth/change_password_page.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
@@ -29,6 +30,7 @@ class AppPagesRoutes {
   static const String signup = SignupPage.route;
   static const String signupSuccess = SignupSuccessPage.route;
   static const String forgotPw = ForgotPasswordPage.route;
+  static const String changePw = ChangePasswordPage.route;
   static const String profileEdit = ProfileEditPage.route;
 
   /// 모각

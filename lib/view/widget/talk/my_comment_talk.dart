@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:spec/util/app_page_routes.dart';
 import '../../../controller/talk/talk_controller.dart';
 import '../../../controller/talk/talk_editing_controller.dart';
+import '../../../model/author.dart';
 import '../../../model/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
@@ -11,34 +13,57 @@ import '../alert/300_width_icon/icon_text_with_one_button.dart';
 import '../avatar/user_avatar.dart';
 import '../button/button_circle.dart';
 
-class CommentTalk extends StatefulWidget {
+class MyCommentTalk extends StatefulWidget {
   final Talk comment;
+  final Talk? parentTalk;
   final Function? onTalkUpdated;
 
-  const CommentTalk({
+  const MyCommentTalk({
     Key? key,
     required this.comment,
+    this.parentTalk,
     this.onTalkUpdated,
   }) : super(key: key);
 
   @override
-  _CommentTalkState createState() => _CommentTalkState();
+  _MyCommentTalkState createState() => _MyCommentTalkState();
 }
 
-class _CommentTalkState extends State<CommentTalk> {
+class _MyCommentTalkState extends State<MyCommentTalk> {
   var talkController = Get.find<TalkController>();
   TalkEditingController talkEditingController =
       Get.find<TalkEditingController>();
 
+  bool isLoading = true;
   bool isMyTalk = false;
   bool isPressed = false;
   TextEditingController textEditingController = TextEditingController();
+  Author? parentTalksAuthor;
 
   @override
   void initState() {
     super.initState();
     isMyTalk = talkController.isMyTalk(widget.comment.authorId);
+    parentTalksAuthor = widget.parentTalk?.author;
   }
+
+  // loadParentTalksAuthor() async {
+  //   try {
+  //     if (widget.comment.parentId != null) {
+  //       var author = await talkController
+  //           .getAuthorOfParentTalk(widget.comment.parentId!);
+  //       setState(() {
+  //         parentTalksAuthor = author;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     isLoading = false;
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +73,35 @@ class _CommentTalkState extends State<CommentTalk> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            UserAvatar(
-              avatarUrl: widget.comment.author?.avatar,
-              direction: BadgeDirection.row,
-              shortName: widget.comment.author?.badge?.shortName,
-              nickName: widget.comment.author?.nickname,
-              role: widget.comment.author?.role,
+            GestureDetector(
+              onTap: () {
+                if (widget.comment.parentId != null) {
+                  Get.toNamed(
+                    AppPagesRoutes.detailTalk,
+                    parameters: {'id': widget.comment.parentId!},
+                  );
+                }
+              },
+              child: Row(
+                children: [
+                  UserAvatar(
+                    avatarUrl: parentTalksAuthor?.avatar,
+                    direction: BadgeDirection.row,
+                    shortName: parentTalksAuthor?.badge?.shortName,
+                    nickName: parentTalksAuthor?.nickname ?? 'Unknown',
+                    role: parentTalksAuthor?.role ?? 'role',
+                  ),
+                  const SizedBox(width: 6.36),
+                  Expanded(
+                    child: Text(
+                      '님의 톡에 댓글을 남겼습니다.',
+                      style: AppTextStyles.body14R(color: AppColor.black80),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  SvgPicture.asset('assets/icons/svgs/Right.svg')
+                ],
+              ),
             ),
             const SizedBox(height: 15),
             Column(

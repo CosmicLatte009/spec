@@ -52,15 +52,26 @@ class MyCommentTalkPage extends GetView<MyCommentTalkController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Obx(() {
-                      if (controller.isLoading.value) {
+                      if (controller.isLoading.isTrue) {
                         return const CircularProgressIndicator();
+                      }
+                      if (controller.myCommentTalkList.isEmpty) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(50.0),
+                            child: Text(
+                              '아직 내가 쓴 이어달린 톡이 없습니다.',
+                              style: AppTextStyles.body14M(
+                                  color: AppColor.black60),
+                            ),
+                          ),
+                        );
                       } else {
                         return MyCommentTalkBuilder(
-                          data: controller.myCommentTalkList,
+                          commentData: controller.myCommentTalkList,
+                          parentTalks: controller.parentTalks,
                           onTalkUpdated: () async {
                             await controller.getMyTalkList();
-                            await controller.getAllTalks();
-                            await controller.getHotTalks();
                           },
                         );
                       }

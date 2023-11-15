@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../model/talk.dart';
+import '../../../util/app_color.dart';
+import '../../../util/app_text_style.dart';
 import 'talk_bubble.dart';
 
 class MyTalkBubbleBuilder extends StatelessWidget {

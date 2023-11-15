@@ -16,7 +16,9 @@ import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
+import 'package:spec/controller/talk/me/my_comment_talk_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
+import 'package:spec/view/page/auth/change_password_page.dart';
 import 'package:spec/view/page/auth/forgot_password_page.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
@@ -34,7 +36,8 @@ import 'package:spec/view/page/auth/signup_page.dart';
 import 'package:spec/view/page/auth/signup_success_page.dart';
 import 'package:spec/view/page/mogak/update_mogak_page.dart';
 import '../controller/talk/detail_talk_controller.dart';
-import '../controller/talk/main_talk_controller.dart';
+import '../controller/talk/me/my_talk_controller.dart';
+import '../controller/talk/me/my_up_talk_controller.dart';
 import '../view/page/home_page.dart';
 import '../view/page/talk/all_talk_page.dart';
 import '../view/page/talk/detail_talk_page.dart';
@@ -76,7 +79,10 @@ class AppPages {
         Get.lazyPut(() => MyPageController());
       }),
     ),
-
+    GetPage(
+      name: AppPagesRoutes.changePw,
+      page: () => const ChangePasswordPage(),
+    ),
     //talk
     GetPage(
       name: AppPagesRoutes.mainTalk,
@@ -193,29 +199,37 @@ class AppPages {
       }),
     ),
     GetPage(
-      name: AppPagesRoutes.hotTalk,
-      page: () => const HotTalkPage(),
+      name: AppPagesRoutes.myPage,
+      page: () => const MyPage(),
     ),
     GetPage(
       name: AppPagesRoutes.myTalk,
       page: () => const MyTalkPage(),
+      binding: BindingsBuilder(() {
+        Get.put(MyTalkController());
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.myUpTalk,
       page: () => const MyUpTalkPage(),
+      binding: BindingsBuilder(() {
+        Get.put(MyUpTalkController());
+      }),
     ),
     GetPage(
       name: AppPagesRoutes.myCommentTalk,
       page: () => const MyCommentTalkPage(),
+      binding: BindingsBuilder(() {
+        Get.put(MyCommentTalkController());
+      }),
     ),
     GetPage(
-        name: AppPagesRoutes.myPage,
-        page: () => const MyPage(),
-        binding: BindingsBuilder(
-          () {
-            Get.lazyPut(() => ProfileController());
-            Get.lazyPut(() => MyPageController());
-          },
-        )),
+      name: AppPagesRoutes.myPage,
+      page: () => const MyPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProfileController());
+        Get.lazyPut(() => MyPageController());
+      }),
+    ),
   ];
 }

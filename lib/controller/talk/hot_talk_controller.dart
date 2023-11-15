@@ -17,8 +17,10 @@ class HotTalkController extends GetxController {
   TextEditingController textEditingController = TextEditingController();
   void postNewTalkInPopup() {
     talkEditingController.postNewTalkInPopup(
-        Get.context!, textEditingController,
-        afterPostSuccess: getHotTalks);
+      Get.context!,
+      textEditingController,
+      // afterPostSuccess: getHotTalks
+    );
   }
 
   @override

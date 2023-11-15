@@ -41,21 +41,19 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       UserAvatar(
-                        avatarUrl: talk.author.avatar,
+                        avatarUrl: talk.author?.avatar,
                         direction: BadgeDirection.column,
-                        shortName: talk.author.badge?.shortName,
-                        nickName: talk.author.nickname,
+                        shortName: talk.author?.badge?.shortName,
+                        nickName: talk.author?.nickname,
                       ),
                       const SizedBox(width: 17.02),
                       TalkBubble(
                         talk: talk,
                         type: BubbleType.detail,
-                        // mytalk: true,
                         onTapEnabled: false,
                         onTalkUpdated: () async {
                           await controller.getTalkById();
                           await controller.getAllTalks();
-                          await controller.getHotTalks();
                         },
                       ),
                     ],
@@ -81,7 +79,6 @@ class DetailTalkPage extends GetView<DetailTalkController> {
                           onTalkUpdated: () async {
                             await controller.getTalkById();
                             await controller.getAllTalks();
-                            await controller.getHotTalks();
                           },
                         ),
                       ),

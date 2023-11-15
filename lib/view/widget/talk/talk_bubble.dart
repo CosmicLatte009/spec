@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/time_utils.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
-import 'package:spec/view/widget/avatar/stack_avatars.dart';
+import 'package:spec/view/widget/up_and_comment_length.dart';
 import '../../../controller/talk/talk_controller.dart';
 import '../../../controller/talk/talk_editing_controller.dart';
 import '../../../model/talk.dart';
@@ -38,22 +38,12 @@ class _TalkBubbleState extends State<TalkBubble> {
 
   bool isMyTalk = false;
   bool isPressed = false;
-  bool isLikePressed = false;
   TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    checkLikeStatus();
     isMyTalk = talkController.isMyTalk(widget.talk!.authorId);
-  }
-
-  void checkLikeStatus() async {
-    bool liked = await talkController.checkIfUserLikedTalk(widget.talk!.id);
-
-    setState(() {
-      isLikePressed = liked;
-    });
   }
 
   @override
@@ -71,7 +61,7 @@ class _TalkBubbleState extends State<TalkBubble> {
                   context: context,
                   builder: (BuildContext context) {
                     return IconTextWithOneButton(
-                      svgPath: 'assets/icons/sgvs/Warning.svg',
+                      svgPath: 'assets/icons/svgs/Warning.svg',
                       mainMessage: '이미 삭제된 톡입니다!',
                       subMessage: '클릭하신 톡을 찾을 수 없습니다.',
                       buttonTitle: '닫기',
@@ -95,7 +85,7 @@ class _TalkBubbleState extends State<TalkBubble> {
                   context: context,
                   builder: (BuildContext context) {
                     return IconTextWithOneButton(
-                      svgPath: 'assets/icons/sgvs/Warning.svg',
+                      svgPath: 'assets/icons/svgs/Warning.svg',
                       mainMessage: '이미 삭제된 톡입니다!',
                       subMessage: '클릭하신 톡을 찾을 수 없습니다.',
                       buttonTitle: '닫기',
@@ -145,10 +135,11 @@ class _TalkBubbleState extends State<TalkBubble> {
                             style:
                                 AppTextStyles.body14M(color: AppColor.black80),
                             overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           )
                         else
                           Container(
-                            constraints: BoxConstraints(
+                            constraints: const BoxConstraints(
                                 minWidth: 200, maxWidth: double.infinity),
                             child: Text(
                               widget.talk?.content ?? '',
@@ -160,15 +151,19 @@ class _TalkBubbleState extends State<TalkBubble> {
                     ),
                   ),
                   if (!isMyTalk)
-                    InkWell(
-                      onTap: _handleLikePressed,
-                      child: SvgPicture.asset(
-                        isLikePressed
-                            ? 'assets/icons/svgs/Like.svg'
-                            : 'assets/icons/svgs/NotSelect.svg',
-                        width: 20,
-                      ),
-                    ),
+                    Obx(() {
+                      bool isLikePressed =
+                          talkController.isTalkLiked(widget.talk!.id);
+                      return InkWell(
+                        onTap: _handleLikePressed,
+                        child: SvgPicture.asset(
+                          isLikePressed
+                              ? 'assets/icons/svgs/Like.svg'
+                              : 'assets/icons/svgs/NotSelect.svg',
+                          width: 20,
+                        ),
+                      );
+                    }),
                   if (widget.type == BubbleType.myTalkEdit)
                     SvgPicture.asset(
                       'assets/icons/svgs/....svg',
@@ -179,10 +174,9 @@ class _TalkBubbleState extends State<TalkBubble> {
             ),
           ),
           const SizedBox(height: 3),
-          StackAvatars(
-            commentLength: widget.talk?.childrenLength ?? 0,
-            upLength: widget.talk?.upProfiles?.length ?? 0,
-          ),
+          UpAndCommentLength(
+              commentLength: widget.talk?.childrenLength ?? 0,
+              upLength: widget.talk?.upProfiles?.length ?? 0)
         ],
       );
     }
@@ -211,6 +205,9 @@ class _TalkBubbleState extends State<TalkBubble> {
                   talkId,
                   afterDeleteSuccess: () {
                     widget.onTalkUpdated!();
+                    if (widget.type == BubbleType.detail) {
+                      Get.back();
+                    }
                   },
                 );
               },
@@ -229,7 +226,7 @@ class _TalkBubbleState extends State<TalkBubble> {
           Column(
             children: [
               if (widget.type == BubbleType.myTalkEdit)
-                Container(
+                SizedBox(
                   width: 307,
                   child: buildColumnWithBubbleAndAvatars(),
                 ),
@@ -249,12 +246,6 @@ class _TalkBubbleState extends State<TalkBubble> {
   }
 
   void _handleLikePressed() async {
-    bool newLikeStatus = await talkController.toggleLike(widget.talk!.id);
-    if (newLikeStatus != isLikePressed) {
-      setState(() {
-        isLikePressed = newLikeStatus;
-      });
-      widget.onTalkUpdated!();
-    }
+    await talkController.toggleLike(widget.talk!.id);
   }
 }

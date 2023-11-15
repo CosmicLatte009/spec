@@ -4,6 +4,8 @@ import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/default_avatar.dart';
+import 'package:spec/view/widget/avatar/large_avatar.dart';
+import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
@@ -17,8 +19,12 @@ class ProfileEditPage extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = -1;
     List position = ['개발자', '디자이너', '헤드헌터'];
+    //@todo 프로필 수정 페이지
+    // 1. 기존 유저 정보 가져오기. 정보가 있다면 기존 회원이므로
+    // 2. 닉네임은 수정할 수 없도록 하기.
+    // print(controller.authController.myProfile.value?.avatar);
+    // print('curAvatar: ${controller.curAvatar.value}');
 
     return Scaffold(
         appBar: const CustomAppBar(),
@@ -153,7 +159,8 @@ class ProfileEditPage extends GetView<ProfileController> {
                                 children: [
                                   Expanded(
                                     child: CustomButton(
-                                      onTap: () {},
+                                      onTap: controller
+                                          .avatarController.resetAvatar,
                                       text: '초기화',
                                       type: ButtonType.outline,
                                       height: 40,
@@ -164,8 +171,11 @@ class ProfileEditPage extends GetView<ProfileController> {
                                   ),
                                   Expanded(
                                     child: CustomButton(
-                                      onTap: controller.createProfile,
-                                      text: '저장하기',
+                                      onTap: controller.withAuth
+                                          ? controller.uploadProfile
+                                          : controller.createProfile,
+                                      text:
+                                          controller.withAuth ? '수정하기' : '저장하기',
                                       height: 40,
                                     ),
                                   ),
@@ -187,13 +197,24 @@ class ProfileEditPage extends GetView<ProfileController> {
                   right: 0,
                   child: Column(
                     children: [
-                      const CircleAvatar(
-                        radius: 60,
-                        backgroundColor: AppColor.primary05,
-                        child: Opacity(
-                          opacity: 0.2,
-                          child: DefaultAvatar(
-                            width: 200,
+                      Obx(
+                        () => CircleAvatar(
+                          radius: 60,
+                          backgroundColor: AppColor.primary05,
+                          child: Opacity(
+                            opacity: 0.2,
+                            child: controller.authController.myProfile.value !=
+                                    null
+                                ? LargeAvatar(
+                                    //서버로부터 받은 이미지 주소. @todo: 아바타 수정시 수정된 아바타 이미지를 띄워야 함
+                                    avatarUrl: controller.avatar != null
+                                        ? controller.avatar!
+                                        : controller.authController.myProfile
+                                            .value!.avatar!,
+                                  )
+                                : const DefaultAvatar(
+                                    width: 200,
+                                  ),
                           ),
                         ),
                       ),

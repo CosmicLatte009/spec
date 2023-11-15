@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/util/app_color.dart';
-import 'package:spec/view/widget/avatar/default_avatar.dart';
+import 'package:spec/view/widget/avatar/created_avatar.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/card/avatar_card.dart';
 import 'package:spec/view/widget/popup/popup.dart';
 import 'package:spec/view/widget/tab/custom_tabbar.dart';
 
-class EditAvatarPopup extends StatelessWidget {
+class EditAvatarPopup extends GetView<AvatarController> {
   const EditAvatarPopup({super.key});
 
   @override
@@ -29,10 +31,14 @@ class EditAvatarPopup extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 4),
-            const CircleAvatar(
+            //아바타
+            CircleAvatar(
               backgroundColor: AppColor.primary05,
               radius: 60,
-              child: DefaultAvatar(),
+              child: CreatedAvatar(
+                capturedImg: controller.imageUrl,
+                screenshotController: controller.screenshotController,
+              ),
             ),
             const SizedBox(height: 10),
             //아바타 탭 부분
@@ -54,9 +60,7 @@ class EditAvatarPopup extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomButton(
-                        onTap: () {
-                          //@todo 아바타 초기화. 모두 0 null로 지정
-                        },
+                        onTap: controller.resetAvatar,
                         text: '초기화',
                         type: ButtonType.outline,
                         height: 40,
@@ -67,7 +71,7 @@ class EditAvatarPopup extends StatelessWidget {
                     ),
                     Expanded(
                       child: CustomButton(
-                        // onTap: controller.createAvatar,
+                        onTap: controller.captureAndUpload,
                         text: '저장하기',
                         height: 40,
                       ),

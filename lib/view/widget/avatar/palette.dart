@@ -13,7 +13,11 @@ List<Color> get colorList => [
     ];
 
 class Palette extends StatelessWidget {
-  const Palette({super.key});
+  const Palette({
+    super.key,
+    this.colorPicker,
+  });
+  final colorPicker;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +31,15 @@ class Palette extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 12),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: Container(
-                width: 28,
-                height: 28,
-                color: colorList[index],
+              child: GestureDetector(
+                onTap: () {
+                  colorPicker(colorList[index]);
+                },
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  color: colorList[index],
+                ),
               ),
             ),
           );

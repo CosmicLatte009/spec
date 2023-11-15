@@ -19,7 +19,6 @@ import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/controller/talk/me/my_talk_controller.dart';
 import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
-import 'package:spec/view/page/talk/me/my_talk_page.dart';
 import 'controller/talk/all_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';
 import 'controller/talk/me/my_comment_talk_controller.dart';

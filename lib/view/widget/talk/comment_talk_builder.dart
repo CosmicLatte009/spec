@@ -30,8 +30,9 @@ class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
   Widget build(BuildContext context) {
     List<Talk> activeComments = widget.data
         .where((talk) => !talk.isDeleted)
-        .toList(); // 삭제되지 않은 댓글만 필터링
-
+        .toList() // 삭제되지 않은 댓글만 필터링
+        .reversed
+        .toList(); //최근 댓글순
     if (widget.data.isEmpty) {
       return Center(
         child: Padding(
@@ -54,7 +55,6 @@ class _CommentTalkBuilderState extends State<CommentTalkBuilder> {
         var comment = activeComments[index];
         return CommentTalk(
           comment: comment,
-          // myComment: true,
           onTalkUpdated: widget.onTalkUpdated,
         );
       },

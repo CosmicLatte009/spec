@@ -47,7 +47,8 @@ class DetailTalkController extends GetxController {
       talkId, // parentId
       textEditingController,
       afterPostSuccess: () async {
-        await getTalkById(); // 댓글 추가 후 최신 상태 로드
+        await getTalkById();
+        _talkController.update();
       },
     );
   }
@@ -60,8 +61,6 @@ class DetailTalkController extends GetxController {
     if (talkId.isNotEmpty) {
       _talkController.getTalkById(talkId);
     }
-
-    print('단일톡 onInit은 되니');
   }
 
   @override

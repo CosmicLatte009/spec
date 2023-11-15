@@ -26,39 +26,41 @@ class TalkEditingController extends GetxController {
     return null;
   }
 
-  //팝업창에서 POST
-  Future<void> postNewTalkInPopup(
-      BuildContext context, TextEditingController textEditingController,
-      {required VoidCallback afterPostSuccess}) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return TalkEditingPopup(
-          controller: textEditingController,
-          onSubmit: () async {
-            String content = textEditingController.text;
-            if (content.trim().isEmpty) {
-              Get.snackbar('Error', '톡 내용을 작성해주세요!');
-              return;
-            }
-            bool success = await _talkController.postNewTalk(
-              content,
-              null,
-              null,
-              null,
-            );
-            if (success) {
-              Navigator.of(context).pop();
-              textEditingController.clear();
-              Get.snackbar('Success', '톡이 성공적으로 생성되었습니다.');
-              afterPostSuccess();
-            } else {
-              Get.snackbar('Error', '톡 생성에 실패했습니다.');
-            }
-          },
-        );
-      },
-    );
+// 팝업창에서 POST
+  void postNewTalkInPopup(
+    BuildContext context,
+    TextEditingController textEditingController,
+  ) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return TalkEditingPopup(
+            controller: textEditingController,
+            onSubmit: () async {
+              String content = textEditingController.text.trim();
+              if (content.isEmpty) {
+                Get.snackbar('Error', '톡 내용을 작성해주세요!');
+                return;
+              }
+              Talk? newTalk = await _talkController.postNewTalk(
+                content,
+                null,
+                null,
+                null,
+              );
+              if (newTalk != null) {
+                Get.snackbar('Success', '톡이 성공적으로 생성되었습니다.');
+                Navigator.of(context).pop();
+                textEditingController.clear();
+                await _talkController.getAllTalks();
+                await _talkController.getMyTalkList();
+                _talkController.update();
+              } else {
+                Get.snackbar('Error', '톡 생성에 실패했습니다.');
+              }
+            },
+          );
+        });
   }
 
   //댓글창에서 POST
@@ -69,11 +71,17 @@ class TalkEditingController extends GetxController {
       String? parentId,
       TextEditingController textEditingController,
       {required VoidCallback afterPostSuccess}) async {
-    bool success = await _talkController.postNewTalk(
+    Talk? newTalkComment = await _talkController.postNewTalk(
         content, mogakId, catchUpId, parentId);
-    if (success) {
-      textEditingController.clear();
+    if (newTalkComment != null) {
+      _talkController.commentTalks.add(newTalkComment);
+
+      if (_talkController.isMyTalk(newTalkComment.authorId)) {
+        _talkController.myCommentTalkList.add(newTalkComment);
+      }
+
       Get.snackbar('Success', '댓글이 성공적으로 생성되었습니다.');
+      textEditingController.clear();
       afterPostSuccess();
     } else {
       Get.snackbar('Error', '댓글 생성에 실패했습니다.');
@@ -81,7 +89,7 @@ class TalkEditingController extends GetxController {
   }
 
   //팝업창에서 PUT
-  Future<void> updateTalkInPopup(BuildContext context,
+  void updateTalkInPopup(BuildContext context,
       TextEditingController textEditingController, String talkId,
       {required VoidCallback afterUpdateSuccess}) async {
     Talk? currentTalk = getCurrentTalk(talkId);
@@ -102,12 +110,13 @@ class TalkEditingController extends GetxController {
           controller: textEditingController,
           onSubmit: () async {
             String updatedContent = textEditingController.text;
-            bool success =
+            Talk? updatedTalk =
                 await _talkController.updateTalk(talkId, updatedContent);
-            if (success) {
-              afterUpdateSuccess();
-              Get.snackbar('Success', '톡을 성공적으로 업데이트했습니다.');
+            if (updatedTalk != null) {
+              Get.snackbar('Success', '톡이 성공적으로 업데이트되었습니다.');
               Navigator.of(context).pop();
+              _talkController.update();
+              afterUpdateSuccess();
             } else {
               Get.snackbar('Error', '톡 업데이트에 실패했습니다.');
             }
@@ -118,11 +127,11 @@ class TalkEditingController extends GetxController {
   }
 
   //팝업창에서 DELETE
-  Future<void> deleteTalkInPopup(BuildContext context, String talkId,
+  void deleteTalkInPopup(BuildContext context, String talkId,
       {required VoidCallback afterDeleteSuccess}) async {
     await showDialog(
       context: context,
-      builder: (BuildContext dialogContext) {
+      builder: (BuildContext context) {
         return DescriptionWithTwoButton(
           mainMessage: '내 톡을 삭제하시겠습니까?',
           subMessage: '한번 삭제하면 복구가 불가능합니다.',
@@ -132,8 +141,8 @@ class TalkEditingController extends GetxController {
             bool success = await _talkController.deleteTalk(talkId);
             if (success) {
               afterDeleteSuccess();
-              Get.snackbar('Success', '톡 삭제에 성공했습니다.');
-              Navigator.pop(dialogContext);
+              Get.snackbar('Success', '톡이 성공적으로 삭제되었습니다.');
+              Navigator.pop(context);
             } else {
               Get.snackbar('Error', '톡 삭제에 실패했습니다.');
             }
@@ -141,11 +150,5 @@ class TalkEditingController extends GetxController {
         );
       },
     );
-  }
-
-  @override
-  void onInit() async {
-    super.onInit();
-    print('TextEditingController onInit은 되니');
   }
 }

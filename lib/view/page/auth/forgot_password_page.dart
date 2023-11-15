@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/forgot_pw_controller.dart';
+import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
@@ -14,6 +15,8 @@ class ForgotPasswordPage extends GetView<ForgotPasswordController> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final bottomPadding = bottomInset > 0.0 ? 20.0 : 113.0;
     return Scaffold(
         body: Column(
       children: [
@@ -37,18 +40,6 @@ class ForgotPasswordPage extends GetView<ForgotPasswordController> {
                     hint: '이메일을 입력해주세요.',
                   ),
                 ),
-                // Obx(() => CustomButton(
-                //       onTap: controller.hasValue.value
-                //           ? () {
-                //               controller.findPassword(
-                //                   controller.emailController.text);
-                //             }
-                //           : null,
-                //       text: '보내기',
-                //       type: ButtonType.main,
-                //       height: 56,
-                //       disabled: !controller.hasValue.value,
-                //     )),
                 Obx(() {
                   bool buttonEnabled = controller.hasValue.value;
                   return CustomButton(
@@ -69,8 +60,9 @@ class ForgotPasswordPage extends GetView<ForgotPasswordController> {
                                     );
                                   },
                                 ).then((_) {
-                                  // Dialog가 닫힐 때 실행
-                                  Get.toNamed('/login');
+                                  Get.toNamed(AppPagesRoutes.login, arguments: {
+                                    "previousPage": "forgotPassword"
+                                  });
                                   controller.isSuccess.value = false;
                                 }),
                               );
@@ -83,7 +75,7 @@ class ForgotPasswordPage extends GetView<ForgotPasswordController> {
                     disabled: !buttonEnabled,
                   );
                 }),
-                const SizedBox(height: 113),
+                SizedBox(height: bottomPadding),
               ],
             ),
           ),

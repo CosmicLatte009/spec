@@ -3,14 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:spec/util/app_page_routes.dart';
-import 'package:spec/view/page/home_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 import '../model/my_profile.dart';
 
 class AuthController extends GetxController {
   final RxInt isLoggedIn = RxInt(-1);
-  String? dmddo;
+  String? readToken;
 
   //로그인 구현
 
@@ -38,15 +37,19 @@ class AuthController extends GetxController {
           isLoggedIn.value = 1;
           print('성공');
           await storage.write(key: 'jwt_token', value: token);
-          dmddo = await storage.read(key: 'jwt_token');
-          Get.toNamed(AppPagesRoutes.home);
+          readToken = await storage.read(key: 'jwt_token');
 
-          if (dmddo != null) {
-            print(dmddo);
-            print('프린트 성공');
+          if (readToken != null) {
+            print(readToken);
+
             getMyInfo();
-
-            Get.to(() => HomePage());
+            // 전페이지가 비밀번호 찾기인 경우 로그인 성공하면 비밀번호 변경 페이지로 이동
+            var previousPage = Get.arguments?["previousPage"];
+            if (previousPage == "forgotPassword") {
+              Get.toNamed(AppPagesRoutes.changePw);
+            } else {
+              Get.toNamed(AppPagesRoutes.home);
+            }
           }
         } else if (token == null) {
           isLoggedIn.value = 0;
@@ -57,10 +60,10 @@ class AuthController extends GetxController {
             void showLoginFailDialog() {
               Get.dialog(
                 IconTextWithOneButton(
-                  svgPath: 'dsd',
-                  mainMessage: 'sdsd',
-                  buttonTitle: 'sdsd',
-                  subMessage: 'sdsds',
+                  svgPath: 'assets/icons/svgs/Warning.svg',
+                  mainMessage: '로그인에 실패했습니다.',
+                  buttonTitle: '다시하기',
+                  subMessage: '다시 시도해주세요.',
                 ),
               ); // 실패 시 표시할 다이얼로그
             }
@@ -94,7 +97,6 @@ class AuthController extends GetxController {
       if (res.statusCode == 200 && res.data["status"] == "success") {
         var resData = res.data["data"];
         _myProfile.value = MyProfile.fromMap(resData);
-        print(_myProfile);
       } else {
         print(res.data["message"]);
       }
@@ -142,22 +144,18 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<bool> attemptChangePassword(
+  Future<bool> changePassword(
       String currentPassword, String newPassword) async {
-    // 필요에 따라 비밀번호 인코딩
-
     currentPassword = base64Encode(utf8.encode(currentPassword));
     newPassword = base64Encode(utf8.encode(newPassword));
 
-    print(currentPassword);
-    print(newPassword);
-    final token = await getToken(); // JWT 토큰 가져오기
+    final token = await getToken();
     if (token == null) {
       throw Exception('Token not found');
     }
 
     try {
-      final response = await _dio.post(
+      var res = await _dio.post(
           'https://dev.sniperfactory.com/api/auth/change-password',
           options: Options(headers: {
             'Content-Type': 'application/json',
@@ -168,38 +166,26 @@ class AuthController extends GetxController {
             'newPassword': newPassword
           });
 
-      if (response.statusCode == 200) {
-        print(currentPassword);
-        print(newPassword);
-
-        // 요청이 성공했다면, 처리 결과에 따라 반환
-        if (response.data['data'] == null) {
-          void showLoginFailDialog() {
-            Get.dialog(
-              IconTextWithOneButton(
-                svgPath: 'assets/icons/svgs/Warning.svg',
-                mainMessage: '로그인에 실패하였습니다.',
-                buttonTitle: '다시하기',
-                subMessage: '다시 시도해주세요.',
-              ),
-            ); // 실패 시 표시할 다이얼로그
-          }
-
-          showLoginFailDialog();
-        }
-        print(response.data);
+      if (res.statusCode == 200 && res.data["status"] == "success") {
+        Get.toNamed(AppPagesRoutes.login);
+        Get.snackbar('Success', '비밀번호가 성공적으로 변경되었습니다.');
         return true;
       } else {
-        // 실패 처리
-        throw Exception('Failed to change password');
+        return false;
       }
-    } on DioError catch (e) {
-      // Dio 관련 오류 처리
-      throw Exception('Dio error: ${e.message}');
+    } on DioException catch (e) {
+      print('Dio error: ${e.message}');
+      return false;
     } catch (e) {
-      // 기타 오류 처리
-      throw Exception('Unexpected error: $e');
+      print('Unexpected error: $e');
+      return false;
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await getMyInfo();
   }
 }
 

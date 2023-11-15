@@ -88,7 +88,7 @@ class CatchUpController extends GetxController {
 
   /// Fetches CatchUp data from the API.
   Future<List<CatchUp>> fetchCatchUp() async {
-    String? _token = _authController.dmddo;
+    String? _token = _authController.readToken;
 
     if (_token == null) {
       print("Token is null");
@@ -130,7 +130,7 @@ class CatchUpController extends GetxController {
   }
 
   Future<List<CatchUp>> HotCatchup() async {
-    String? _token = _authController.dmddo;
+    String? _token = _authController.readToken;
     print(_token);
     if (_token == null) {
       print("Token is null");
@@ -205,7 +205,7 @@ class CatchUpController extends GetxController {
   }
 
   sendLike(String catchUpId) async {
-    String? _tokenLike = _authController.dmddo;
+    String? _tokenLike = _authController.readToken;
     print(_tokenLike);
 
     try {

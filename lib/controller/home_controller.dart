@@ -127,7 +127,7 @@ class HomeController extends GetxController {
   }
 
   Future<List<CatchUp>> fetchHomeHotCatchup() async {
-    String? _token = _authController.dmddo;
+    String? _token = _authController.readToken;
     print(_token);
     if (_token == null) {
       print("Token is null");

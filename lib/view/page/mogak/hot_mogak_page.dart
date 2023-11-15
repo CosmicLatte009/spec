@@ -40,21 +40,11 @@ class HotMogakPage extends GetView<HotMogakController> {
                   title: title,
                   titleDirection: TitleDirection.center,
                 ),
-                // FilterButton
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      OrderbyButton(
-                        onTap: () {
-                          controller.filterController.toggleOrderBy();
-                          controller.controller.getAllMogak();
-                        },
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      //모각코 카드
+                      const SizedBox(height: 24),
                       Obx(
                         () => ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),

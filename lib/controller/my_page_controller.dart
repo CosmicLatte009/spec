@@ -38,10 +38,12 @@ class MyPageController extends GetxController {
     String baseUrl = 'https://dev.sniperfactory.com';
     dio.options.baseUrl = baseUrl;
     RxString? authToken = RxString(await authController.getToken() ?? "");
-    dio.options.headers['Authorization'] = authToken;
+    dio.options.headers['Authorization'] = authToken.value;
 
-    await getUserInfo();
-    await fetchMyRank();
+    if (authToken.value != "") {
+      await getUserInfo();
+      await fetchMyRank();
+    }
   }
 
   Future<List<MyRank>> fetchMyRank() async {

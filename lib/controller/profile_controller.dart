@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
 import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
-import 'package:spec/model/my_profile.dart';
 import 'package:spec/model/profile.dart';
 import 'package:spec/view/page/me/my_page.dart';
+import 'package:spec/view/widget/alert/300_width/with_one_button.dart';
 
 class ProfileController extends GetxController {
   var controller = Get.find<SignupController>();
@@ -17,7 +17,6 @@ class ProfileController extends GetxController {
   final List<String> _positions = ["DEVELOPER", "DESIGNER", "HEADHUNTER"];
   final RxInt _selectedIndex = RxInt(0);
   final RxBool _withAuth = false.obs;
-  final RxString curAvatar = ''.obs;
 
   get selectedIndex => _selectedIndex.value;
   String get _selectedPosition {
@@ -25,6 +24,7 @@ class ProfileController extends GetxController {
   }
 
   bool get withAuth => _withAuth.value;
+  Rxn<Profile> get curInfo => authController.myProfile;
 
   void updateIndex(int index) {
     _selectedIndex.value = index;
@@ -84,6 +84,15 @@ class ProfileController extends GetxController {
     String? urlPortfolio = portfolio1Controller.text;
     String? urlEtc = portfolio2Controller.text;
 
+    if (nickname != curInfo.value!.nickname) {
+      Get.dialog(
+        const WithOneButton(
+          message: '닉네임을 수정할 수 없습니다. 다시 시도해주세요.',
+        ),
+      );
+      return;
+    }
+
     try {
       var res = await dio.put(path, data: {
         'nickname': nickname,
@@ -131,5 +140,17 @@ class ProfileController extends GetxController {
     if (authToken.value != "") {
       _withAuth.value = true;
     }
+
+    ever(authController.myProfile, (callback) {
+      if (curInfo.value != null && _withAuth.value == true) {
+        nicknameController.text = curInfo.value!.nickname;
+        int curIdx = _positions.indexOf(curInfo.value!.position);
+        if (curIdx != -1) {
+          updateIndex(curIdx);
+        } else {
+          updateIndex(0);
+        }
+      }
+    });
   }
 }

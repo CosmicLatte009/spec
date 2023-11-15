@@ -57,10 +57,10 @@ class AuthController extends GetxController {
             void showLoginFailDialog() {
               Get.dialog(
                 const IconTextWithOneButton(
-                  svgPath: 'dsd',
-                  mainMessage: 'sdsd',
-                  buttonTitle: 'sdsd',
-                  subMessage: 'sdsds',
+                  svgPath: 'assets/icons/svgs/Warning.svg',
+                  mainMessage: '로그인에 실패했습니다.',
+                  buttonTitle: '다시하기',
+                  subMessage: '다시 시도해주세요.',
                 ),
               ); // 실패 시 표시할 다이얼로그
             }
@@ -205,4 +205,26 @@ class AuthController extends GetxController {
       Get.snackbar('오류', '로그아웃 중 오류가 발생했습니다.');
     }
   }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await getMyInfo();
+  }
 }
+
+
+//   void logout() {
+//     // 로그아웃 로직 구현, 예: 토큰 삭제, 사용자 데이터 삭제 등.
+//     Future<void> deleteToken() async {
+//       try {
+//         await storage.delete(key: 'jwt_token');
+//         Get.snackbar('성공', '토큰이 성공적으로 삭제되었습니다.');
+//       } catch (e) {
+//         print('토큰 삭제 오류: $e');
+//         Get.snackbar('오류', '토큰 삭제 중 오류가 발생했습니다.');
+//       }
+//     }
+//   }
+// }
+

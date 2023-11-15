@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
 
 class UploadController extends GetxController {
   var authController = Get.find<AuthController>();
@@ -9,16 +10,23 @@ class UploadController extends GetxController {
   Dio dio = Dio();
 
   uploadAsset(image) async {
+    dio.options.contentType = 'multipart/form-data';
     String path = '/api/upload';
     try {
       var res = await dio.post(path, data: image);
       if (res.data["data"] != null) {
-        imageUrl.value = res.data["data"]["url"];
+        imageUrl.value = res.data["data"][0]["url"];
       } else {
-        print('return null: ${res.data['message']}');
+        Get.dialog(
+          AvatarWithOneButton(
+            mainMessage: '아바타를 수정하지 못했습니다.',
+            subMessage: res.data['message'],
+            buttonTitle: '확인하기',
+          ),
+        );
       }
     } catch (e) {
-      print('upload fail: $e');
+      print('uploadAsset: $e');
     }
   }
 

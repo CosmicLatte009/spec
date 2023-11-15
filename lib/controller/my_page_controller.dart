@@ -9,7 +9,7 @@ class MyPageController extends GetxController {
   final AuthController authController = Get.find<AuthController>();
   final ProfileController profileController = Get.find<ProfileController>();
 
-  Rx<List<MyRank>> myRankInfo = Rx<List<MyRank>>([]);
+  Rx<List<MyInfo>> myRankInfo = Rx<List<MyInfo>>([]);
 
   final Rxn<Profile> _userInfo = Rxn();
   Profile? get userInfo => _userInfo.value;
@@ -46,7 +46,7 @@ class MyPageController extends GetxController {
     }
   }
 
-  Future<List<MyRank>> fetchMyRank() async {
+  Future<List<MyInfo>> fetchMyRank() async {
     const String path = '/api/me/rank';
 
     try {
@@ -58,11 +58,11 @@ class MyPageController extends GetxController {
         if (jsonData['status'] == 'success' && jsonData['data'] != null) {
           var data = jsonData['data'];
           if (data['res'] is List) {
-            List<MyRank> myInfos = (data['res'] as List)
+            List<MyInfo> myInfos = (data['res'] as List)
                 .map((item) => item == null
                     ? null
-                    : MyRank.fromMap(item as Map<String, dynamic>))
-                .whereType<MyRank>()
+                    : MyInfo.fromMap(item as Map<String, dynamic>))
+                .whereType<MyInfo>()
                 .toList();
             myRankInfo.value = myInfos;
             return myInfos;

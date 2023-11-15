@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/home_page.dart';
+import 'package:spec/view/page/splash_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 import '../model/my_profile.dart';
@@ -15,7 +16,7 @@ class AuthController extends GetxController {
   //로그인 구현
 
   final BASE_URL = 'https://dev.sniperfactory.com/api/auth/login';
-  final storage = new FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   final Dio _dio = Dio();
 
   Future<void> login(String id, String pw) async {
@@ -46,17 +47,17 @@ class AuthController extends GetxController {
             print('프린트 성공');
             getMyInfo();
 
-            Get.to(() => HomePage());
+            Get.to(() => const HomePage());
           }
         } else if (token == null) {
           isLoggedIn.value = 0;
           await Future.delayed(
-              Duration(milliseconds: 300)); // 로그인 로직이 비동기일 경우 대기
+              const Duration(milliseconds: 300)); // 로그인 로직이 비동기일 경우 대기
           if (isLoggedIn.value == 0) {
             // 로그인 실패 시 다이얼로그 표시
             void showLoginFailDialog() {
               Get.dialog(
-                IconTextWithOneButton(
+                const IconTextWithOneButton(
                   svgPath: 'dsd',
                   mainMessage: 'sdsd',
                   buttonTitle: 'sdsd',
@@ -176,7 +177,7 @@ class AuthController extends GetxController {
         if (response.data['data'] == null) {
           void showLoginFailDialog() {
             Get.dialog(
-              IconTextWithOneButton(
+              const IconTextWithOneButton(
                 svgPath: 'assets/icons/svgs/Warning.svg',
                 mainMessage: '로그인에 실패하였습니다.',
                 buttonTitle: '다시하기',
@@ -201,20 +202,14 @@ class AuthController extends GetxController {
       throw Exception('Unexpected error: $e');
     }
   }
+
+  void logout() async {
+    try {
+      await storage.delete(key: 'jwt_token');
+      Get.to(() => const SplashPage());
+    } catch (e) {
+      print('토큰 삭제 오류: $e');
+      Get.snackbar('오류', '로그아웃 중 오류가 발생했습니다.');
+    }
+  }
 }
-
-
-//   void logout() {
-//     // 로그아웃 로직 구현, 예: 토큰 삭제, 사용자 데이터 삭제 등.
-//     Future<void> deleteToken() async {
-//       try {
-//         await storage.delete(key: 'jwt_token');
-//         Get.snackbar('성공', '토큰이 성공적으로 삭제되었습니다.');
-//       } catch (e) {
-//         print('토큰 삭제 오류: $e');
-//         Get.snackbar('오류', '토큰 삭제 중 오류가 발생했습니다.');
-//       }
-//     }
-//   }
-// }
-

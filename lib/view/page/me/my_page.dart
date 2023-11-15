@@ -7,6 +7,7 @@ import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/auth/change_password_page.dart';
 import 'package:spec/view/page/me/profile_edit_page.dart';
+import 'package:spec/view/widget/alert/300_width/with_two_button.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 import 'package:spec/view/widget/button/list_button.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
@@ -404,7 +405,18 @@ class MyPage extends GetView<MyPageController> {
                                 text: '로그아웃',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(const ChangePasswordPage());
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return WithTwoButton(
+                                            button1: '취소하기',
+                                            button2: '로그아웃',
+                                            message: '정말 로그아웃 하시겠습니까?',
+                                            callback2: () {
+                                              controller.authController
+                                                  .logout();
+                                            });
+                                      });
                                 },
                               ),
                             ),

@@ -1,51 +1,68 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/model/my_profile.dart';
+import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/model/my_rank.dart';
+import 'package:spec/model/profile.dart';
 
 class MyPageController extends GetxController {
   final AuthController authController = Get.find<AuthController>();
+  final ProfileController profileController = Get.find<ProfileController>();
 
-  Rx<List<MyInfo>> myProfileInfo = Rx<List<MyInfo>>([]);
+  Rx<List<MyRank>> myRankInfo = Rx<List<MyRank>>([]);
 
-  final String baseUrl = 'https://dev.sniperfactory.com/api/me/rank';
-  final Dio _dio = Dio();
+  final Rxn<Profile> _userInfo = Rxn();
+  Profile? get userInfo => _userInfo.value;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchMyInfo();
+  getUserInfo() async {
+    String path = '/api/me/profile';
+    try {
+      var res = await dio.get(path);
+      if (res.data['data'] != null) {
+        // print('res.data: ${res.data}');
+        // print('res.data: ${Profile.fromMap(res.data["data"]).avatar}');
+        _userInfo.value = Profile.fromMap(res.data["data"]);
+      } else {
+        print(res.data["message"]);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
-  Future<List<MyInfo>> fetchMyInfo() async {
-    String? token = await authController.getToken();
-    List<MyInfo> profiles = [];
+  final Dio dio = Dio();
 
-    if (token == null) {
-      print("Token is null");
-      return profiles;
-    }
+  @override
+  void onInit() async {
+    super.onInit();
+    String baseUrl = 'https://dev.sniperfactory.com';
+    dio.options.baseUrl = baseUrl;
+    RxString? authToken = RxString(await authController.getToken() ?? "");
+    dio.options.headers['Authorization'] = authToken;
+
+    await getUserInfo();
+    await fetchMyRank();
+  }
+
+  Future<List<MyRank>> fetchMyRank() async {
+    const String path = '/api/me/rank';
 
     try {
-      var response = await _dio.get(
-        baseUrl,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      var response = await dio.get(
+        path,
       );
-
       if (response.statusCode == 200) {
         var jsonData = response.data;
         if (jsonData['status'] == 'success' && jsonData['data'] != null) {
           var data = jsonData['data'];
           if (data['res'] is List) {
-            List<MyInfo> myInfos = (data['res'] as List)
+            List<MyRank> myInfos = (data['res'] as List)
                 .map((item) => item == null
                     ? null
-                    : MyInfo.fromMap(item as Map<String, dynamic>))
-                .whereType<MyInfo>()
+                    : MyRank.fromMap(item as Map<String, dynamic>))
+                .whereType<MyRank>()
                 .toList();
-            print("myInfos: ${myProfileInfo.value}");
-            myProfileInfo.value = myInfos;
+            myRankInfo.value = myInfos;
             return myInfos;
           } else {
             throw Exception('Invalid format for "res" field, expected a List.');
@@ -58,12 +75,12 @@ class MyPageController extends GetxController {
         throw Exception(
             'Server error with status code: ${response.statusCode}');
       }
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       print('Dio error: $dioError');
       throw Exception('Dio error: $dioError');
     } catch (e) {
-      print('Error fetching MyInfo data: $e');
-      throw Exception('Error fetching MyInfo data: $e');
+      print('Error fetching MyRank data: $e');
+      throw Exception('Error fetching MyRank data: $e');
     }
   }
 }

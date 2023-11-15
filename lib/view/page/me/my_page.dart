@@ -13,8 +13,6 @@ import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 
-import '../talk/me/my_talk_page.dart';
-
 class MyPage extends GetView<MyPageController> {
   static const route = '/mypage';
 
@@ -44,13 +42,17 @@ class MyPage extends GetView<MyPageController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // 리스트가 비어있지 않은지 확인하고 첫 번째 요소에 접근합니다.
-                    const UserAvatar(
-                      avatarSize: AvatarSize.w60,
-                      shortName: '디자이너/1기',
-                      nickName: '캐서린',
-                      direction: BadgeDirection.column,
-                      role: 'newbie',
+                    Obx(
+                      () => controller.userInfo != null
+                          ? UserAvatar(
+                              avatarUrl: controller.userInfo!.avatar,
+                              avatarSize: AvatarSize.w60,
+                              shortName: controller.userInfo!.badge?.shortName,
+                              nickName: controller.userInfo!.nickname,
+                              direction: BadgeDirection.column,
+                              role: controller.userInfo!.role,
+                            )
+                          : const UserAvatar(),
                     ),
                     const SizedBox(height: 20),
                     SvgPicture.asset(
@@ -193,7 +195,7 @@ class MyPage extends GetView<MyPageController> {
                         border: Border.all(
                             width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
-                      SizedBox(height: 21),
+                      const SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: NavMenu(
@@ -226,7 +228,6 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myUpTalk);
-
                                 },
                               ),
                             ),
@@ -237,7 +238,6 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myCommentTalk);
-
                                 },
                               ),
                             ),
@@ -256,10 +256,9 @@ class MyPage extends GetView<MyPageController> {
                         border: Border.all(
                             width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
-                      SizedBox(height: 21),
+                      const SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
-
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -309,10 +308,9 @@ class MyPage extends GetView<MyPageController> {
                         border: Border.all(
                             width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
-                      SizedBox(height: 21),
+                      const SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
-
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -362,7 +360,7 @@ class MyPage extends GetView<MyPageController> {
                         border: Border.all(
                             width: 1, color: const Color(0xFFE6E6E6))),
                     child: Column(children: [
-                      SizedBox(height: 21),
+                      const SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: NavMenu(

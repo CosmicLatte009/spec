@@ -196,7 +196,7 @@ class AppPages {
         Get.lazyPut(() => JoinedMogakController());
         Get.lazyPut(() => LikeController());
         Get.lazyPut(() => ProfileController());
-        Get.lazyPut(() => SignupController()); // @todo 어디까지 바인딩해야하는가?
+        Get.lazyPut(() => SignupController());
       }),
     ),
     GetPage(

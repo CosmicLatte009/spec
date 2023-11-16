@@ -12,7 +12,7 @@ class MeMogakController extends GetxController {
   var editController = Get.find<CreateMogakController>();
   var authController = Get.find<AuthController>();
   var filterController = Get.find<FilterController>();
-  var upController = Get.find<LikeController>(); // @todo 좋아요 상태 초기화 필요
+  var upController = Get.find<LikeController>();
 
   final RxList<Mogak> _meMogaks = RxList([]);
 

@@ -384,7 +384,6 @@ class MyPage extends GetView<MyPageController> {
                                 text: '내 정보 수정하기',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  //@todo 기존 정보 초기화
                                   Get.to(const ProfileEditPage());
                                 },
                               ),

@@ -20,6 +20,7 @@ import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
 import 'package:spec/controller/talk/talk_editing_controller.dart';
 import 'package:spec/util/app_pages.dart';
+import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
 import 'package:spec/view/page/home_page.dart';
 import 'controller/talk/all_talk_controller.dart';
 import 'controller/talk/hot_talk_controller.dart';

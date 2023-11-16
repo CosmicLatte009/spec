@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spec/model/author.dart';
 import 'package:spec/model/best_spacer.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 
 class BestSpacerWidgetPage extends StatelessWidget {
-  final BestSpacer bestSpacer;
+  final Author bestSpacer;
   final bool isFirstPlace;
   final Widget badge; // 뱃지 위젯을 위한 새로운 파라미터 추가
 
@@ -18,7 +19,7 @@ class BestSpacerWidgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = isFirstPlace ? 143 : 107;
+    double width = isFirstPlace ? 138 : 107;
     double height = isFirstPlace ? 165 : 137;
 
     return Container(
@@ -38,12 +39,13 @@ class BestSpacerWidgetPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               UserAvatar(
-                shortName: bestSpacer.position,
+                avatarUrl: bestSpacer.avatar,
+                shortName: bestSpacer.badge?.shortName,
                 nickName: bestSpacer.nickname,
                 direction: BadgeDirection.column,
                 role: bestSpacer.role,
-                roleHeight: width == 143 ? 22 : 17,
-                avatarSize: width == 143 ? AvatarSize.w60 : AvatarSize.w40,
+                roleHeight: width == 138 ? 22 : 17,
+                avatarSize: width == 138 ? AvatarSize.w60 : AvatarSize.w40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

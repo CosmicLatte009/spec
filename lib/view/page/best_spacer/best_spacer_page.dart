@@ -95,7 +95,7 @@ class BestSpacerPage extends GetView<HomeController> {
                       BestSpacerWidgetPage(
                         bestSpacer: sortedBestSpacers[1],
                         badge: Image.asset('assets/icons/pngs/2nd.png',
-                            width: 30, height: 43), // 2등 뱃지
+                            width: 29, height: 43), // 2등 뱃지
                       ),
                       BestSpacerWidgetPage(
                         bestSpacer: sortedBestSpacers[0],
@@ -107,7 +107,7 @@ class BestSpacerPage extends GetView<HomeController> {
                       BestSpacerWidgetPage(
                         bestSpacer: sortedBestSpacers[2],
                         badge: Image.asset('assets/icons/pngs/3rd.png',
-                            width: 30, height: 43), // 3등 뱃지
+                            width: 28, height: 43), // 3등 뱃지
                       ),
                       // 나머지 스페이서 위젯들...
                     ],
@@ -127,7 +127,8 @@ class BestSpacerPage extends GetView<HomeController> {
                             child: Row(
                               children: [
                                 UserAvatar(
-                                  shortName: bestSpacer.position,
+                                  avatarUrl: bestSpacer.avatar,
+                                  shortName: bestSpacer.badge?.shortName,
                                   nickName: bestSpacer.nickname,
                                   direction: BadgeDirection.row,
                                   role: bestSpacer.role,

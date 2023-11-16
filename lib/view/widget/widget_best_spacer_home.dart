@@ -67,7 +67,8 @@ class BestSpacerWidgetHome extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         UserAvatar(
-                          shortName: bestSpacer.position,
+                          avatarUrl: bestSpacer.avatar,
+                          shortName: bestSpacer.badge?.shortName,
                           nickName: bestSpacer.nickname,
                           direction: BadgeDirection.column,
                           role: bestSpacer.role,

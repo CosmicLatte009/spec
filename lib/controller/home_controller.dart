@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/model/author.dart';
 import 'package:spec/model/best_spacer.dart';
 import 'package:spec/model/catchup.dart';
 import 'package:spec/model/course.dart';
 
 class HomeController extends GetxController {
   var allCourse = <Course>[].obs;
-  var allBestSpacer = <BestSpacer>[].obs;
+  var allBestSpacer = <Author>[].obs;
   Rx<List<CatchUp>> hotCatchUpCategory = Rx<List<CatchUp>>([]);
   Rx<List<CatchUp>> HomeHotCatchUps = Rx<List<CatchUp>>([]);
 
@@ -93,7 +94,7 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<List<BestSpacer>> fetchBestSpacerData() async {
+  Future<List<Author>> fetchBestSpacerData() async {
     final token = await _authController.getToken();
     if (token == null) {
       throw Exception('Token not found');
@@ -109,8 +110,8 @@ class HomeController extends GetxController {
         var resData = response.data['data'];
         print(resData);
         if (resData is List) {
-          List<BestSpacer> bestSpacers =
-              resData.map((json) => BestSpacer.fromMap(json)).toList();
+          List<Author> bestSpacers =
+              resData.map((json) => Author.fromMap(json)).toList();
           allBestSpacer.value = bestSpacers;
           return bestSpacers;
         } else {

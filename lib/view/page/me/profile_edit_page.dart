@@ -200,9 +200,12 @@ class ProfileEditPage extends GetView<ProfileController> {
                                       avatarUrl: controller.avatar ??
                                           controller.curInfo.value!.avatar!,
                                     )
-                                  : const DefaultAvatar(
-                                      width: 200,
-                                    ))
+                                  : controller.avatar != ''
+                                      ? LargeAvatar(
+                                          avatarUrl: controller.avatar!)
+                                      : const DefaultAvatar(
+                                          width: 200,
+                                        ))
                               : const Opacity(
                                   opacity: 0.2,
                                   child: DefaultAvatar(
@@ -213,6 +216,10 @@ class ProfileEditPage extends GetView<ProfileController> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          print('controller.avatar: ${controller.avatar}');
+                          print(
+                              'controller.curInfo.value?.avatar: ${controller.curInfo.value?.avatar}');
+                          print(controller.withAuth);
                           showDialog(
                             context: context,
                             builder: (context) {

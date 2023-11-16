@@ -194,18 +194,16 @@ class ProfileEditPage extends GetView<ProfileController> {
                         () => CircleAvatar(
                           radius: 60,
                           backgroundColor: AppColor.primary05,
-                          child: controller.withAuth == true //인증한 유저의 경우
-                              ? (controller.curInfo.value!.avatar != null
+                          child: controller.withAuth == true
+                              ? (controller.curInfo.value?.avatar != null
                                   ? LargeAvatar(
-                                      avatarUrl: controller.avatar != ''
-                                          ? controller.avatar!
-                                          : controller.curInfo.value!.avatar!,
+                                      avatarUrl: controller.avatar ??
+                                          controller.curInfo.value!.avatar!,
                                     )
                                   : const DefaultAvatar(
                                       width: 200,
                                     ))
                               : const Opacity(
-                                  //인증되지 않은 유저의 경우
                                   opacity: 0.2,
                                   child: DefaultAvatar(
                                     width: 200,

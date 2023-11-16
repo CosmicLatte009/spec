@@ -72,12 +72,15 @@ class CreateMogakController extends GetxController {
         'visiblityStatus': visiblityState,
       });
 
-      print(res.data);
       if (res.statusCode == 200) {
         if (res.data["status"] == 'success') {
+          await Get.dialog(
+            const AvatarWithOneButton(
+              mainMessage: '모각코 모집 글이 성공적으로 작성되었습니다.',
+            ),
+          );
           controller.getAllMogak();
           Get.toNamed(AppPagesRoutes.allMogak);
-          print(res.data["data"]);
         } else {
           print(res.data["message"]);
         }
@@ -105,15 +108,15 @@ class CreateMogakController extends GetxController {
         'visiblityStatus': visiblityState,
       });
 
-      print(res.data);
       if (res.statusCode == 200) {
         if (res.data["status"] == 'success') {
-          Get.dialog(
-            const AvatarWithOneButton(mainMessage: '모각코 모집 글이 성공적으로 수정되었습니다.'),
+          await Get.dialog(
+            const AvatarWithOneButton(
+              mainMessage: '모각코 모집 글이 성공적으로 수정되었습니다.',
+            ),
           );
           controller.getAllMogak();
           Get.toNamed(AppPagesRoutes.allMogak);
-          print(res.data["data"]);
         } else {
           print(res.data["message"]);
         }

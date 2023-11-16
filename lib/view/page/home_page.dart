@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   SizedBox(
-                    height: 150,
+                    height: 175,
                     child: PageView.builder(
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
@@ -96,7 +96,10 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         var course = controller.allCourse[index];
                         return course.thumbnail != null
-                            ? Image.network(course.thumbnail, fit: BoxFit.cover)
+                            ? Image.network(
+                                course.thumbnail,
+                                fit: BoxFit.fill,
+                              )
                             : Container();
                       },
                     ),

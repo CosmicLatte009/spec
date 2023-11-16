@@ -17,6 +17,11 @@ import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/up_and_comment_length.dart';
 import 'package:spec/view/widget/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/widget_card.dart';
+import '../../controller/talk/talk_controller.dart';
+import '../../model/talk.dart';
+import '../../util/app_color.dart';
+import '../../util/app_text_style.dart';
+import '../widget/talk/talk_bubble_builder.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/home';
@@ -127,9 +132,15 @@ class _HomePageState extends State<HomePage> {
                 Get.toNamed(AppPagesRoutes.hotTalk);
               },
             ),
-            //_buildHotTalkSection(),
+            Obx(() {
+              return _buildHotTalkSection();
+            }),
+            const SizedBox(
+              height: 24,
+            ),
             NavMenu(
               title: '핫한 캐치업',
+              emoji: 'assets/icons/pngs/dart.png',
               withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
@@ -140,8 +151,12 @@ class _HomePageState extends State<HomePage> {
               var homeHotCatchUpsList = controller.HomeHotCatchUps.value;
               return _buildHotListView(homeHotCatchUpsList);
             }),
+            const SizedBox(
+              height: 24,
+            ),
             NavMenu(
               title: '핫한 모각코',
+              emoji: 'assets/icons/pngs/letter.png',
               withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () {
@@ -185,6 +200,8 @@ class _HomePageState extends State<HomePage> {
             ),
             NavMenu(
               title: '이달의 스페이서',
+              emoji: 'assets/icons/pngs/laptop.png',
+              withEmoji: true,
               titleDirection: TitleDirection.left,
               onButtonPressed: () => Get.to(BestSpacerPage()),
             ),
@@ -193,6 +210,27 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  final talkController = Get.find<TalkController>();
+  Widget _buildHotTalkSection() {
+    if (talkController.hotTalks.isNotEmpty) {
+      var hotTalk = talkController.hotTalks.sublist(0, 2);
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: TalkBubbleBuilder(
+          data: RxList<Talk>.from(hotTalk),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Align(
+            alignment: Alignment.center,
+            child: Text('현재 핫한 톡이 없습니다.',
+                style: AppTextStyles.body14M(color: AppColor.black80))),
+      );
+    }
   }
 
   Widget _buildHotListView(List<CatchUp> hotCatchUpsList) {

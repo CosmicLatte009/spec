@@ -316,7 +316,7 @@ class MyPage extends GetView<MyPageController> {
                           withEmoji: true,
                           withIconButton: false,
                           title: '나의 모각코!',
-                          emoji: 'assets/icons/pngs/dart.png',
+                          emoji: 'assets/icons/pngs/letter.png',
                           titleDirection: TitleDirection.left,
                         ),
                       ),

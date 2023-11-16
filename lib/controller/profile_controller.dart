@@ -143,7 +143,7 @@ class ProfileController extends GetxController {
     RxString? authToken = RxString(await authController.getToken() ?? "");
     dio.options.headers['Authorization'] = authToken;
 
-    if (authToken.value != "") {
+    if (authToken.value != "" && curInfo.value != null) {
       _withAuth.value = true;
     }
 

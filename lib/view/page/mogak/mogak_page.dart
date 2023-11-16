@@ -82,7 +82,12 @@ class MogakPage extends GetView<MogakController> {
                             ),
                           ],
                         )
-                      : Container(),
+                      : const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                            child: Text('해당하는 글이 없습니다'),
+                          ),
+                        ),
                 ),
                 NavMenu(
                   title: AllMogakPage.title,
@@ -127,7 +132,12 @@ class MogakPage extends GetView<MogakController> {
                             ),
                           ],
                         )
-                      : Container(),
+                      : const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                            child: Text('해당하는 글이 없습니다'),
+                          ),
+                        ),
                 ),
               ],
             ),

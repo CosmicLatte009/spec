@@ -44,8 +44,13 @@ class AuthController extends GetxController {
             print(readToken);
 
             getMyInfo();
-
-            Get.to(() => const HomePage());
+            // 전페이지가 비밀번호 찾기인 경우 로그인 성공하면 비밀번호 변경 페이지로 이동
+            var previousPage = Get.arguments?["previousPage"];
+            if (previousPage == "forgotPassword") {
+              Get.toNamed(AppPagesRoutes.changePw);
+            } else {
+              Get.toNamed(AppPagesRoutes.home);
+            }
           }
         } else if (token == null) {
           isLoggedIn.value = 0;
@@ -93,7 +98,6 @@ class AuthController extends GetxController {
       if (res.statusCode == 200 && res.data["status"] == "success") {
         var resData = res.data["data"];
         _myProfile.value = Profile.fromMap(resData);
-      } else {
         print(res.data["message"]);
       }
     } on DioException catch (e) {
@@ -151,7 +155,7 @@ class AuthController extends GetxController {
     }
 
     try {
-      var response = await _dio.post(
+      var res = await _dio.post(
           'https://dev.sniperfactory.com/api/auth/change-password',
           options: Options(headers: {
             'Content-Type': 'application/json',
@@ -162,26 +166,9 @@ class AuthController extends GetxController {
             'newPassword': newPassword
           });
 
-      if (response.statusCode == 200) {
-        print(currentPassword);
-        print(newPassword);
-
-        // 요청이 성공했다면, 처리 결과에 따라 반환
-        if (response.data['data'] == null) {
-          void showLoginFailDialog() {
-            Get.dialog(
-              const IconTextWithOneButton(
-                svgPath: 'assets/icons/svgs/Warning.svg',
-                mainMessage: '로그인에 실패하였습니다.',
-                buttonTitle: '다시하기',
-                subMessage: '다시 시도해주세요.',
-              ),
-            ); // 실패 시 표시할 다이얼로그
-          }
-
-          showLoginFailDialog();
-        }
-        print(response.data);
+      if (res.statusCode == 200 && res.data["status"] == "success") {
+        Get.toNamed(AppPagesRoutes.login);
+        Get.snackbar('Success', '비밀번호가 성공적으로 변경되었습니다.');
         return true;
       } else {
         return false;
@@ -212,18 +199,4 @@ class AuthController extends GetxController {
   }
 }
 
-
-//   void logout() {
-//     // 로그아웃 로직 구현, 예: 토큰 삭제, 사용자 데이터 삭제 등.
-//     Future<void> deleteToken() async {
-//       try {
-//         await storage.delete(key: 'jwt_token');
-//         Get.snackbar('성공', '토큰이 성공적으로 삭제되었습니다.');
-//       } catch (e) {
-//         print('토큰 삭제 오류: $e');
-//         Get.snackbar('오류', '토큰 삭제 중 오류가 발생했습니다.');
-//       }
-//     }
-//   }
-// }
 

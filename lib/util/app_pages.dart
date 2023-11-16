@@ -83,17 +83,6 @@ class AppPages {
       name: AppPagesRoutes.changePw,
       page: () => const ChangePasswordPage(),
     ),
-    GetPage(
-      name: AppPagesRoutes.profileEdit,
-      page: () => const ProfileEditPage(),
-      binding: BindingsBuilder(() {
-        Get.lazyPut(() => ProfileController());
-        Get.lazyPut(() => UploadController());
-        Get.lazyPut(() => AvatarController());
-        Get.lazyPut(() => MyPageController());
-      }),
-    ),
-
     //talk
     GetPage(
       name: AppPagesRoutes.mainTalk,
@@ -208,10 +197,6 @@ class AppPages {
           Get.put(DetailTalkController(id));
         }
       }),
-    ),
-    GetPage(
-      name: AppPagesRoutes.myPage,
-      page: () => const MyPage(),
     ),
     GetPage(
       name: AppPagesRoutes.myTalk,

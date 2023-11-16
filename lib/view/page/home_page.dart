@@ -262,7 +262,7 @@ class _HomePageState extends State<HomePage> {
             minibadge: catchUp.author?.role ?? 'null',
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-            position: catchUp.author?.badge!.shortName ?? 'Unknown Position',
+            position: catchUp.author?.badge?.shortName ?? '관리자',
             nickname: catchUp.author?.nickname ?? 'null',
             url: catchUp.url,
             hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',

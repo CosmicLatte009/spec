@@ -93,12 +93,11 @@ class _MogakCardState extends State<MogakCard> {
                         : null,
                     nickName: widget.mogak.author.nickname,
                     nickNameSize: AppTextStyles.body12B(),
-                    role: widget.mogak.appliedProfiles[0].role,
+                    // role: widget.mogak.appliedProfiles[0].role,
                   ),
                   GestureDetector(
                     onTap: () async {
                       isLiked.value = await widget.controller(widget.mogak.id);
-                      print(isLiked);
                     },
                     child: Obx(
                       () => SvgPicture.asset(

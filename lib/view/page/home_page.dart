@@ -196,7 +196,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     )
-                  : Container(),
+                  : const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Text('해당하는 글이 없습니다'),
+                      ),
+                    ),
             ),
             NavMenu(
               title: '이달의 스페이서',
@@ -235,7 +240,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildHotListView(List<CatchUp> hotCatchUpsList) {
     if (hotCatchUpsList.isEmpty) {
-      return Center(
+      return const Center(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.0),
           child: Text('해당하는 글이 없습니다'),
@@ -243,7 +248,7 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return ListView.builder(
-        physics: NeverScrollableScrollPhysics(), // 중첩된 스크롤을 막기 위해
+        physics: const NeverScrollableScrollPhysics(), // 중첩된 스크롤을 막기 위해
         shrinkWrap: true, // ListView가 자신의 컨텐츠 크기에 맞게 크기를 조정하도록 함
         itemCount: hotCatchUpsList.length,
         itemBuilder: (context, index) {

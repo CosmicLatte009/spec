@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
@@ -19,6 +20,8 @@ class AvatarWithOneButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProfileController controller = Get.find<ProfileController>();
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
@@ -32,10 +35,14 @@ class AvatarWithOneButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 44,
-              height: 40,
-              child: avatar != null
-                  ? Image.network(avatar!)
+              width: 80,
+              height: 80,
+              child: avatar != null || controller.curInfo.value?.avatar != ''
+                  ? Image.network(
+                      controller.curInfo.value!.avatar != ''
+                          ? controller.curInfo.value!.avatar!
+                          : avatar!,
+                    )
                   : Image.asset(
                       'assets/icons/pngs/man-a.png',
                     ),

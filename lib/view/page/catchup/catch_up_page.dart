@@ -71,6 +71,7 @@ class CatchUpPage extends GetView<CatchUpController> {
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
+    controller.searchTextcontroller.dispose();
   }
 
   void _scrollListener() {
@@ -114,18 +115,17 @@ class CatchUpPage extends GetView<CatchUpController> {
               child: CardWidget(
                 minibadge:
                     catchUp.author?.role ?? ' null', // 이 필드는 이전 예제와 동일하게 처리
-
                 temperature: catchUp.upProfiles.length.toString(),
                 avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-                position: catchUp.author?.badge!.shortName ??
+                position: catchUp.author?.badge?.shortName ??
                     'Unknown Position', // 기본값 예시
                 nickname: catchUp.author?.nickname ?? 'null',
                 url: catchUp.url,
-                hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
-                thumbnail: catchUp.thumbnail,
-                description: catchUp.title,
-                createdTime: formattedDate,
-                postId: catchUp.id,
+                hashTags: catchUp?.hashtag ?? '태그가 없어요 ㅠㅠ',
+                thumbnail: catchUp?.thumbnail ?? 'null',
+                description: catchUp?.title ?? 'null',
+                createdTime: formattedDate ?? 'null',
+                postId: catchUp?.id ?? 'null',
               ));
         },
       ),
@@ -166,15 +166,14 @@ class CatchUpPage extends GetView<CatchUpController> {
             minibadge: catchUp.author?.role ?? ' null', // 이 필드는 이전 예제와 동일하게 처리
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-            position: catchUp.author?.badge!.shortName ??
-                'Unknown Position', // 기본값 예시
-            nickname: catchUp.author?.nickname ?? 'null',
+            position: catchUp.author?.badge?.shortName ?? '관리자', // 기본값 예시
+            nickname: catchUp!.author?.nickname ?? 'null',
             url: catchUp.url,
-            hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
-            thumbnail: catchUp.thumbnail,
-            description: catchUp.title,
-            createdTime: formattedDate,
-            postId: catchUp.id,
+            hashTags: catchUp!.hashtag ?? '태그가 없어요 ㅠㅠ',
+            thumbnail: catchUp!.thumbnail ?? 'null',
+            description: catchUp!.title ?? 'null',
+            createdTime: formattedDate ?? 'null',
+            postId: catchUp!.id ?? 'null',
           ),
         );
       },

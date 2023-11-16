@@ -17,11 +17,6 @@ import 'package:spec/view/widget/navigation/top.dart';
 import 'package:spec/view/widget/up_and_comment_length.dart';
 import 'package:spec/view/widget/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/widget_card.dart';
-import '../../controller/talk/talk_controller.dart';
-import '../../model/talk.dart';
-import '../../util/app_color.dart';
-import '../../util/app_text_style.dart';
-import '../widget/talk/talk_bubble_builder.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/home';
@@ -52,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   void _startAutoScroll() {
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (_pageController.hasClients) {
-        int nextPage = _pageController.page!.toInt() + 1;
-        if (nextPage == controller.allCourse.length) {
+        int nextPage = _pageController.page?.toInt() ?? 0 + 1;
+        if (nextPage >= controller.allCourse.length) {
           nextPage = 0;
         }
         _pageController.animateToPage(
@@ -78,15 +73,8 @@ class _HomePageState extends State<HomePage> {
           print(val);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.fetchHomeData();
-          controller.fetchBestSpacerData();
-        },
-        child: const Icon(Icons.refresh),
-      ),
-      body: Container(
-        child: ListView(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Obx(() {
               if (controller.allCourse.isEmpty) {
@@ -139,9 +127,7 @@ class _HomePageState extends State<HomePage> {
                 Get.toNamed(AppPagesRoutes.hotTalk);
               },
             ),
-            Obx(() {
-              return _buildHotTalkSection();
-            }),
+            //_buildHotTalkSection(),
             NavMenu(
               title: '핫한 캐치업',
               withEmoji: true,
@@ -198,88 +184,52 @@ class _HomePageState extends State<HomePage> {
                   : Container(),
             ),
             NavMenu(
-                title: '이달의 스페이서',
-                withEmoji: true,
-                titleDirection: TitleDirection.left,
-                onButtonPressed: () => Get.to(BestSpacerPage())),
+              title: '이달의 스페이서',
+              titleDirection: TitleDirection.left,
+              onButtonPressed: () => Get.to(BestSpacerPage()),
+            ),
             BestSpacerWidgetHome(),
           ],
         ),
       ),
     );
   }
-}
 
-final talkController = Get.find<TalkController>();
-Widget _buildHotTalkSection() {
-  if (talkController.hotTalks.isNotEmpty) {
-    var hotTalk = talkController.hotTalks.sublist(0, 2);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: TalkBubbleBuilder(
-        data: RxList<Talk>.from(hotTalk),
-      ),
-    );
-  } else {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Align(
-          alignment: Alignment.center,
-          child: Text('현재 핫한 톡이 없습니다.',
-              style: AppTextStyles.body14M(color: AppColor.black80))),
-    );
-  }
-}
-
-ListView _buildHotListView(List<CatchUp> hotCatchUpsList) {
-  if (hotCatchUpsList.isEmpty) {
-    // 리스트가 비어있을 경우
-    return ListView(
-      shrinkWrap: true,
-      children: const [
-        Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
-            child: Text('해당하는 글이 없습니다'),
-          ),
+  Widget _buildHotListView(List<CatchUp> hotCatchUpsList) {
+    if (hotCatchUpsList.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Text('해당하는 글이 없습니다'),
         ),
-      ],
-    );
-  } else {
-    // 리스트에 데이터가 있을 경우
-    return ListView.builder(
-      itemCount: hotCatchUpsList.length,
-      itemBuilder: (context, index) {
-        final catchUp = hotCatchUpsList[index];
-        // String을 DateTime으로 변환
-        final createdAtDate = DateTime.parse(catchUp.createdAt);
-        final dateOnly = DateTime(
-            createdAtDate.year, createdAtDate.month, createdAtDate.day);
-        final formattedDate = DateFormat('yyyy.MM.dd').format(dateOnly);
+      );
+    } else {
+      return ListView.builder(
+        physics: NeverScrollableScrollPhysics(), // 중첩된 스크롤을 막기 위해
+        shrinkWrap: true, // ListView가 자신의 컨텐츠 크기에 맞게 크기를 조정하도록 함
+        itemCount: hotCatchUpsList.length,
+        itemBuilder: (context, index) {
+          final catchUp = hotCatchUpsList[0];
+          final createdAtDate = DateTime.parse(catchUp.createdAt);
+          final dateOnly = DateTime(
+              createdAtDate.year, createdAtDate.month, createdAtDate.day);
+          final formattedDate = DateFormat('yyyy.MM.dd').format(dateOnly);
 
-        return Padding(
-          padding: const EdgeInsets.all(.0),
-          child: Column(
-            children: [
-              CardWidget(
-                minibadge:
-                    catchUp.author?.role ?? 'null', // 이 필드의 정의가 위에 없으나 예시에 포함됨
-                temperature: catchUp.upProfiles.length.toString(),
-                avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
-                position: catchUp.author?.badge!.shortName ??
-                    'Unknown Position', // 기본값 예시
-                nickname: catchUp.author?.nickname ?? 'null',
-                url: catchUp.url,
-                hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
-                thumbnail: catchUp.thumbnail,
-                description: catchUp.title,
-                createdTime: formattedDate,
-                postId: catchUp.id,
-              ),
-            ],
-          ),
-        );
-      },
-    );
+          return CardWidget(
+            minibadge: catchUp.author?.role ?? 'null',
+            temperature: catchUp.upProfiles.length.toString(),
+            avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
+            position: catchUp.author?.badge!.shortName ?? 'Unknown Position',
+            nickname: catchUp.author?.nickname ?? 'null',
+            url: catchUp.url,
+            hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
+            thumbnail: catchUp.thumbnail,
+            description: catchUp.title,
+            createdTime: formattedDate,
+            postId: catchUp.id,
+          );
+        },
+      );
+    }
   }
 }

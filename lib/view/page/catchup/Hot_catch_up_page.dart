@@ -34,13 +34,13 @@ class HotCatchUp extends GetView<CatchUpController> {
         child: Scaffold(
           backgroundColor: Colors.grey[200],
           appBar: CustomAppBar(),
-          body: Column(
-            children: [
-              _buildSearchTextField(),
-              NavMenu(title: '핫한 캐치업', titleDirection: TitleDirection.center),
-              Expanded(
-                flex: 1,
-                child: ListView(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildSearchTextField(),
+                NavMenu(title: '핫한 캐치업', titleDirection: TitleDirection.center),
+                ListView(
+                  shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
                     _buildTabContainer('WEB', 'assets/icons/svgs/SFACE.svg'),
@@ -82,15 +82,12 @@ class HotCatchUp extends GetView<CatchUpController> {
                     _buildTabContainer('INFO', 'assets/icons/svgs/SFACE.svg'),
                   ],
                 ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Obx(() {
+                Obx(() {
                   var hotCatchUpsList = controller.hotCatchUps.value;
                   return _buildHotListView(hotCatchUpsList);
                 }),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

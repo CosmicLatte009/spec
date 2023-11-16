@@ -127,9 +127,8 @@ class HomeController extends GetxController {
   }
 
   Future<List<CatchUp>> fetchHomeHotCatchup() async {
-    String? _token = _authController.readToken;
-    print(_token);
-    if (_token == null) {
+    final token = await _authController.getToken();
+    if (token == null) {
       print("Token is null");
       return HomeHotCatchUps.value; // 토큰이 null이면 현재 값을 반환
     }
@@ -137,17 +136,18 @@ class HomeController extends GetxController {
     try {
       var url = 'https://dev.sniperfactory.com/api/top/catchup';
       var response = await _dio.get(url,
-          options: Options(headers: {'Authorization': 'Bearer $_token'}));
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
 
       if (response.statusCode == 200) {
         var resData = response.data;
+        print(resData);
 
         List<CatchUp> HomeHotCatchUpsList =
             List<Map<String, dynamic>>.from(resData)
                 .map((item) => CatchUp.fromMap(item))
                 .toList();
         HomeHotCatchUps.value = HomeHotCatchUpsList;
-        print('이거 맞나 ${HomeHotCatchUps.value.length}');
+
         return HomeHotCatchUpsList;
       } else {
         return []; // 유효하지 않은 데이터 형식의 경우 빈 리스트 반환

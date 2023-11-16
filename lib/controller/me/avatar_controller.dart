@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
-
 import 'package:dio/dio.dart' as dioPackage;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

@@ -19,6 +19,7 @@ class ProfileEditPage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     List position = ['개발자', '디자이너', '헤드헌터'];
+
     return Scaffold(
         appBar: const CustomAppBar(),
         body: ListView(
@@ -164,11 +165,14 @@ class ProfileEditPage extends GetView<ProfileController> {
                                   ),
                                   Expanded(
                                     child: CustomButton(
-                                      onTap: controller.withAuth
+                                      onTap: controller.withAuth ||
+                                              controller.curInfo.value != null
                                           ? controller.uploadProfile
                                           : controller.createProfile,
-                                      text:
-                                          controller.withAuth ? '수정하기' : '저장하기',
+                                      text: controller.withAuth ||
+                                              controller.curInfo.value != null
+                                          ? '수정하기'
+                                          : '저장하기',
                                       height: 40,
                                     ),
                                   ),

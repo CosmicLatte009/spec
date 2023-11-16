@@ -185,7 +185,7 @@ class AuthController extends GetxController {
   void logout() async {
     try {
       await storage.delete(key: 'jwt_token');
-      Get.to(() => const SplashPage());
+      Get.to(const SplashPage());
     } catch (e) {
       print('토큰 삭제 오류: $e');
       Get.snackbar('오류', '로그아웃 중 오류가 발생했습니다.');
@@ -198,5 +198,3 @@ class AuthController extends GetxController {
     await getMyInfo();
   }
 }
-
-

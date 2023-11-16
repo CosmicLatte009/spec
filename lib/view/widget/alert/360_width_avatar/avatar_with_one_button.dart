@@ -22,6 +22,16 @@ class AvatarWithOneButton extends StatelessWidget {
   Widget build(BuildContext context) {
     ProfileController controller = Get.find<ProfileController>();
 
+    String? imageUrl;
+    if (controller.curInfo.value?.avatar != null &&
+        controller.curInfo.value!.avatar!.isNotEmpty) {
+      imageUrl = controller.curInfo.value!.avatar!;
+    } else if (avatar != null && avatar!.isNotEmpty) {
+      imageUrl = avatar!;
+    } else {
+      imageUrl = null;
+    }
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // 원하는 테두리 반지름 설정
@@ -35,18 +45,13 @@ class AvatarWithOneButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 80,
-              height: 80,
-              child: avatar != null || controller.curInfo.value?.avatar != ''
-                  ? Image.network(
-                      controller.curInfo.value!.avatar != ''
-                          ? controller.curInfo.value!.avatar!
-                          : avatar!,
-                    )
-                  : Image.asset(
-                      'assets/icons/pngs/man-a.png',
-                    ),
-            ),
+                width: 80,
+                height: 80,
+                child: imageUrl != null
+                    ? Image.network(
+                        imageUrl,
+                      )
+                    : Image.asset('assets/icons/pngs/man-a.png')),
             const SizedBox(height: 8),
             Text(
               mainMessage,

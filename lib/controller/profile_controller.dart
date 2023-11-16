@@ -70,6 +70,9 @@ class ProfileController extends GetxController {
           print(res.data['message']);
         }
       }
+      print(withAuth);
+      print(curInfo);
+      print(dio.options.headers);
     } catch (e) {
       print(e);
     }
@@ -114,6 +117,8 @@ class ProfileController extends GetxController {
       } else {
         print(res.data);
       }
+      print(withAuth);
+      print(curInfo);
     } catch (e) {
       print(e);
     }
@@ -143,7 +148,7 @@ class ProfileController extends GetxController {
     RxString? authToken = RxString(await authController.getToken() ?? "");
     dio.options.headers['Authorization'] = authToken;
 
-    if (authToken.value != "" && curInfo.value != null) {
+    if (authToken.value != "") {
       _withAuth.value = true;
     }
 

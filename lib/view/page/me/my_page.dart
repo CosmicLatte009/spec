@@ -226,7 +226,6 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myUpTalk);
-
                                 },
                               ),
                             ),
@@ -237,7 +236,6 @@ class MyPage extends GetView<MyPageController> {
                                 listType: ListButtonType.setting,
                                 onTap: () {
                                   Get.toNamed(AppPagesRoutes.myCommentTalk);
-
                                 },
                               ),
                             ),
@@ -259,7 +257,6 @@ class MyPage extends GetView<MyPageController> {
                       SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
-
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,
@@ -312,7 +309,6 @@ class MyPage extends GetView<MyPageController> {
                       SizedBox(height: 21),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
-
                         child: NavMenu(
                           withEmoji: true,
                           withIconButton: false,

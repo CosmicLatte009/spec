@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
       //  initialRoute: LoginPage.route,
       // home: const SplashPage(),
       // home: SplashPage(),
-      home: HomePage(),
+      home: LoginScreen(),
       // home: LoginScreen(),
     );
   }

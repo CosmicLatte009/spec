@@ -79,6 +79,7 @@ class UserAvatar extends StatelessWidget {
       double finalContainerHeight;
       double finalRadius;
       double finalSvgSize;
+      double finalNetWorkImg;
       double finalShortNamePosition;
       double finalShortNameHeight;
 
@@ -92,6 +93,7 @@ class UserAvatar extends StatelessWidget {
                   : 54;
           finalRadius = 22.5;
           finalSvgSize = 37.5;
+          finalNetWorkImg = 57.5;
           finalShortNamePosition = 41.25;
           finalShortNameHeight = 13.5;
           break;
@@ -113,6 +115,7 @@ class UserAvatar extends StatelessWidget {
           }
           finalRadius = 20;
           finalSvgSize = 33.3;
+          finalNetWorkImg = 53.3;
           finalShortNamePosition = 36;
           finalShortNameHeight = 12;
           break;
@@ -130,7 +133,8 @@ class UserAvatar extends StatelessWidget {
             finalContainerHeight = shortName != null ? 73 : 60;
           }
           finalRadius = 30;
-          finalSvgSize = 50;
+          finalSvgSize = 45;
+          finalNetWorkImg = 65;
           finalShortNamePosition = 55;
           finalShortNameHeight = 18;
           break;
@@ -150,12 +154,12 @@ class UserAvatar extends StatelessWidget {
                   ? SvgPicture.asset(
                       'assets/icons/svgs/man-a.svg',
                       width: finalSvgSize,
-                      height: finalSvgSize,
+                      // height: finalSvgSize,
                     )
                   : Image.network(
                       avatarUrl!,
-                      width: finalSvgSize,
-                      height: finalSvgSize,
+                      width: finalNetWorkImg,
+                      // height: finalNetworkImg,
                     ),
             ),
             if (shortName != null)

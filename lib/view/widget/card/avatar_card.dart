@@ -66,6 +66,7 @@ class AvatarCard extends StatelessWidget {
                 color: Colors.white,
                 child: Palette(
                   colorPicker: controller.selectColor,
+                  selectedColor: controller.hairColor,
                 ),
               )
             : Container(

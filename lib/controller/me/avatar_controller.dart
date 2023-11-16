@@ -64,8 +64,8 @@ class AvatarController extends GetxController {
           try {
             await uploadController.uploadAsset(formData);
             Get.dialog(
-              const AvatarWithOneButton(
-                //@todo 생성된 아바타 띄우기
+              AvatarWithOneButton(
+                avatar: imageUrl,
                 mainMessage: '아바타 수정이 완료되었습니다.',
                 buttonTitle: '확인하기',
               ),
@@ -76,37 +76,8 @@ class AvatarController extends GetxController {
         }
       }
     });
-    // final capturedImage = await screenshotController.capture();
-
-    // if (capturedImage != null) {
-    // 캡쳐는 제대로 되고있음.
-    // Get.dialog(Container(
-    //   child: Image.memory(capturedImage),
-    // ));
-    // 1. MultipartFile로 변환
-    // dioPackage.MultipartFile multipartFile =
-    //     dioPackage.MultipartFile.fromBytes(
-    //   capturedImage,
-    //   filename: 'screenshot.png',
-    // );
-    // 2. formdata를 생성
-    // dioPackage.FormData formData = dioPackage.FormData.fromMap({
-    //   'file': multipartFile,
-    // });
-    // try {
-    //   var res = await uploadController.uploadAsset(formData);
-    //   print('성공: ${res.data}');
-    // } catch (e) {
-    //   print(
-    //       '업로드 실패: $e'); //NoSuchMethodError: The getter 'data' was called on null.
-    // }
-    // }
-    // print('캡쳐끝');
   }
 
-  // put
-  // get
-  // reset
   resetAvatar() {
     // @todo selectedItems를 순회하며 null이 되도록 하는 게 좋을 것 같음.
     selectedItems.value = {

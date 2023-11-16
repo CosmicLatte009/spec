@@ -46,7 +46,7 @@ class _MogakCardState extends State<MogakCard> {
         : [];
     return GestureDetector(
       onTap: () {
-        widget.mogak.isDeleted != false
+        widget.mogak.isDeleted != true
             ? Get.toNamed(
                 '/mogak/${widget.mogak.id}',
                 arguments: {
@@ -57,7 +57,7 @@ class _MogakCardState extends State<MogakCard> {
                 context: context,
                 builder: (context) {
                   return IconTextWithOneButton(
-                    svgPath: 'assets/icons/sgvs/Warning.svg',
+                    svgPath: 'assets/icons/svgs/Warning.svg',
                     mainMessage: '이미 삭제된 모각코입니다!',
                     subMessage: '클릭하신 모각코를 찾을 수 없습니다.',
                     buttonTitle: '닫기',

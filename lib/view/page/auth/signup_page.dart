@@ -6,6 +6,8 @@ import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/custom_input.dart';
 
+import '../../widget/navigation/nav_menu.dart';
+
 class SignupPage extends GetView<SignupController> {
   const SignupPage({super.key});
   static const route = '/signup';
@@ -13,34 +15,39 @@ class SignupPage extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          '회원가입하기',
-          style: AppTextStyles.body18B(
-            color: AppColor.black,
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 24),
-            Text(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   title: Text(
+      //     '회원가입하기',
+      //     style: AppTextStyles.body18B(
+      //       color: AppColor.black,
+      //     ),
+      //   ),
+      // ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 78),
+          const NavMenu(title: '회원가입하기', titleDirection: TitleDirection.center),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Text(
               '*표시는 필수입력항목입니다.',
               textAlign: TextAlign.right,
               style: AppTextStyles.body8R(
                 color: AppColor.warning,
               ),
             ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: controller.signupFormKey,
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                key: controller.signupFormKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: [
                       CustomInput(
@@ -111,8 +118,11 @@ class SignupPage extends GetView<SignupController> {
                 ),
               ),
             ),
-            Obx(
-              () => CustomButton(
+          ),
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: CustomButton(
                 disabled: !controller
                     .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
                 height: 56,
@@ -126,9 +136,9 @@ class SignupPage extends GetView<SignupController> {
                       },
               ),
             ),
-            const SizedBox(height: 114),
-          ],
-        ),
+          ),
+          const SizedBox(height: 114),
+        ],
       ),
     );
   }

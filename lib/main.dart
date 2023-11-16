@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           Get.put(AuthController());
           Get.put(LoginController());
           Get.lazyPut(() => SignupController());
-          Get.lazyPut(() => ForgotPasswordController());
+          Get.put(ForgotPasswordController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => AvatarController());
           Get.lazyPut(() => UploadController());
@@ -68,8 +68,8 @@ class MyApp extends StatelessWidget {
       //  initialRoute: LoginPage.route,
       // home: const SplashPage(),
       // home: SplashPage(),
-      home: const HomePage(),
-      // home: LoginScreen(),
+      // home: const HomePage(),
+      home: LoginScreen(),
     );
   }
 }

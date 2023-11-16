@@ -6,7 +6,7 @@ import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/model/profile.dart';
 import 'package:spec/view/page/me/my_page.dart';
-import 'package:spec/view/widget/alert/300_width/with_one_button.dart';
+import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class ProfileController extends GetxController {
   var controller = Get.find<SignupController>();
@@ -64,6 +64,7 @@ class ProfileController extends GetxController {
         if (res.data['status'] == 'success') {
           String newToken = res.data["data"];
           controller.setToken(newToken); //토큰을 업데이트해야함.
+          authController.getMyInfo();
           Get.to(const MyPage());
         } else {
           print(res.data['message']);
@@ -77,7 +78,7 @@ class ProfileController extends GetxController {
   uploadProfile() async {
     String path = '/api/me/profile';
 
-    String nickname = nicknameController.text; //@todo 기존 닉네임 가져오기
+    String nickname = nicknameController.text;
     String bio = '수정된 프로필입니다.';
     String position = _selectedPosition;
     String? urlGithub = githubController.text;
@@ -86,10 +87,14 @@ class ProfileController extends GetxController {
 
     if (nickname != curInfo.value!.nickname) {
       Get.dialog(
-        const WithOneButton(
-          message: '닉네임을 수정할 수 없습니다. 다시 시도해주세요.',
+        const IconTextWithOneButton(
+          svgPath: 'assets/icons/svgs/Warning.svg',
+          mainMessage: '닉네임을 수정할 수 없습니다.',
+          subMessage: '다시 시도해주세요.',
+          buttonTitle: '닫기',
         ),
       );
+      nicknameController.text = curInfo.value!.nickname;
       return;
     }
 
@@ -104,6 +109,7 @@ class ProfileController extends GetxController {
         'urlEtc': urlEtc,
       });
       if (res.data['status'] == 'success') {
+        authController.getMyInfo();
         Get.to(const MyPage());
       } else {
         print(res.data);

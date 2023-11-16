@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:spec/controller/etc/upload_controller.dart';
 import 'package:spec/controller/filter_controller.dart';
 import 'package:spec/controller/like_controller.dart';
+import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
@@ -10,6 +12,7 @@ import 'package:spec/controller/mogak/me/me_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
 import 'package:spec/controller/content_search_controller.dart';
 import 'package:spec/controller/mogak/update_mogak_controller.dart';
+import 'package:spec/controller/my_page_controller.dart';
 import 'package:spec/controller/profile_controller.dart';
 import 'package:spec/controller/signup_controller.dart';
 import 'package:spec/controller/talk/main_talk_controller.dart';
@@ -21,6 +24,7 @@ import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 import 'package:spec/view/page/catchup/catch_up_page.dart';
 import 'package:spec/view/page/auth/login_page.dart';
 import 'package:spec/view/page/me/my_page.dart';
+import 'package:spec/view/page/me/profile_edit_page.dart';
 import 'package:spec/view/page/mogak/all_mogak_page.dart';
 import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/detail_mogak_page.dart';
@@ -66,6 +70,16 @@ class AppPages {
       page: () => const ForgotPasswordPage(),
     ),
     GetPage(
+      name: AppPagesRoutes.profileEdit,
+      page: () => const ProfileEditPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProfileController());
+        Get.lazyPut(() => UploadController());
+        Get.lazyPut(() => AvatarController());
+        Get.lazyPut(() => MyPageController());
+      }),
+    ),
+    GetPage(
       name: AppPagesRoutes.changePw,
       page: () => const ChangePasswordPage(),
     ),
@@ -104,7 +118,7 @@ class AppPages {
           Get.lazyPut(() => ContentSearchController());
           Get.lazyPut(() => CreateMogakController());
           Get.lazyPut(() => LikeController());
-          Get.lazyPut(() => SignupController()); // @todo 어디까지 바인딩해야하는가?
+          Get.lazyPut(() => SignupController());
         })),
     GetPage(
       name: AppPagesRoutes.allMogak,
@@ -171,7 +185,7 @@ class AppPages {
         Get.lazyPut(() => JoinedMogakController());
         Get.lazyPut(() => LikeController());
         Get.lazyPut(() => ProfileController());
-        Get.lazyPut(() => SignupController()); // @todo 어디까지 바인딩해야하는가?
+        Get.lazyPut(() => SignupController());
       }),
     ),
     GetPage(
@@ -183,10 +197,6 @@ class AppPages {
           Get.put(DetailTalkController(id));
         }
       }),
-    ),
-    GetPage(
-      name: AppPagesRoutes.myPage,
-      page: () => MyPage(),
     ),
     GetPage(
       name: AppPagesRoutes.myTalk,
@@ -209,5 +219,14 @@ class AppPages {
         Get.put(MyCommentTalkController());
       }),
     ),
+    GetPage(
+        name: AppPagesRoutes.myPage,
+        page: () => const MyPage(),
+        binding: BindingsBuilder(
+          () {
+            Get.lazyPut(() => ProfileController());
+            Get.lazyPut(() => MyPageController());
+          },
+        )),
   ];
 }

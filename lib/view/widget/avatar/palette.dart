@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spec/util/app_color.dart';
 import 'package:spec/util/avatar_color.dart';
 
 List<Color> get colorList => [
@@ -16,8 +18,10 @@ class Palette extends StatelessWidget {
   const Palette({
     super.key,
     this.colorPicker,
+    required this.selectedColor,
   });
   final colorPicker;
+  final Rx<Color> selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +39,21 @@ class Palette extends StatelessWidget {
                 onTap: () {
                   colorPicker(colorList[index]);
                 },
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  color: colorList[index],
+                child: Obx(
+                  () => Container(
+                    decoration: BoxDecoration(
+                      color: colorList[index],
+                      shape: BoxShape.circle,
+                      border: colorList[index] == selectedColor.value
+                          ? Border.all(
+                              color: AppColor.primary,
+                              width: 3,
+                            )
+                          : null,
+                    ),
+                    width: 28,
+                    height: 28,
+                  ),
                 ),
               ),
             ),

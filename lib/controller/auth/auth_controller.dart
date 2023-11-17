@@ -5,6 +5,7 @@ import 'package:get/get.dart' hide FormData;
 import 'package:spec/model/user/profile.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/splash_page.dart';
+import 'package:spec/view/widget/alert/300_width/with_two_button.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
 class AuthController extends GetxController {
@@ -35,13 +36,10 @@ class AuthController extends GetxController {
 
         if (token != null) {
           isLoggedIn.value = 1;
-          print('성공');
           await storage.write(key: 'jwt_token', value: token);
           readToken = await storage.read(key: 'jwt_token');
 
           if (readToken != null) {
-            print(readToken);
-
             getMyInfo();
             // 전페이지가 비밀번호 찾기인 경우 로그인 성공하면 비밀번호 변경 페이지로 이동
             var previousPage = Get.arguments?["previousPage"];
@@ -97,7 +95,6 @@ class AuthController extends GetxController {
       if (res.statusCode == 200 && res.data["status"] == "success") {
         var resData = res.data["data"];
         _myProfile.value = Profile.fromMap(resData);
-        print(res.data["message"]);
       }
     } on DioException catch (e) {
       print(e.toString());
@@ -113,28 +110,20 @@ class AuthController extends GetxController {
   }
 
   //회원탈퇴
-  // 더미 엔드포인트
-  final String deleteAccountURL =
-      'https://dev.sniperfactory.com/api/auth/withdraw';
-
   void deleteAccount() async {
+    const String deleteAccountURL =
+        'https://dev.sniperfactory.com/api/auth/withdraw';
+    _dio.options.headers['Authorization'] =
+        await storage.read(key: 'jwt_token');
+
     try {
-      // 사용자 고유 ID 예: 123
-      final response = await _dio.post(deleteAccountURL, data: {'userId': 123});
+      final response = await _dio.post(deleteAccountURL);
 
       if (response.statusCode == 200) {
-        print('성공!'); // 계정 성공적으로 삭제
-
-        // 로그아웃 로직 실행
-        //logout();
-
-        // 홈 페이지 또는 다른 페이지로 리다이렉션
-        //Get.offAll(HomePage());
-
-        // 성공 메시지 표시
-        Get.snackbar('성공', '계정이 성공적으로 삭제되었습니다.');
+        logout();
+        Get.snackbar('성공', '회원탈퇴에 성공했습니다.');
+        Get.offAll(AppPagesRoutes.login);
       } else {
-        // 에러 처리
         Get.snackbar('오류', '계정을 삭제하는 데 실패했습니다. 다시 시도하세요.');
       }
     } catch (e) {

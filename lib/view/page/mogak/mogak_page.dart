@@ -7,11 +7,11 @@ import 'package:spec/view/page/mogak/create_mogak_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/up_and_comment_length.dart';
+import 'package:spec/view/widget/upAndComent/up_and_comment_length.dart';
 
 class MogakPage extends GetView<MogakController> {
   const MogakPage({super.key});

@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:spec/model/catchup.dart';
+import 'package:spec/model/catchup/catchup.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/widget_card.dart';
+import 'package:spec/view/widget/card/widget_card.dart';
 
 import '../../../../util/app_color.dart';
-import '../../../controller/catchup_controller.dart';
+import '../../../controller/catchup/catchup_controller.dart';
 
 class HotCatchUp extends GetView<CatchUpController> {
   static const String route = '/catchup/hot';
 
+  const HotCatchUp({super.key});
+
   @override
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.HotCatchup();
     });
 
@@ -33,12 +34,13 @@ class HotCatchUp extends GetView<CatchUpController> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[200],
-          appBar: CustomAppBar(),
+          appBar: const CustomAppBar(),
           body: SingleChildScrollView(
             child: Column(
               children: [
                 _buildSearchTextField(),
-                NavMenu(title: '핫한 캐치업', titleDirection: TitleDirection.center),
+                const NavMenu(
+                    title: '핫한 캐치업', titleDirection: TitleDirection.center),
                 ListView(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -110,11 +112,6 @@ class HotCatchUp extends GetView<CatchUpController> {
               child: Column(
                 children: [
                   Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset(imgUrl) ??
-                          SvgPicture.asset('assets/logo/Logo_s.svg'),
-                    ),
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
@@ -127,8 +124,13 @@ class HotCatchUp extends GetView<CatchUpController> {
                         width: 2,
                       ),
                     ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(imgUrl) ??
+                          SvgPicture.asset('assets/logo/Logo_s.svg'),
+                    ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     hashTag,
                     style: AppTextStyles.body12B(color: Colors.black),
@@ -142,7 +144,7 @@ class HotCatchUp extends GetView<CatchUpController> {
     } else {
       // 해시태그가 없을 경우
       return Container(
-        child: Text('해시태그 없음'),
+        child: const Text('해시태그 없음'),
       );
     }
   }
@@ -151,7 +153,7 @@ class HotCatchUp extends GetView<CatchUpController> {
     if (hotCatchUpsList.isEmpty) {
       // 리스트가 비어있을 경우
       return ListView(
-        children: [
+        children: const [
           Center(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -254,17 +256,17 @@ class HotCatchUp extends GetView<CatchUpController> {
                       controller
                           .startSearch(controller.searchTextcontroller.text);
                     },
-                    icon: Icon(Icons.search)),
+                    icon: const Icon(Icons.search)),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 hintText: '내용 검색하기',
                 fillColor: Colors.white,
                 filled: true,
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColor.black10),
+                    borderSide: const BorderSide(color: AppColor.black10),
                     borderRadius: BorderRadius.circular(10)),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColor.primary40),
+                  borderSide: const BorderSide(color: AppColor.primary40),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),

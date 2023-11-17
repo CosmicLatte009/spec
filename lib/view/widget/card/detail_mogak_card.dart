@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:spec/model/detail_mogak.dart';
-import 'package:spec/model/profile.dart';
+import 'package:spec/model/mogak/detail_mogak.dart';
+import 'package:spec/model/user/profile.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/alert/300_width/with_two_button.dart';

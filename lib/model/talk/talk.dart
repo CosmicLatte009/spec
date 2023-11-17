@@ -1,4 +1,4 @@
-import 'author.dart';
+import 'package:spec/model/user/author.dart';
 
 class Talk {
   String id;

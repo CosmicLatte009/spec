@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
 import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
 
 class UploadController extends GetxController {

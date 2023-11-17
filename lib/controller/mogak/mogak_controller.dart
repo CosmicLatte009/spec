@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/controller/content_search_controller.dart';
-import 'package:spec/controller/filter_controller.dart';
-import 'package:spec/controller/like_controller.dart';
-import 'package:spec/model/detail_mogak.dart';
-import 'package:spec/model/me_up.dart';
-import 'package:spec/model/mogak.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/controller/etc/content_search_controller.dart';
+import 'package:spec/controller/etc/filter_controller.dart';
+import 'package:spec/controller/etc/like_controller.dart';
+import 'package:spec/model/mogak/detail_mogak.dart';
+import 'package:spec/model/me/me_up.dart';
+import 'package:spec/model/mogak/mogak.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
 

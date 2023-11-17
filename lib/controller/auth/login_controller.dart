@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 
-import 'auth_controller.dart';
+import './auth_controller.dart';
 
 class LoginController extends GetxController {
   var emailController = TextEditingController();

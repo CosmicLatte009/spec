@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/view/widget/talk/comment_talk.dart';
 import '../../../controller/talk/talk_controller.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
 

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
 import 'package:spec/controller/me/avatar_controller.dart';
-import 'package:spec/controller/signup_controller.dart';
-import 'package:spec/model/profile.dart';
+import 'package:spec/controller/auth/signup_controller.dart';
+import 'package:spec/model/user/profile.dart';
 import 'package:spec/view/page/me/my_page.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 

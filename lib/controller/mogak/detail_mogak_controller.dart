@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/like_controller.dart';
+import 'package:spec/controller/etc/like_controller.dart';
 import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
-import 'package:spec/controller/profile_controller.dart';
-import 'package:spec/model/detail_mogak.dart';
-import 'package:spec/model/profile.dart';
+import 'package:spec/controller/me/profile_controller.dart';
+import 'package:spec/model/mogak/detail_mogak.dart';
+import 'package:spec/model/user/profile.dart';
 
 import '../talk/talk_controller.dart';
 import '../talk/talk_editing_controller.dart';

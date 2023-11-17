@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spec/model/applied_profile.dart';
+import 'package:spec/model/user/applied_profile.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 
 class JoinAvatars extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/like_controller.dart';
-import '../../model/talk.dart';
-import '../auth_controller.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/controller/etc/like_controller.dart';
+import '../../model/talk/talk.dart';
 import 'package:spec/util/api_routes.dart';
 
 class TalkController extends GetxController {

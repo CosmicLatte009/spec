@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../model/talk.dart';
-import '../../../util/app_color.dart';
-import '../../../util/app_text_style.dart';
+import '../../../model/talk/talk.dart';
 import 'talk_bubble.dart';
 
 class MyTalkBubbleBuilder extends StatelessWidget {
@@ -30,7 +27,7 @@ class MyTalkBubbleBuilder extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         var talk = data[index];
         return Container(
-          constraints: BoxConstraints(minHeight: 87),
+          constraints: const BoxConstraints(minHeight: 87),
           child: TalkBubble(
             talk: talk,
             type: BubbleType.myTalkEdit,

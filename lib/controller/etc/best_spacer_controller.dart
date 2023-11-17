@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/model/best_spacer.dart';
-import 'package:spec/model/catchup.dart';
-import 'package:spec/model/course.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/model/home/best_spacer.dart';
+import 'package:spec/model/catchup/catchup.dart';
+import 'package:spec/model/home/course.dart';
 
 class BestSpacerController extends GetxController {
   var allCourse = <Course>[].obs;
@@ -16,7 +15,7 @@ class BestSpacerController extends GetxController {
   final Dio _dio = Dio(); // Made final
   static const BASE_URL =
       'https://dev.sniperfactory.com/api/course'; // Naming convention
-  AuthController _authController = AuthController(); // Singleton pattern
+  final AuthController _authController = AuthController(); // Singleton pattern
 
   @override
   void onInit() {

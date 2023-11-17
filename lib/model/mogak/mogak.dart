@@ -1,6 +1,6 @@
-import 'package:spec/model/applied_profile.dart';
-import 'package:spec/model/author.dart';
-import 'package:spec/model/up_profile.dart';
+import 'package:spec/model/user/author.dart';
+import 'package:spec/model/user/applied_profile.dart';
+import 'package:spec/model/user/up_profile.dart';
 
 class Mogak {
   String id;

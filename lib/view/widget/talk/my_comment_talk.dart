@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:spec/model/user/author.dart';
 import 'package:spec/util/app_page_routes.dart';
 import '../../../controller/talk/talk_controller.dart';
 import '../../../controller/talk/talk_editing_controller.dart';
-import '../../../model/author.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
 import '../../../util/time_utils.dart';

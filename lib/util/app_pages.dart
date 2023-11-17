@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:spec/controller/etc/upload_controller.dart';
-import 'package:spec/controller/filter_controller.dart';
-import 'package:spec/controller/like_controller.dart';
+import 'package:spec/controller/etc/filter_controller.dart';
+import 'package:spec/controller/etc/like_controller.dart';
 import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/controller/mogak/all_mogak_controller.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
@@ -10,12 +10,11 @@ import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/controller/mogak/me/joined_mogak_controller.dart';
 import 'package:spec/controller/mogak/me/me_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
-import 'package:spec/controller/content_search_controller.dart';
+import 'package:spec/controller/etc/content_search_controller.dart';
 import 'package:spec/controller/mogak/update_mogak_controller.dart';
-import 'package:spec/controller/my_page_controller.dart';
-import 'package:spec/controller/profile_controller.dart';
-import 'package:spec/controller/signup_controller.dart';
-import 'package:spec/controller/talk/main_talk_controller.dart';
+import 'package:spec/controller/me/my_page_controller.dart';
+import 'package:spec/controller/me/profile_controller.dart';
+import 'package:spec/controller/auth/signup_controller.dart';
 import 'package:spec/controller/talk/me/my_comment_talk_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/auth/change_password_page.dart';
@@ -106,7 +105,7 @@ class AppPages {
     ),
     GetPage(
       name: AppPagesRoutes.hotCatchUp,
-      page: () => HotCatchUp(),
+      page: () => const HotCatchUp(),
     ),
     //mogak
     GetPage(

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 import '../talk_controller.dart';
 
 class MyTalkController extends GetxController {

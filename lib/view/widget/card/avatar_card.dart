@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/me/avatar_controller.dart';
 import 'package:spec/util/app_color.dart';
-import 'package:spec/util/avatar_color.dart';
 import 'package:spec/util/avatar_item_assets.dart';
 import 'package:spec/view/widget/avatar/palette.dart';
 

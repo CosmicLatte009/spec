@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:spec/controller/mogak/hot_mogak_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/button/custom_floating_action_button.dart';
-import 'package:spec/view/widget/button/orderby_button.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/up_and_comment_length.dart';
+import 'package:spec/view/widget/upAndComent/up_and_comment_length.dart';
 
 class HotMogakPage extends GetView<HotMogakController> {
   const HotMogakPage({super.key});

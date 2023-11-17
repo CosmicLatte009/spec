@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
 import 'package:spec/controller/etc/upload_controller.dart';
 import 'package:spec/util/avatar_color.dart';
 import 'package:spec/view/widget/alert/360_width_avatar/avatar_with_one_button.dart';
@@ -103,8 +103,6 @@ class AvatarController extends GetxController {
       requestBody: true,
       responseBody: true,
     ));
-    if (authToken != null) {
-      dio.options.headers['Authorization'] = authToken;
-    }
+    dio.options.headers['Authorization'] = authToken;
   }
 }

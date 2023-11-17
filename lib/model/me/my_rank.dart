@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:spec/model/my_res.dart';
+import 'package:spec/model/me/my_res.dart';
 
 class MyInfo {
   int? year;

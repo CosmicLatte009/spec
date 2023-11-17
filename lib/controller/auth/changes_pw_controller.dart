@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
 
 class ChangePWController extends GetxController {
   final AuthController _authController = AuthController();
@@ -19,7 +19,7 @@ class ChangePWController extends GetxController {
   final RxBool _buttonEnabled = false.obs;
   RxBool get buttonEnabled => _buttonEnabled;
 
-  RxBool _isSuccess = false.obs;
+  final RxBool _isSuccess = false.obs;
   RxBool get isSuccess => _isSuccess;
 
   checkButtonEnabled() {

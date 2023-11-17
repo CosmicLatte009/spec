@@ -1,6 +1,5 @@
-import 'package:spec/model/up_profile.dart';
-
-import 'Author.dart';
+import 'package:spec/model/user/up_profile.dart';
+import '../user/author.dart';
 
 class CatchUp {
   final String id;

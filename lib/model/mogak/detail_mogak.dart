@@ -1,6 +1,6 @@
-import 'package:spec/model/applied_profile.dart';
-import 'package:spec/model/talk.dart';
-import 'package:spec/model/up_profile.dart';
+import 'package:spec/model/talk/talk.dart';
+import 'package:spec/model/user/applied_profile.dart';
+import 'package:spec/model/user/up_profile.dart';
 
 class DetailMogak {
   String id;

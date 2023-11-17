@@ -1,4 +1,4 @@
-import 'package:spec/model/badge.dart';
+import 'package:spec/model/user/badge.dart';
 
 class AppliedProfile {
   String id;

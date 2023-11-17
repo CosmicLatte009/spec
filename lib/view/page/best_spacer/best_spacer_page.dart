@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
+import 'package:spec/view/widget/bestSpacer/widget_best_spacer_page.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/widget_best_spacer_page.dart';
 
 // 반구를 그리는 CustomPainter
 class HalfCirclePainter extends CustomPainter {
@@ -43,7 +43,7 @@ class HalfCirclePainter extends CustomPainter {
 }
 
 class BestSpacerPage extends GetView<HomeController> {
-  BestSpacerPage({Key? key}) : super(key: key);
+  const BestSpacerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class BestSpacerPage extends GetView<HomeController> {
         ..sort((a, b) => b.temperature.compareTo(a.temperature));
 
       return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Stack(
           children: [
             Positioned(
@@ -63,7 +63,7 @@ class BestSpacerPage extends GetView<HomeController> {
               child: Container(
                 height: 281,
                 width: 390,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(70),
                       bottomRight: Radius.circular(70),
@@ -72,7 +72,7 @@ class BestSpacerPage extends GetView<HomeController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 8.0,
                 right: 8.0,
                 bottom: 8.0,
@@ -80,15 +80,15 @@ class BestSpacerPage extends GetView<HomeController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 10),
-                  NavMenu(
+                  const SizedBox(height: 10),
+                  const NavMenu(
                     title: '이달의 스페이서',
                     titleDirection: TitleDirection.center,
                     color: Colors.white,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Image.asset('assets/images/Graphic4.png'),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -112,7 +112,7 @@ class BestSpacerPage extends GetView<HomeController> {
                       // 나머지 스페이서 위젯들...
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(
                       itemCount: sortedBestSpacers.length - 3,
@@ -122,8 +122,8 @@ class BestSpacerPage extends GetView<HomeController> {
                           child: Container(
                             width: 370,
                             height: 70,
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
                             child: Row(
                               children: [
                                 UserAvatar(
@@ -134,10 +134,10 @@ class BestSpacerPage extends GetView<HomeController> {
                                   role: bestSpacer.role,
                                   avatarSize: AvatarSize.w40,
                                 ),
-                                Spacer(),
-                                Icon(Icons.favorite,
+                                const Spacer(),
+                                const Icon(Icons.favorite,
                                     color: Colors.red, size: 15),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 Text('${bestSpacer.temperature}'),
                               ],
                             ),

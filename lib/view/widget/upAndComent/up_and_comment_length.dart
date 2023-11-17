@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../util/app_color.dart';
-import '../../../util/app_text_style.dart';
+import '../../../../util/app_color.dart';
+import '../../../../util/app_text_style.dart';
 
 class UpAndCommentLength extends StatelessWidget {
   const UpAndCommentLength(

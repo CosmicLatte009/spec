@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/talk/talk_controller.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_text_style.dart';
 import 'my_comment_talk.dart';

@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/button_circle.dart';
 import 'package:spec/view/widget/talk/talk_bubble_builder.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
 import '../../../controller/talk/main_talk_controller.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 import '../../../util/app_color.dart';
 import '../../../util/app_page_routes.dart';
 

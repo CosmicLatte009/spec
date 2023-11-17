@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/model/me_up.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/model/me/me_up.dart';
 
 enum LikeType { talkId, mogakId, catchUpId }
 

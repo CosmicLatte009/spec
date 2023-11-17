@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:spec/model/author.dart';
-import 'package:spec/model/best_spacer.dart';
-import 'package:spec/util/app_text_style.dart';
+import 'package:spec/model/user/author.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
 
 class BestSpacerWidgetPage extends StatelessWidget {
@@ -10,7 +7,7 @@ class BestSpacerWidgetPage extends StatelessWidget {
   final bool isFirstPlace;
   final Widget badge; // 뱃지 위젯을 위한 새로운 파라미터 추가
 
-  BestSpacerWidgetPage({
+  const BestSpacerWidgetPage({
     Key? key,
     required this.bestSpacer,
     this.isFirstPlace = false,
@@ -25,9 +22,9 @@ class BestSpacerWidgetPage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFE6E6E6), width: 1),
+        border: Border.all(color: const Color(0xFFE6E6E6), width: 1),
         borderRadius: BorderRadius.circular(10),
         color: const Color.fromRGBO(255, 255, 255, 1),
       ),
@@ -51,12 +48,12 @@ class BestSpacerWidgetPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.favorite,
                     color: Colors.red,
                     size: 15,
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Text('${bestSpacer.temperature}'),
                 ],
               ),

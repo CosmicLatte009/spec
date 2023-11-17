@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/profile_controller.dart';
+import 'package:spec/controller/me/profile_controller.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 

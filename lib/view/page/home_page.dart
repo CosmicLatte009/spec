@@ -5,20 +5,20 @@ import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spec/controller/Home_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
-import 'package:spec/model/catchup.dart';
+import 'package:spec/model/catchup/catchup.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/page/best_spacer/best_spacer_page.dart';
 import 'package:spec/view/page/mogak/hot_mogak_page.dart';
+import 'package:spec/view/widget/bestSpacer/widget_best_spacer_home.dart';
 import 'package:spec/view/widget/card/mogak_card.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/up_and_comment_length.dart';
-import 'package:spec/view/widget/widget_best_spacer_home.dart';
-import 'package:spec/view/widget/widget_card.dart';
+import 'package:spec/view/widget/upAndComent/up_and_comment_length.dart';
+import 'package:spec/view/widget/card/widget_card.dart';
 import '../../controller/talk/talk_controller.dart';
-import '../../model/talk.dart';
+import '../../model/talk/talk.dart';
 import '../../util/app_color.dart';
 import '../../util/app_text_style.dart';
 import '../widget/talk/talk_bubble_builder.dart';
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
               emoji: 'assets/icons/pngs/laptop.png',
               withEmoji: true,
               titleDirection: TitleDirection.left,
-              onButtonPressed: () => Get.to(BestSpacerPage()),
+              onButtonPressed: () => Get.to(const BestSpacerPage()),
             ),
             BestSpacerWidgetHome(),
           ],

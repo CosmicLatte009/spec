@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/controller/profile_controller.dart';
-import 'package:spec/model/my_rank.dart';
-import 'package:spec/model/profile.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/controller/me/profile_controller.dart';
+import 'package:spec/model/me/my_rank.dart';
+import 'package:spec/model/user/profile.dart';
 
 class MyPageController extends GetxController {
   final AuthController authController = Get.find<AuthController>();

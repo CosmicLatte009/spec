@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/widget/tag_editor.dart';
+import 'package:spec/view/widget/tag/tag_editor.dart';
 
 class CustomMultipleTextEditor extends StatelessWidget {
   const CustomMultipleTextEditor({

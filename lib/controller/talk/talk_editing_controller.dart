@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../model/talk.dart';
+import '../../model/talk/talk.dart';
 import '../../view/widget/alert/300_width_description/description_with_two_button.dart';
 import '../../view/widget/popup/talk_editing_popup.dart';
 import 'talk_controller.dart';

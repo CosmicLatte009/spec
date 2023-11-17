@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:spec/controller/talk/talk_controller.dart';
-import '../../../model/talk.dart';
+import '../../../model/talk/talk.dart';
 
 class MyUpTalkController extends GetxController {
   final TalkController _talkController = Get.find<TalkController>();

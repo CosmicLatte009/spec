@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../model/talk.dart';
+import '../../model/talk/talk.dart';
 import 'talk_controller.dart';
 import 'talk_editing_controller.dart';
 

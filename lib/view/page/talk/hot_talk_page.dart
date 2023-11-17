@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/talk/hot_talk_controller.dart';
 import 'package:spec/view/widget/talk/talk_bubble_builder.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';

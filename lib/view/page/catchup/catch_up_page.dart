@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/model/catchup.dart';
+import 'package:spec/model/catchup/catchup.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/widget_card.dart';
-import '../../../controller/catchup_controller.dart';
+import 'package:spec/view/widget/card/widget_card.dart';
+import '../../../controller/catchup/catchup_controller.dart';
 import 'package:intl/intl.dart';
 import 'Hot_catch_up_page.dart';
 import '../../../../util/app_color.dart';
@@ -14,13 +14,13 @@ class CatchUpPage extends GetView<CatchUpController> {
   static const String route = '/catchup';
   final ScrollController _scrollController = ScrollController();
 
-  CatchUpPage() {
+  CatchUpPage({super.key}) {
     _scrollController.addListener(_scrollListener);
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchCatchUp();
       controller.HotCatchup();
     });
@@ -42,7 +42,7 @@ class CatchUpPage extends GetView<CatchUpController> {
             },
           ),
           backgroundColor: Colors.grey[200],
-          appBar: CustomAppBar(),
+          appBar: const CustomAppBar(),
           body: Column(
             children: [
               _buildSearchTextField(),
@@ -51,14 +51,14 @@ class CatchUpPage extends GetView<CatchUpController> {
                   titleDirection: TitleDirection.left,
                   withEmoji: true,
                   emoji: 'assets/icons/pngs/dart.png',
-                  onButtonPressed: () => Get.to(HotCatchUp())),
+                  onButtonPressed: () => Get.to(const HotCatchUp())),
               _buildHotCatchUpsSection(),
               NavMenu(
                   title: '캐치업!',
                   titleDirection: TitleDirection.left,
                   withEmoji: true,
                   emoji: 'assets/icons/pngs/dart.png',
-                  onButtonPressed: () => Get.to(HotCatchUp())),
+                  onButtonPressed: () => Get.to(const HotCatchUp())),
               Expanded(child: _buildFlexibleCatchUpsListView()),
             ],
           ),
@@ -85,7 +85,7 @@ class CatchUpPage extends GetView<CatchUpController> {
 
   // '핫한 캐치업' 섹션을 구성하는 위젯
   Widget _buildHotCatchUpsSection() {
-    return Container(
+    return SizedBox(
       height: 220,
       child: Obx(() {
         var hotCatchUpsList = controller.hotCatchUps.value;
@@ -121,11 +121,11 @@ class CatchUpPage extends GetView<CatchUpController> {
                     'Unknown Position', // 기본값 예시
                 nickname: catchUp.author?.nickname ?? 'null',
                 url: catchUp.url,
-                hashTags: catchUp?.hashtag ?? '태그가 없어요 ㅠㅠ',
-                thumbnail: catchUp?.thumbnail ?? 'null',
-                description: catchUp?.title ?? 'null',
+                hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
+                thumbnail: catchUp.thumbnail ?? 'null',
+                description: catchUp.title ?? 'null',
                 createdTime: formattedDate ?? 'null',
-                postId: catchUp?.id ?? 'null',
+                postId: catchUp.id ?? 'null',
               ));
         },
       ),
@@ -167,13 +167,13 @@ class CatchUpPage extends GetView<CatchUpController> {
             temperature: catchUp.upProfiles.length.toString(),
             avatar: catchUp.author?.avatar ?? 'assets/icons/pngs/man-a.png',
             position: catchUp.author?.badge?.shortName ?? '관리자', // 기본값 예시
-            nickname: catchUp!.author?.nickname ?? 'null',
+            nickname: catchUp.author?.nickname ?? 'null',
             url: catchUp.url,
-            hashTags: catchUp!.hashtag ?? '태그가 없어요 ㅠㅠ',
-            thumbnail: catchUp!.thumbnail ?? 'null',
-            description: catchUp!.title ?? 'null',
+            hashTags: catchUp.hashtag ?? '태그가 없어요 ㅠㅠ',
+            thumbnail: catchUp.thumbnail ?? 'null',
+            description: catchUp.title ?? 'null',
             createdTime: formattedDate ?? 'null',
-            postId: catchUp!.id ?? 'null',
+            postId: catchUp.id ?? 'null',
           ),
         );
       },
@@ -208,17 +208,17 @@ class CatchUpPage extends GetView<CatchUpController> {
                       controller
                           .startSearch(controller.searchTextcontroller.text);
                     },
-                    icon: Icon(Icons.search)),
+                    icon: const Icon(Icons.search)),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 hintText: '내용 검색하기',
                 fillColor: Colors.white,
                 filled: true,
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColor.black10),
+                    borderSide: const BorderSide(color: AppColor.black10),
                     borderRadius: BorderRadius.circular(10)),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColor.primary40),
+                  borderSide: const BorderSide(color: AppColor.primary40),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),

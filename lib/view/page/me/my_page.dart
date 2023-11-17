@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/my_page_controller.dart';
+import 'package:spec/controller/me/my_page_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';

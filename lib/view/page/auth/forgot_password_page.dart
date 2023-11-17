@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/forgot_pw_controller.dart';
+import 'package:spec/controller/auth/forgot_pw_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/alert/300_width_icon/icon_text_with_one_button.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import '../../../util/app_color.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 
 class ForgotPasswordPage extends GetView<ForgotPasswordController> {
   const ForgotPasswordPage({super.key});

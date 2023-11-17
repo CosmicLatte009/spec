@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_page_routes.dart';
-import 'package:spec/util/app_text_style.dart';
-import 'package:spec/view/page/me/profile_edit_page.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 
 class SplashPage extends StatelessWidget {

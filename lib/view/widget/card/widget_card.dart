@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/catchup_controller.dart';
+import 'package:spec/controller/catchup/catchup_controller.dart';
 import 'package:spec/util/app_color.dart';
 import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
-import 'package:spec/view/widget/up_and_comment_length.dart';
+import 'package:spec/view/widget/upAndComent/up_and_comment_length.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'widget_catchup_like.dart';
+import '../button/widget_catchup_like.dart';
 
 class CardWidget extends GetView<CatchUpController> {
   final String description;
@@ -64,7 +64,7 @@ class CardWidget extends GetView<CatchUpController> {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 1,
                   blurRadius: 5,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -102,14 +102,14 @@ class CardWidget extends GetView<CatchUpController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildProfileAndLikeSection(),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _buildDescriptionText(),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Align(
             alignment: Alignment.bottomLeft, // 오른쪽 하단에 정렬
             child: _buildCreationTimeText(),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           _buildTagsRow(tags),
         ],
       ),
@@ -127,14 +127,14 @@ class CardWidget extends GetView<CatchUpController> {
           role: minibadge,
           avatarSize: AvatarSize.w40,
         ),
-        SizedBox(width: 0),
+        const SizedBox(width: 0),
         Align(child: LikeButtonWidget(catchUpId: postId ?? 'null')),
       ],
     );
   }
 
   Widget _buildDescriptionText() {
-    return Container(
+    return SizedBox(
       width: 193,
       height: 38,
       child: Text(
@@ -161,7 +161,7 @@ class CardWidget extends GetView<CatchUpController> {
 
   Widget _buildThumbnailSection() {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topRight: Radius.circular(10),
         bottomRight: Radius.circular(10),
       ),
@@ -179,31 +179,31 @@ class CardWidget extends GetView<CatchUpController> {
       padding: const EdgeInsets.only(right: 8.0),
       child: Container(
         height: 22,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Color(0xFFF3F3F3),
+          color: const Color(0xFFF3F3F3),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text('#${tag}',
+        child: Text('#$tag',
             softWrap: true,
             style: AppTextStyles.body12B(
-              color: Color(0xFF666666),
+              color: const Color(0xFF666666),
             )),
       ),
     );
   }
 
   Widget _buildProfileSection() {
-    return Container(
+    return SizedBox(
       width: 157,
       height: 48,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildMiniProfile(position.toString()),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(nickname, style: AppTextStyles.body12B(color: Colors.black)),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           _buildProfileMiniBadge(minibadge.toString()),
         ],
       ),
@@ -217,7 +217,7 @@ class CardWidget extends GetView<CatchUpController> {
         alignment: Alignment.bottomCenter,
         clipBehavior: Clip.none,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 20,
             backgroundColor: AppColor.primary05,
           ),
@@ -243,7 +243,8 @@ class CardWidget extends GetView<CatchUpController> {
                           child: Text(
                             position,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 6, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 6, color: Colors.white),
                             softWrap: true,
                           )))))
         ],
@@ -255,13 +256,14 @@ class CardWidget extends GetView<CatchUpController> {
     return Container(
       width: 47,
       height: 22,
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
-          color: Color(0xFFF3F3F3), borderRadius: BorderRadius.circular(3)),
+          color: const Color(0xFFF3F3F3),
+          borderRadius: BorderRadius.circular(3)),
       child: Center(
         child: Text(title,
             style: AppTextStyles.body12R(
-              color: Color(0xFF666666),
+              color: const Color(0xFF666666),
             ),
             textAlign: TextAlign.center,
             softWrap: true),

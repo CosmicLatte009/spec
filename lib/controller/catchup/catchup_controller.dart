@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/auth_controller.dart';
-import 'package:spec/model/catchup.dart';
+import 'package:spec/controller/auth/auth_controller.dart';
+import 'package:spec/model/catchup/catchup.dart';
 import 'package:spec/view/page/catchup/Hot_catch_up_page.dart';
 
 class CatchUpController extends GetxController {
@@ -24,7 +24,7 @@ class CatchUpController extends GetxController {
 
   void filterCatchUps(String category) {
     var filteredList = catchUps.value.where((catchUp) {
-      return catchUp.category?.contains(category) ?? false;
+      return catchUp.category.contains(category) ?? false;
     }).toList();
     hotCatchUps.value = filteredList;
   }
@@ -77,7 +77,7 @@ class CatchUpController extends GetxController {
     super.onInit();
     fetchCatchUp(); // 컨트롤러 초기화시 데이터 로드
     searchTextcontroller.addListener(_onSearchTextChanged);
-    HotCatchUp();
+    const HotCatchUp();
   }
 
   void _onSearchTextChanged() {
@@ -88,9 +88,9 @@ class CatchUpController extends GetxController {
 
   /// Fetches CatchUp data from the API.
   Future<List<CatchUp>> fetchCatchUp() async {
-    String? _token = _authController.readToken;
+    String? token = _authController.readToken;
 
-    if (_token == null) {
+    if (token == null) {
       print("Token is null");
       return catchUps.value; // 기존 값 반환
     }
@@ -98,7 +98,7 @@ class CatchUpController extends GetxController {
     try {
       var response = await dio.get(
         'https://dev.sniperfactory.com/api/catchup?filter=',
-        options: Options(headers: {'Authorization': 'Bearer $_token'}),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       if (response.statusCode == 200) {
@@ -130,9 +130,9 @@ class CatchUpController extends GetxController {
   }
 
   Future<List<CatchUp>> HotCatchup() async {
-    String? _token = _authController.readToken;
-    print(_token);
-    if (_token == null) {
+    String? token = _authController.readToken;
+    print(token);
+    if (token == null) {
       print("Token is null");
       return hotCatchUps.value; // 토큰이 null이면 현재 값을 반환
     }
@@ -140,7 +140,7 @@ class CatchUpController extends GetxController {
     try {
       var url = 'https://dev.sniperfactory.com/api/top/catchup';
       var response = await dio.get(url,
-          options: Options(headers: {'Authorization': 'Bearer $_token'}));
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
 
       if (response.statusCode == 200) {
         var resData = response.data;
@@ -205,8 +205,8 @@ class CatchUpController extends GetxController {
   }
 
   sendLike(String catchUpId) async {
-    String? _tokenLike = _authController.readToken;
-    print(_tokenLike);
+    String? tokenLike = _authController.readToken;
+    print(tokenLike);
 
     try {
       final response = await dio.post(
@@ -214,7 +214,7 @@ class CatchUpController extends GetxController {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer $_tokenLike',
+            'Authorization': 'Bearer $tokenLike',
           },
         ),
         data: {'catchUpId': catchUpId},

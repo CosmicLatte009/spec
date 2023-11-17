@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spec/controller/changes_pw_controller.dart';
+import 'package:spec/controller/auth/changes_pw_controller.dart';
 import 'package:spec/util/app_page_routes.dart';
 import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import 'package:spec/view/widget/navigation/top.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 
 import '../../widget/alert/360_width_avatar/avatar_with_one_button.dart';
 

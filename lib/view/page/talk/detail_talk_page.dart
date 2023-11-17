@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spec/controller/talk/detail_talk_controller.dart';
-import 'package:spec/model/talk.dart';
+import 'package:spec/model/talk/talk.dart';
 import 'package:spec/util/app_color.dart';
-import 'package:spec/view/widget/custom_input.dart';
+import 'package:spec/view/widget/textEditor/custom_input.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
 import '../../widget/avatar/user_avatar.dart';
 import '../../widget/navigation/top.dart';

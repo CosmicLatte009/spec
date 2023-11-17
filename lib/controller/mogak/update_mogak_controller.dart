@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:spec/controller/mogak/create_mogak_controller.dart';
 import 'package:spec/controller/mogak/detail_mogak_controller.dart';
 import 'package:spec/controller/mogak/mogak_controller.dart';
-import 'package:spec/model/detail_mogak.dart';
+import 'package:spec/model/mogak/detail_mogak.dart';
 
 class UpdateMogakController extends GetxController {
   var controller = Get.find<MogakController>();

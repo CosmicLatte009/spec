@@ -425,7 +425,16 @@ class MyPage extends GetView<MyPageController> {
                                 text: '회원 탈퇴',
                                 listType: ListButtonType.setting,
                                 onTap: () {
-                                  Get.to(const ChangePasswordPage());
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return WithTwoButton(
+                                            button1: '취소하기',
+                                            button2: '탈퇴하기',
+                                            message: '회원탈퇴를 하시겠습니까?',
+                                            callback2: controller
+                                                .authController.deleteAccount);
+                                      });
                                 },
                               ),
                             ),

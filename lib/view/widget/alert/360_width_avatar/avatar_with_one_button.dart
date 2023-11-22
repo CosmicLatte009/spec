@@ -11,12 +11,14 @@ class AvatarWithOneButton extends StatelessWidget {
     this.subMessage,
     this.buttonTitle,
     this.avatar,
+    this.uploadedAvatar,
   });
 
   final String? avatar;
   final String mainMessage;
   final String? subMessage;
   final String? buttonTitle;
+  final ImageProvider? uploadedAvatar;
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +46,21 @@ class AvatarWithOneButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-                width: 80,
-                height: 80,
-                child: imageUrl != null
-                    ? Image.network(
-                        imageUrl,
-                      )
-                    : Image.asset('assets/icons/pngs/man-a.png')),
+            uploadedAvatar != null
+                ? SizedBox(
+                    width: 80,
+                    height: 80,
+                    child: Image(
+                      image: uploadedAvatar!,
+                    ))
+                : SizedBox(
+                    width: 80,
+                    height: 80,
+                    child: imageUrl != null
+                        ? Image.network(
+                            imageUrl,
+                          )
+                        : Image.asset('assets/icons/pngs/man-a.png')),
             const SizedBox(height: 8),
             Text(
               mainMessage,

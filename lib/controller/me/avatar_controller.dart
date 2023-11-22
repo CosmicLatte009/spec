@@ -65,7 +65,8 @@ class AvatarController extends GetxController {
             await uploadController.uploadAsset(formData);
             Get.dialog(
               AvatarWithOneButton(
-                avatar: imageUrl,
+                // avatar: imageUrl,
+                uploadedAvatar: image != null ? MemoryImage(image) : null,
                 mainMessage: '아바타 수정이 완료되었습니다.',
                 buttonTitle: '확인하기',
               ),

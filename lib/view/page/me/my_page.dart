@@ -8,7 +8,10 @@ import 'package:spec/util/app_text_style.dart';
 import 'package:spec/view/page/auth/change_password_page.dart';
 import 'package:spec/view/page/me/profile_edit_page.dart';
 import 'package:spec/view/widget/alert/300_width/with_two_button.dart';
+import 'package:spec/view/widget/avatar/default_avatar.dart';
+import 'package:spec/view/widget/avatar/large_avatar.dart';
 import 'package:spec/view/widget/avatar/user_avatar.dart';
+import 'package:spec/view/widget/button/custom_button.dart';
 import 'package:spec/view/widget/button/list_button.dart';
 import 'package:spec/view/widget/navigation/bottomnavigationbar.dart';
 import 'package:spec/view/widget/navigation/nav_menu.dart';
@@ -21,6 +24,24 @@ class MyPage extends GetView<MyPageController> {
 
   @override
   Widget build(BuildContext context) {
+    String switchRoleText(String? role) {
+      if (role == null) return 'role';
+      switch (role) {
+        case 'NEWBIE':
+          return '신규';
+        case 'TRAINEE':
+          return '수강생';
+        case 'GRADUATED':
+          return '수료생';
+        case 'MENTOR':
+          return '멘토';
+        case 'ADMIN':
+          return '관리자';
+        default:
+          return 'role';
+      }
+    }
+
     return Scaffold(
         bottomNavigationBar: CustomBottomNavigationBar(
           currentIndex: 4,
@@ -45,13 +66,37 @@ class MyPage extends GetView<MyPageController> {
                   children: [
                     Obx(
                       () => controller.userInfo != null
-                          ? UserAvatar(
-                              avatarUrl: controller.userInfo!.avatar,
-                              avatarSize: AvatarSize.w60,
-                              shortName: controller.userInfo!.badge?.shortName,
-                              nickName: controller.userInfo!.nickname,
-                              direction: BadgeDirection.column,
-                              role: controller.userInfo!.role,
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: AppColor.primary05,
+                                  child: controller.userInfo?.avatar != null
+                                      ? LargeAvatar(
+                                          avatarUrl:
+                                              controller.userInfo!.avatar!)
+                                      : const DefaultAvatar(
+                                          width: 200,
+                                        ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      controller.userInfo!.nickname,
+                                      style: AppTextStyles.body14B(),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    CustomButton(
+                                      text: switchRoleText(
+                                          controller.userInfo!.role),
+                                      height: 22,
+                                      type: ButtonType.neutral,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             )
                           : const UserAvatar(),
                     ),

@@ -16,123 +16,127 @@ class SignupPage extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 78),
-          const NavMenu(title: '회원가입하기', titleDirection: TitleDirection.center),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              '*표시는 필수입력항목입니다.',
-              textAlign: TextAlign.right,
-              style: AppTextStyles.body8R(
-                color: AppColor.warning,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: Form(
-              key: controller.signupFormKey,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    CustomInput(
-                      label: '이름',
-                      hint: '이름을 입력해주세요.',
-                      isRequired: true,
-                      controller: controller.name,
-                      validator: (String? value) {
-                        if (value == null || value == '') {
-                          return '이름을 입력해주세요.';
-                        }
-                        if (value.contains(RegExp(r'\s+'))) {
-                          return '공백을 포함할 수 없습니다.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 8),
-                    CustomInput(
-                      label: '이메일',
-                      hint: '이메일을 입력해주세요.',
-                      isRequired: true,
-                      controller: controller.mail,
-                      validator: (String? value) {
-                        if (value == null || value == '') {
-                          return '이메일을 입력해주세요.';
-                        }
-                        if (!RegExp(
-                                r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                            .hasMatch(value)) return '올바른 이메일 형식이 아닙니다.';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 8),
-                    CustomInput(
-                      label: '비밀번호',
-                      hint: '비밀번호를 입력해주세요.',
-                      type: InputType.password,
-                      isRequired: true,
-                      controller: controller.password,
-                      validator: (String? value) {
-                        if (value == null || value == '') {
-                          return '비밀번호를 입력해주세요.';
-                        } else if (value.length < 8) {
-                          return '8자리 이상으로 입력해주세요.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 8),
-                    CustomInput(
-                      label: '휴대전화',
-                      hint: '휴대폰 번호를 입력해주세요.',
-                      isRequired: true,
-                      controller: controller.phone,
-                      validator: (String? value) {
-                        if (value == null || value == '') {
-                          return '휴대폰 번호를 입력해주세요.';
-                        }
-                        if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return '숫자만 입력해주세요.';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 78),
+            const NavMenu(
+                title: '회원가입하기', titleDirection: TitleDirection.center),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                '*표시는 필수입력항목입니다.',
+                textAlign: TextAlign.right,
+                style: AppTextStyles.body8R(
+                  color: AppColor.warning,
                 ),
               ),
             ),
-          ),
-          Column(
-            children: [
-              Obx(
-                () => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: CustomButton(
-                    disabled: !controller
-                        .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
-                    height: 56,
-                    text: '회원가입하기',
-                    onTap: !controller.isAllInputHasValue
-                        ? null
-                        : () {
-                            if (controller.signupFormKey.currentState!
-                                .validate()) {
-                              controller.callSignup();
-                            }
-                          },
+            const SizedBox(height: 16),
+            Expanded(
+              child: Form(
+                key: controller.signupFormKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      CustomInput(
+                        label: '이름',
+                        hint: '이름을 입력해주세요.',
+                        isRequired: true,
+                        controller: controller.name,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '이름을 입력해주세요.';
+                          }
+                          if (value.contains(RegExp(r'\s+'))) {
+                            return '공백을 포함할 수 없습니다.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                      CustomInput(
+                        label: '이메일',
+                        hint: '이메일을 입력해주세요.',
+                        isRequired: true,
+                        controller: controller.mail,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '이메일을 입력해주세요.';
+                          }
+                          if (!RegExp(
+                                  r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                              .hasMatch(value)) return '올바른 이메일 형식이 아닙니다.';
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                      CustomInput(
+                        label: '비밀번호',
+                        hint: '비밀번호를 입력해주세요.',
+                        type: InputType.password,
+                        isRequired: true,
+                        controller: controller.password,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '비밀번호를 입력해주세요.';
+                          } else if (value.length < 8) {
+                            return '8자리 이상으로 입력해주세요.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                      CustomInput(
+                        label: '휴대전화',
+                        hint: '휴대폰 번호를 입력해주세요.',
+                        isRequired: true,
+                        controller: controller.phone,
+                        validator: (String? value) {
+                          if (value == null || value == '') {
+                            return '휴대폰 번호를 입력해주세요.';
+                          }
+                          if (!RegExp(r'^\d+$').hasMatch(value)) {
+                            return '숫자만 입력해주세요.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 114),
-            ],
-          ),
-        ],
+            ),
+            Column(
+              children: [
+                Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: CustomButton(
+                      disabled: !controller
+                          .isAllInputHasValue, //모든 input값에 value가 입력되었을때 false값을 가짐.
+                      height: 56,
+                      text: '회원가입하기',
+                      onTap: !controller.isAllInputHasValue
+                          ? null
+                          : () {
+                              if (controller.signupFormKey.currentState!
+                                  .validate()) {
+                                controller.callSignup();
+                              }
+                            },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 114),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
